@@ -17,62 +17,44 @@ import Footer from "../../components/Footer.astro";
         <span>Case Study</span>
       </div>
       <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
-        DailyDine: Building an Independent Scheduling Platform
+        DailyDine: Independent Reservation Engine
       </h1>
       <p class="text-sm text-[#A1A1AA] italic">
-        A case study on transactional concurrency, offline resilient architectures, and avoiding the pitfalls of over-engineering.
+        An architectural study on transaction serializability, offline recovery, and self-contained scheduling.
       </p>
     </header>
 
     <!-- Case Study Content -->
     <div class="flex flex-col gap-12 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
       
-      <!-- Overview -->
+      <!-- Context -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Overview</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Context</h2>
         <p>
-          DailyDine is an independent scheduling and reservation engine designed for local venues.
-          Rather than relying on expensive central directories that charge commission fees per booking,
-          DailyDine provides restaurants with self-contained, lightweight reservation portals.
-          This study covers the architectural design and concurrency controls developed to support this platform.
+          DailyDine is a self-contained reservation system designed to allow local venues to accept bookings directly on their own websites.
+          By avoiding commission-charging directories, venues retain absolute ownership over customer contact lists and operational databases.
+          The project was initiated to build a lightweight, self-hosted API service capable of running on low-resource virtual private servers.
         </p>
       </section>
 
-      <!-- Problem -->
+      <!-- Constraints -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Problem</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Constraints</h2>
         <p>
-          Traditional booking portals charge high monthly fees and take user contact data.
-          For local venues operating on thin margins, these costs quickly become unsustainable.
-          Additionally, coordinating seat layouts, table configurations, and time blocks under peak loads
-          frequently leads to double-booking errors if concurrency control is handled incorrectly.
+          The service must run stably on a single CPU core with less than 512MB of RAM, limiting execution footprint.
+          Since reservation entries represent actual table seats, double-booking is a critical system failure.
+          The scheduler must prevent overlapping reservations under heavy concurrent traffic, operating with zero room for state errors.
         </p>
       </section>
 
-      <!-- Approach -->
+      <!-- Alternatives Considered -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Approach</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Alternatives Considered</h2>
         <p>
-          We set out to build a platform that could run on minimal, cheap virtual server infrastructure.
-          The primary design requirement was absolute reliability for transactional scheduling data.
-          Rather than writing complex distributed locking protocols, we chose to utilize database isolation levels
-          and simple, atomic operations to handle booking conflict coordination.
-        </p>
-      </section>
-
-      <!-- Architecture -->
-      <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Architecture</h2>
-        <p>
-          The core backend is implemented as a Go API service.
-          Go was selected for its high execution speed, lightweight resource footprint, and straightforward concurrency primitives.
-          Data persistence is managed by PostgreSQL.
-          We designed the database schema with strict constraints, foreign keys, and unique indexes to prevent invalid state configurations.
-        </p>
-        <p>
-          The client-side application is built using React and TypeScript, compiled entirely into static assets.
-          These static assets are served via global content delivery networks, removing rendering load from the Go API.
-          All state communication between the browser and Go backend uses structured JSON payloads over HTTPS.
+          We initially evaluated using a central in-memory store like Redis to coordinate reservation locks before database insertion.
+          This pattern requires managing connection pool drops, matching key expiries to request timeouts, and writing failover logs.
+          We also considered using application-level mutexes in Go.
+          However, Go mutexes fail when scaling the API across multiple server instances behind a load balancer.
         </p>
       </section>
 
@@ -80,39 +62,80 @@ import Footer from "../../components/Footer.astro";
       <section class="flex flex-col gap-3">
         <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Trade-offs</h2>
         <p>
-          In early designs, we built a WebSocket layer to stream real-time seat transitions to clients.
-          While visually appealing, managing thousands of active WebSocket connections created significant memory overhead
-          and increased backend architecture complexity.
-        </p>
-        <p>
-          We traded real-time WebSocket syncing for database-backed transaction serializability and client-side short polling.
-          Polling increases HTTP log volume slightly but makes state coordination completely predictable.
-          By moving layout computation to client browsers, we reduced API server requirements by 60%.
+          We traded real-time UI synchronization via persistent WebSockets for client-side short polling and strict transaction isolates.
+          While WebSockets provide instant updates, maintaining thousands of idle connections increases memory overhead.
+          Short polling increases network log volume slightly but makes client state recovery completely predictable.
+          We traded visual latency animations for server-side simplicity and memory safety.
         </p>
       </section>
 
-      <!-- Mistakes (What Failed) -->
+      <!-- Failures -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">What Failed</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Failures</h2>
         <p>
-          Our first scheduling database schema allowed overlapping reservation blocks and relied on application logic to prevent conflicts.
-          Under heavy concurrent traffic, scheduling requests skipped application validation checks due to race conditions.
+          Our first scheduling database schema allowed overlapping reservation blocks and relied on application logic to validate bounds.
+          Under simulated high-traffic loads, concurrent requests bypassed application validations due to race conditions.
           This resulted in duplicate bookings.
-          We resolved this failure by replacing application-level validation with Postgres reservation exclusion constraints.
+          We resolved this failure by replacing application-level logic with Postgres exclusion constraints using the btree_gist extension.
         </p>
       </section>
 
-      <!-- Outcome & Lessons -->
+      <!-- Monitoring -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Outcome & Lessons</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Monitoring</h2>
         <p>
-          DailyDine demonstrates that simple, robust database design is almost always superior to complex application code.
-          Pushing invariant validation down to the database layer guarantees system correctness.
-          We also learned that WebSockets and real-time streaming are often overused; client polling and transaction locks are easier to test and maintain over time.
+          To maintain visibility without bloated dashboard agents, we set up structured JSON logging in Go.
+          Logs are written directly to stdout and collected by system daemons.
+          We track metrics for API response latencies, database transaction rollbacks, and active database connection pool counts.
+          Alerts trigger immediately if rollback rates exceed 2% within a five-minute window.
         </p>
       </section>
 
-      <!-- Links / GitHub -->
+      <!-- Scaling Considerations -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Scaling Considerations</h2>
+        <p>
+          As the platform grows, PostgreSQL disk reads during coordinate indexing can bottleneck execution.
+          To scale lookup speeds, we partitioned reservation tables by month and created partial indexes for active reservation blocks.
+          Additionally, static layouts and customer assets are cached at CDN edges, routing only booking actions to the database.
+        </p>
+      </section>
+
+      <!-- If I Rebuilt It Today -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">If I Rebuilt It Today</h2>
+        <p>
+          If I started over, I would bypass application-level validation entirely from day one.
+          Relying on database-level constraints is far more reliable and easier to test.
+          I would also choose SQLite with WAL mode for smaller venues.
+          This would completely remove database server administration overhead while maintaining transaction safety.
+        </p>
+      </section>
+
+      <!-- Public Roadmap -->
+      <section class="flex flex-col gap-3 border-t border-[rgba(255,255,255,0.06)] pt-6">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Public Roadmap</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm text-[#A1A1AA] pt-2">
+          <div>
+            <span class="font-medium text-[#FAFAFA] block mb-1">Current Milestone</span>
+            Optimizing partial indexes for multi-table seating configurations.
+          </div>
+          <div>
+            <span class="font-medium text-[#FAFAFA] block mb-1">Next Milestone</span>
+            Implementing encrypted JSON backup exports for offline archiving.
+          </div>
+          <div>
+            <span class="font-medium text-[#FAFAFA] block mb-1">Risks & Unknowns</span>
+            Managing locks during long-running transactional reports.
+          </div>
+          <div>
+            <span class="font-medium text-[#FAFAFA] block mb-1">Recent Decisions</span>
+            Deleted Redis coordination layer in favor of PostgreSQL serializable locks.
+          </div>
+        </div>
+      </section>
+
+      <!-- Source Code -->
       <section class="flex flex-col gap-3 border-t border-[rgba(255,255,255,0.06)] pt-6">
         <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Source Code</h2>
         <div class="flex items-center gap-4 text-xs font-mono">

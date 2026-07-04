@@ -1,0 +1,145 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+
+const favorites = {
+  books: [
+    { title: "Designing Data-Intensive Applications", author: "Martin Kleppmann", why: "This book systematically deconstructs distributed datastores, partition parameters, and network bounds. It is the definitive guide for learning backend database internals." },
+    { title: "The Pragmatic Programmer", author: "Andrew Hunt & David Thomas", why: "A collection of engineering routines and craftsman habits. It taught me the value of code decoupling and validating all technical assumptions." }
+  ],
+  articles: [
+    { title: "Reflections on Trusting Trust", author: "Ken Thompson", why: "A short, profound lecture demonstrating that security requires trusting the compiler and toolchain. It shows that you cannot verify code you did not write." },
+    { title: "Simple Made Easy", author: "Rich Hickey", why: "Technically a talk transcript, this essay defines simplicity as 'untangling constructs'. It outlines the critical difference between simplicity and developer convenience." }
+  ],
+  talks: [
+    { title: "Simple Made Easy (Strange Loop)", presenter: "Rich Hickey", why: "Rich Hickey's Strange Loop talk is a masterclass in architectural design. It argues that building simple systems is difficult but essential for longevity." }
+  ],
+  tools: [
+    { title: "Git", desc: "Decentralized version control system", why: "An elegant Directed Acyclic Graph file structure. It shows how modeling data correctly simplifies user workflows and makes operations predictable." },
+    { title: "Cursor / Neovim", desc: "Text editing environments", why: "Decoupled editing systems that get out of the way. They prioritize focus and local execution speeds over complex UI integrations." }
+  ],
+  repositories: [
+    { title: "SQLite", url: "https://github.com/sqlite/sqlite", why: "A model of engineering discipline, rigorous testing, and codebase documentation. SQLite is one of the most reliable and widely deployed software systems in history." }
+  ],
+  people: [
+    { name: "Ken Thompson", desc: "Co-creator of Unix, Go, and UTF-8", why: "A pioneer of system simplicity and utility tool design. His contributions demonstrate that minimal, clean code solves the most complex problems." },
+    { name: "Derek Sivers", desc: "Writer and programmer", why: "His advocacy for building simple, self-contained PHP/SQL scripts and documenting what you learn publicly heavily influenced my personal website design." }
+  ]
+};
+---
+
+<Layout title="Favorites">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[960px] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-16 font-sans">
+    
+    <!-- Header -->
+    <header class="flex flex-col gap-6 max-w-[68ch]">
+      <h1 class="text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
+        Favorites
+      </h1>
+      <p class="text-lg text-[#A1A1AA] leading-relaxed">
+        A curated list of books, articles, talks, tools, and repositories that have shaped my thinking, engineering habits, and technical principles.
+      </p>
+    </header>
+
+    <!-- Content Sections -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      
+      <!-- Books -->
+      <section class="flex flex-col gap-4">
+        <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
+          Books
+        </h2>
+        <ul class="flex flex-col gap-4">
+          {favorites.books.map((b) => (
+            <li class="flex flex-col gap-1">
+              <span class="text-sm font-medium text-[#FAFAFA]">{b.title} <span class="text-xs text-[#71717A] font-mono">by {b.author}</span></span>
+              <p class="text-xs text-[#A1A1AA] leading-relaxed">{b.why}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- Articles -->
+      <section class="flex flex-col gap-4">
+        <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
+          Articles
+        </h2>
+        <ul class="flex flex-col gap-4">
+          {favorites.articles.map((art) => (
+            <li class="flex flex-col gap-1">
+              <span class="text-sm font-medium text-[#FAFAFA]">{art.title} <span class="text-xs text-[#71717A] font-mono">by {art.author || art.presenter}</span></span>
+              <p class="text-xs text-[#A1A1AA] leading-relaxed">{art.why}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- Talks -->
+      <section class="flex flex-col gap-4">
+        <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
+          Talks
+        </h2>
+        <ul class="flex flex-col gap-4">
+          {favorites.talks.map((talk) => (
+            <li class="flex flex-col gap-1">
+              <span class="text-sm font-medium text-[#FAFAFA]">{talk.title} <span class="text-xs text-[#71717A] font-mono">by {talk.presenter}</span></span>
+              <p class="text-xs text-[#A1A1AA] leading-relaxed">{talk.why}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- Tools -->
+      <section class="flex flex-col gap-4">
+        <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
+          Tools
+        </h2>
+        <ul class="flex flex-col gap-4">
+          {favorites.tools.map((tool) => (
+            <li class="flex flex-col gap-1">
+              <span class="text-sm font-medium text-[#FAFAFA]">{tool.title} <span class="text-xs text-[#71717A] font-mono">({tool.desc})</span></span>
+              <p class="text-xs text-[#A1A1AA] leading-relaxed">{tool.why}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- Repositories -->
+      <section class="flex flex-col gap-4">
+        <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
+          Repositories
+        </h2>
+        <ul class="flex flex-col gap-4">
+          {favorites.repositories.map((repo) => (
+            <li class="flex flex-col gap-1">
+              <a href={repo.url} target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-[#FAFAFA] hover:text-[#2563EB] transition-colors duration-180">{repo.title}</a>
+              <p class="text-xs text-[#A1A1AA] leading-relaxed">{repo.why}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- People -->
+      <section class="flex flex-col gap-4">
+        <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
+          People
+        </h2>
+        <ul class="flex flex-col gap-4">
+          {favorites.people.map((person) => (
+            <li class="flex flex-col gap-1">
+              <span class="text-sm font-medium text-[#FAFAFA]">{person.name} <span class="text-xs text-[#71717A] font-mono">({person.desc})</span></span>
+              <p class="text-xs text-[#A1A1AA] leading-relaxed">{person.why}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+    </div>
+
+  </main>
+
+  <Footer />
+</Layout>

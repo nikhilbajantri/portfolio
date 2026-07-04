@@ -17,62 +17,46 @@ import Footer from "../../components/Footer.astro";
         <span>Case Study</span>
       </div>
       <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
-        HisabProx: Building a Local-First Invoice Compiler
+        HisabProx: Local-First Invoice Compiler
       </h1>
       <p class="text-sm text-[#A1A1AA] italic">
-        A case study on browser-only persistence, local PDF compilation, and data privacy principles.
+        An architectural study on offline resilience, client-side PDF generation, and private data boundaries.
       </p>
     </header>
 
     <!-- Case Study Content -->
     <div class="flex flex-col gap-12 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
       
-      <!-- Overview -->
+      <!-- Context -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Overview</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Context</h2>
         <p>
-          HisabProx is an invoice compiler utility built for independent developers and freelancers.
-          Rather than relying on central cloud hosting accounts that store business billing information,
-          HisabProx operates entirely within the browser sandboxed environment.
-          This study covers the local-first principles, state structure, and PDF compilation mechanisms.
+          HisabProx is an offline invoice generation tool built for developers, designers, and freelancers.
+          Rather than route business financial operations, client details, and rate metrics through remote cloud hosting environments,
+          HisabProx keeps all records contained inside the user's browser runtime.
+          The project provides a private, zero-setup option for invoicing.
         </p>
       </section>
 
-      <!-- Problem -->
+      <!-- Constraints -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Problem</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Constraints</h2>
         <p>
-          Modern invoice editors are almost universally subscription-based SaaS tools.
-          They require user accounts, collect detailed financial transactional histories of clients, and require active internet connections.
-          For freelancers who value client confidentiality and data ownership,
-          cloud-based invoicing exposes sensitive operations to third-party data breaches.
+          The application must operate offline and require no backend server database dependencies.
+          This constraint eliminates server maintenance costs and guarantees data privacy.
+          However, compiling invoice templates into PDF binaries must be handled entirely in client-side browser threads
+          without causing interface lag.
         </p>
       </section>
 
-      <!-- Approach -->
+      <!-- Alternatives Considered -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Approach</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Alternatives Considered</h2>
         <p>
-          I wanted to create an editor that could run offline indefinitely, require zero user setup, and collect zero tracking data.
-          The user interface had to be responsive, distraction-free, and focus on fast data entry.
-          The central constraint was that all information must reside in the user's browser, preventing external leaks.
-        </p>
-      </section>
-
-      <!-- Architecture -->
-      <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Architecture</h2>
-        <p>
-          HisabProx is built as a single-page React application written in TypeScript.
-          For styling, it uses Tailwind CSS to structure clean, high-contrast layouts.
-          Client-side persistence is handled by the browser local storage API,
-          retaining invoice entries, client metadata profiles, and configuration settings locally.
-        </p>
-        <p>
-          To generate professional PDF documents without using a backend server,
-          the application compiles invoice layout structures directly in the browser thread using PDFKit.
-          This client-side PDF compiler outputs raw binary buffers that the browser downloads directly,
-          ensuring billing documents are generated securely.
+          We originally considered generating PDF documents by using standard CSS print layouts inside the browser print dialog.
+          While simple, browser print engines render fonts, margins, and page breaks inconsistently across devices.
+          We also evaluated sending JSON data to an external API endpoint that compiles documents on a remote server.
+          We rejected this pattern to prevent sensitive client data from leaving the local host.
         </p>
       </section>
 
@@ -80,40 +64,55 @@ import Footer from "../../components/Footer.astro";
       <section class="flex flex-col gap-3">
         <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Trade-offs</h2>
         <p>
-          Building a browser-only tool prevents automatic multi-device synchronization.
-          If a user switches laptops, their invoice history is not immediately available.
-          To address this limitation without compromising privacy,
-          I designed a backup system that lets users manually export and import encrypted JSON snapshots of their settings.
-        </p>
-        <p>
-          Additionally, local storage is subject to browser-clearing events.
-          We prioritized absolute client privacy and zero server maintenance overhead
-          at the expense of managed server-side backups.
+          We traded multi-device cloud synchronization for zero hosting costs and total data privacy.
+          If a user clears their browser local storage or switches to a new machine, their history is not synced.
+          To mitigate this limitation without compromising privacy,
+          we created a system for manual JSON export and import backups.
         </p>
       </section>
 
-      <!-- What Failed (The Biggest Mistake) -->
+      <!-- Failures -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">What Failed</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Failures</h2>
         <p>
-          I initially built a database synchronization service using a third-party cloud connector.
-          This required managing user authentication states, securing remote endpoints, and paying database hosting bills.
-          It conflicted with the core design goal of data privacy and added unnecessary operational complexity.
-          I chose to delete the sync backend entirely to return the tool to a true, offline-only utility.
+          Our first iteration included an automated synchronization feature using a third-party cloud database.
+          Managing user authentication flows and endpoint security keys added maintenance overhead.
+          This compromised the data privacy promise.
+          We removed the cloud sync layer entirely to keep the tool offline-only.
         </p>
       </section>
 
-      <!-- Lessons -->
+      <!-- Monitoring -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Lessons</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Monitoring</h2>
         <p>
-          Modern client browsers are fully capable of processing layouts, compiling binaries, and retaining state.
-          Avoiding servers not only guarantees data security but also eliminates hosting bills and service maintenance.
-          Local-first architectures are incredibly durable and remain functional as long as the browser exists.
+          Because there is no remote server, traditional backend monitoring is impossible.
+          Instead, we set up local console auditing inside development builds to monitor local storage quota limits.
+          Since browser storage is restricted to 5MB, we alert developers if data utilization exceeds 80%.
         </p>
       </section>
 
-      <!-- Links / GitHub -->
+      <!-- Scaling Considerations -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Scaling Considerations</h2>
+        <p>
+          If a user logs thousands of invoice records, local storage capacity constraints can trigger write failures.
+          To handle larger datasets, we designed an migration path to the IndexedDB API.
+          IndexedDB provides higher storage limits and handles complex records query indexing.
+        </p>
+      </section>
+
+      <!-- If I Rebuilt It Today -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">If I Rebuilt It Today</h2>
+        <p>
+          If I started over, I would use IndexedDB from the beginning rather than standard local storage.
+          IndexedDB provides asynchronous transaction handling and eliminates the risk of blocking the main thread.
+          I would also choose a lighter PDF compiler library than PDFKit to reduce client bundle weight.
+        </p>
+      </section>
+
+      <!-- Source Code -->
       <section class="flex flex-col gap-3 border-t border-[rgba(255,255,255,0.06)] pt-6">
         <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Source Code</h2>
         <div class="flex items-center gap-4 text-xs font-mono">

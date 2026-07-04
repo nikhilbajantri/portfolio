@@ -1,0 +1,58 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+
+const questions = [
+  {
+    question: "Can software become more trustworthy by becoming simpler?",
+    context: "Modern applications pull in thousands of transitive dependencies to run simple operations. Every package added introduces a potential entry point for security vulnerabilities and deprecation failures. I am exploring how much we can achieve using only standard library boundaries and local-first browser operations."
+  },
+  {
+    question: "What makes engineering teams last?",
+    context: "High turnover, constant framework migration, and documentation neglect degrade codebases. I want to understand what processes, communication habits, and architectural choices help software systems survive transitions in team ownership without requiring full rewrites."
+  },
+  {
+    question: "How should AI change developer workflows?",
+    context: "Code generation is fast, but it can flood codebases with unverified code. I am exploring how tools should evolve: moving away from writing large blocks of speculative code toward automating repetitive refactoring, local sandboxed verification checks, and debugging loops."
+  },
+  {
+    question: "What does good documentation feel like?",
+    context: "Most documentation lists API methods without explaining architectural design principles or historical compromises. I believe good technical writing should feel like a guidebook, explaining why a system was designed a certain way and documenting its failures."
+  }
+];
+---
+
+<Layout title="Thinking">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Header -->
+    <header class="flex flex-col gap-6">
+      <h1 class="text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
+        Thinking
+      </h1>
+      <p class="text-lg text-[#A1A1AA] leading-relaxed">
+        A curated list of questions and technical topics I am actively exploring. Questions often reveal more about an engineer's direction than answers.
+      </p>
+    </header>
+
+    <!-- Questions list -->
+    <div class="flex flex-col gap-10">
+      {questions.map((q) => (
+        <section class="flex flex-col gap-3">
+          <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-1.5">
+            {q.question}
+          </h2>
+          <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[65ch]">
+            {q.context}
+          </p>
+        </section>
+      ))}
+    </div>
+
+  </main>
+
+  <Footer />
+</Layout>

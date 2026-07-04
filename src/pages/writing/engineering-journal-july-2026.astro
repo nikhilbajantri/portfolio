@@ -1,0 +1,95 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navigation from "../../components/Navigation.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout title="Engineering Journal: July 2026">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Article Header -->
+    <header class="flex flex-col gap-4">
+      <div class="flex gap-2 text-xs text-[#71717A] font-mono">
+        <span>Journal</span>
+        <span>·</span>
+        <span>July 2026</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
+        Engineering Journal: July 2026
+      </h1>
+      <p class="text-sm text-[#A1A1AA] italic">
+        A monthly log of things built, concepts learned, books read, system failures, and next milestones.
+      </p>
+    </header>
+
+    <!-- Content Sections -->
+    <div class="flex flex-col gap-10 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
+      
+      <!-- Built -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Built</h2>
+        <p class="text-sm text-[#A1A1AA]">
+          I restructured this entire portfolio site into a clean, typography-focused publication platform using Astro.
+          I also implemented partial indexes and exclusion constraints for the DailyDine Go scheduling engine database schema.
+        </p>
+      </section>
+
+      <!-- Learned -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Learned</h2>
+        <p class="text-sm text-[#A1A1AA]">
+          I spent time learning the details of Postgres Multi-Version Concurrency Control (MVCC) and transaction isolation levels.
+          I also studied token signature verification boundaries, memory overflow stacking in compiled C binaries, and the TCP sliding window protocol mechanics.
+        </p>
+      </section>
+
+      <!-- Read -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Read</h2>
+        <p class="text-sm text-[#A1A1AA]">
+          I started reading Martin Kleppmann's <strong class="text-[#FAFAFA] font-medium">Designing Data-Intensive Applications</strong> (completed 18%).
+          I also read Ken Thompson's classic paper, <strong class="text-[#FAFAFA] font-medium">Reflections on Trusting Trust</strong>, which discusses compiler security.
+        </p>
+      </section>
+
+      <!-- Failed -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Failed</h2>
+        <p class="text-sm text-[#A1A1AA]">
+          I spent three days trying to configure a complex Redis distributed lock mechanism for table bookings.
+          It introduced race conditions during network blips and made recovery logic complicated.
+          I deleted the Redis code entirely and replaced it with native database transaction isolates.
+        </p>
+      </section>
+
+      <!-- Next Month -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Next Month</h2>
+        <p class="text-sm text-[#A1A1AA]">
+          My priority for August is to implement index migrations to IndexedDB for HisabProx,
+          and study advanced Linux network packet filtering using iptables rulesets.
+        </p>
+      </section>
+
+    </div>
+
+    <!-- Article Footer -->
+    <footer class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.06)] pt-12 mt-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm">
+        <div class="flex flex-col gap-3">
+          <h4 class="text-xs text-[#71717A] uppercase tracking-wider font-medium font-mono font-semibold">Other Journals</h4>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <span class="text-[#71717A]">August 2026 (Coming Soon)</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <Footer />
+</Layout>
