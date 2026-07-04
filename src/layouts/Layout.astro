@@ -26,6 +26,15 @@ const fullTitle = `${title} | ${siteName}`;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-59S5B1XTM4"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-59S5B1XTM4');
+    </script>
     <meta name="theme-color" content="#00f5ff" />
     <meta
       name="robots"
