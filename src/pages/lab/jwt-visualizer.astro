@@ -1,0 +1,191 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navigation from "../../components/Navigation.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout title="JWT Visualizer - Lab">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Top Bar Navigation -->
+    <div class="text-xs text-[#71717A] font-mono border-b border-[rgba(255,255,255,0.06)] pb-4">
+      <a href="/lab" class="hover:text-[#FAFAFA] transition-colors">← Back to Lab</a>
+    </div>
+
+    <!-- Header Section -->
+    <header class="flex flex-col gap-4">
+      <div class="flex gap-2 text-xs text-[#71717A] font-mono uppercase tracking-wider">
+        <span>Lab Experiment 01</span>
+      </div>
+      <h1 class="text-4xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
+        JWT Visualizer
+      </h1>
+      <p class="text-base text-[#A1A1AA] leading-relaxed">
+        An interactive exploration of JSON Web Token encoding, structural decoding, and signature verification.
+      </p>
+    </header>
+
+    <!-- Content Sections following standard template -->
+    <div class="flex flex-col gap-12 text-[#FAFAFA] text-sm leading-[1.7] tracking-tight font-normal">
+      
+      <!-- 1. Problem -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold font-mono">01. The Problem</h2>
+        <p class="text-[#A1A1AA]">
+          Developers often treat JSON Web Tokens (JWTs) as black boxes or encrypted strings. In reality, JWTs are not encrypted by default; they are simply Base64URL-encoded strings. Believing a JWT is secure without verifying its signature on the server allows clients to manipulate roles and gain unauthorized access.
+        </p>
+      </section>
+
+      <!-- 2. Visual Explanation -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold font-mono">02. Visual Explanation</h2>
+        <p class="text-[#A1A1AA]">
+          A standard JWT consists of three distinct parts separated by dots (`.`):
+        </p>
+        <div class="bg-[#111113] border border-[rgba(255,255,255,0.04)] p-4 rounded-lg font-mono text-xs flex flex-col gap-2">
+          <div><span class="text-red-400">Header</span>: Defines the algorithm (e.g., HS256) and token type.</div>
+          <div><span class="text-blue-400">Payload</span>: Contains the session claims (user ID, roles, expiry).</div>
+          <div><span class="text-green-400">Signature</span>: Cryptographically validates that the data has not been modified.</div>
+        </div>
+      </section>
+
+      <!-- 3. Interactive Demo -->
+      <section class="flex flex-col gap-4 border border-[rgba(255,255,255,0.06)] p-6 rounded-xl bg-[#111113]">
+        <h2 class="text-xs text-white uppercase tracking-wider font-semibold font-mono">03. Interactive Demo</h2>
+        
+        <!-- Input JWT Token -->
+        <div class="flex flex-col gap-2">
+          <label class="text-xs font-mono text-[#71717A]">Encoded JWT Token</label>
+          <textarea id="jwt-input" class="w-full h-24 bg-[#18181B] border border-[#27272A] rounded-lg p-3 text-xs font-mono text-[#FAFAFA] focus:outline-none focus:border-[#2563EB]" spellcheck="false">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik5pa2hpbCIsImFkbWluIjp0cnVlLCJleHAiOjE4OTM0NTYAwMH0.c2lnbmF0dXJlX2hlcmVfdGVzdGluZ192YWxpZGF0aW9uX29ubHk</textarea>
+        </div>
+
+        <!-- Colored Breakdown Display -->
+        <div class="flex flex-col gap-2">
+          <span class="text-xs font-mono text-[#71717A]">Token Breakdown</span>
+          <div class="bg-[#18181B] border border-[#27272A] p-3 rounded-lg text-xs font-mono break-all leading-relaxed">
+            <span id="colored-header" class="text-red-400">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</span>.<span id="colored-payload" class="text-blue-400">eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik5pa2hpbCIsImFkbWluIjp0cnVlLCJleHAiOjE4OTM0NTYAwMH0</span>.<span id="colored-sig" class="text-green-400">c2lnbmF0dXJlX2hlcmVfdGVzdGluZ192YWxpZGF0aW9uX29ubHk</span>
+          </div>
+        </div>
+
+        <!-- Decoded Output Areas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+          <!-- Decoded Header -->
+          <div class="flex flex-col gap-1">
+            <span class="text-xs font-mono text-[#71717A]">Decoded Header (Red)</span>
+            <pre id="decoded-header" class="bg-[#18181B] border border-[#27272A] p-3 rounded-lg text-xs font-mono text-red-300 h-28 overflow-y-auto"></pre>
+          </div>
+          <!-- Decoded Payload -->
+          <div class="flex flex-col gap-1">
+            <span class="text-xs font-mono text-[#71717A]">Decoded Payload (Blue)</span>
+            <pre id="decoded-payload" class="bg-[#18181B] border border-[#27272A] p-3 rounded-lg text-xs font-mono text-blue-300 h-28 overflow-y-auto"></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. What's Happening -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold font-mono">04. What's Happening</h2>
+        <p class="text-[#A1A1AA]">
+          When the client submits a token, the server splits it by `.`. It parses the Header to find the hashing algorithm (usually HS256 or RS256). It then hashes the Header and Payload together using a private key and checks if the output matches the Signature block. If they differ, the server rejects the request.
+        </p>
+      </section>
+
+      <!-- 5. Common Mistakes -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold font-mono">05. Common Mistakes</h2>
+        <ul class="list-disc pl-5 text-[#A1A1AA] flex flex-col gap-1.5">
+          <li>Storing sensitive client data (passwords, tokens) in the unencrypted Payload.</li>
+          <li>Accepting tokens without signature validation or failing to configure expiration checks.</li>
+          <li>Accepting `alg: "none"` options inside Headers, allowing clients to bypass cryptographic checks entirely.</li>
+        </ul>
+      </section>
+
+      <!-- 6. Real-world Example -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold font-mono">06. Real-world Example</h2>
+        <p class="text-[#A1A1AA]">
+          In our <a href="/work/codebud" class="text-[#2563EB] hover:underline">CodeBud project</a>, we configured Next.js middleware to intercept incoming requests and verify their signatures against Keycloak public keys, blocking role modification attempts at the network border.
+        </p>
+      </section>
+
+      <!-- 7. Further Reading -->
+      <section class="flex flex-col gap-3 border-t border-[rgba(255,255,255,0.06)] pt-6">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold font-mono">07. Further Reading</h2>
+        <div class="flex flex-col gap-2">
+          <a href="/writing/analyzing-jwt-authentication" class="text-[#2563EB] hover:underline">Article: Analyzing JWT Authentication Mechanisms</a>
+          <a href="/notes" class="text-[#2563EB] hover:underline">Notes: Keycloak security controls</a>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <Footer />
+
+  <!-- JWT Decoder JS -->
+  <script is:inline>
+    const jwtInput = document.getElementById('jwt-input');
+    const coloredHeader = document.getElementById('colored-header');
+    const coloredPayload = document.getElementById('colored-payload');
+    const coloredSig = document.getElementById('colored-sig');
+    const decodedHeader = document.getElementById('decoded-header');
+    const decodedPayload = document.getElementById('decoded-payload');
+
+    function base64UrlDecode(str) {
+      try {
+        let base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+        // Add padding
+        while (base64.length % 4) {
+          base64 += '=';
+        }
+        return atob(base64);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function decodeToken() {
+      const parts = jwtInput.value.trim().split('.');
+      if (parts.length === 3) {
+        coloredHeader.textContent = parts[0];
+        coloredPayload.textContent = parts[1];
+        coloredSig.textContent = parts[2];
+
+        const headerDecoded = base64UrlDecode(parts[0]);
+        const payloadDecoded = base64UrlDecode(parts[1]);
+
+        if (headerDecoded) {
+          try {
+            decodedHeader.textContent = JSON.stringify(JSON.parse(headerDecoded), null, 2);
+          } catch (e) {
+            decodedHeader.textContent = headerDecoded;
+          }
+        } else {
+          decodedHeader.textContent = "Error decoding header.";
+        }
+
+        if (payloadDecoded) {
+          try {
+            decodedPayload.textContent = JSON.stringify(JSON.parse(payloadDecoded), null, 2);
+          } catch (e) {
+            decodedPayload.textContent = payloadDecoded;
+          }
+        } else {
+          decodedPayload.textContent = "Error decoding payload.";
+        }
+      } else {
+        coloredHeader.textContent = "Invalid";
+        coloredPayload.textContent = "Token";
+        coloredSig.textContent = "Format";
+        decodedHeader.textContent = "Please input a token with 3 sections separated by dots.";
+        decodedPayload.textContent = "Please input a token with 3 sections separated by dots.";
+      }
+    }
+
+    jwtInput.addEventListener('input', decodeToken);
+    window.addEventListener('load', decodeToken);
+  </script>
+</Layout>

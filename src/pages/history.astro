@@ -1,0 +1,64 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout title="History">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Header -->
+    <header class="flex flex-col gap-4">
+      <h1 class="text-4xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
+        History
+      </h1>
+      <p class="text-sm text-[#A1A1AA] leading-relaxed">
+        A concise, annual changelog of my technical updates, built projects, active studies, and core metrics.
+      </p>
+    </header>
+
+    <!-- History Timeline -->
+    <div class="flex flex-col gap-8 text-[#FAFAFA] font-mono text-xs border-l border-[rgba(255,255,255,0.06)] pl-6">
+      
+      <!-- 2026 -->
+      <section class="flex flex-col gap-2 relative">
+        <!-- Timeline node dot -->
+        <span class="absolute -left-[30px] top-1 w-2 h-2 rounded-full bg-[#2563EB]"></span>
+        <h2 class="text-sm font-semibold text-white tracking-wider font-sans">2026</h2>
+        <ul class="text-[#A1A1AA] flex flex-col gap-1.5 list-none pl-0">
+          <li>● Started DailyDine reservation MVP & XELIQ mobile client sync designs.</li>
+          <li>● Studied Linux systems programming and network socket interfaces.</li>
+          <li>● Published 18 articles detailing technical lessons and systems engineering.</li>
+          <li>● Read 27 books focusing on databases, architecture, and network protocols.</li>
+        </ul>
+      </section>
+
+      <!-- 2025 -->
+      <section class="flex flex-col gap-2 relative">
+        <span class="absolute -left-[30px] top-1 w-2 h-2 rounded-full bg-[#27272A]"></span>
+        <h2 class="text-sm font-semibold text-white tracking-wider font-sans">2025</h2>
+        <ul class="text-[#A1A1AA] flex flex-col gap-1.5 list-none pl-0">
+          <li>● Built CodeBud course authentication middleware and integrated Keycloak clusters.</li>
+          <li>● Developed Great British Doner headless restaurant website and migration scripts.</li>
+          <li>● Launched nikhilbajantri.dev publication to begin documenting engineering in public.</li>
+        </ul>
+      </section>
+
+      <!-- 2024 -->
+      <section class="flex flex-col gap-2 relative">
+        <span class="absolute -left-[30px] top-1 w-2 h-2 rounded-full bg-[#27272A]"></span>
+        <h2 class="text-sm font-semibold text-white tracking-wider font-sans">2024</h2>
+        <ul class="text-[#A1A1AA] flex flex-col gap-1.5 list-none pl-0">
+          <li>● Co-founded SSOSC Symbiosis Student Open Source Community and organized local hackathons.</li>
+          <li>● Developed local-first billing compiler HisabProx and client marketing sites.</li>
+        </ul>
+      </section>
+
+    </div>
+
+  </main>
+
+  <Footer />
+</Layout>

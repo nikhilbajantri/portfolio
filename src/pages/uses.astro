@@ -2,67 +2,90 @@
 import Layout from "../layouts/Layout.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
-
-const categories = [
-  {
-    title: "Hardware",
-    items: [
-      { name: "LOQ Ryzen 7", desc: "Main development laptop. Quiet, reliable, and capable of running heavy compilations." },
-      { name: "Xiaomi Pad 5", desc: "Digital notepad and reader used for studying system manuals on the go." },
-      { name: "Realme 12 Pro", desc: "Physical testing device for mobile software builds." }
-    ]
-  },
-  {
-    title: "Development",
-    items: [
-      { name: "Cursor / Neovim", desc: "Default editors. Fast, distraction-free environment containing autocomplete capabilities." },
-      { name: "Brave Browser", desc: "Default Web browser. Safe browsing with robust tracker blocking." },
-      { name: "Git", desc: "Decentralized version control system ensuring full code history ownership." }
-    ]
-  },
-  {
-    title: "Security Workflow",
-    items: [
-      { name: "1Password", desc: "Encrypted password storage for credentials." },
-      { name: "GnuPG", desc: "Sign commits and encrypt communication keys." }
-    ]
-  }
-];
 ---
 
 <Layout title="Uses">
   <Navigation />
 
-  <main id="main-content" class="flex-1 max-w-[72ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-16 font-sans">
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
     
     <!-- Header -->
-    <header class="flex flex-col gap-6">
-      <h1 class="text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
+    <header class="flex flex-col gap-4">
+      <h1 class="text-4xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
         Uses
       </h1>
-      <p class="text-lg text-[#A1A1AA] leading-relaxed">
-        Why I Use These Tools: I optimize for tools that disappear into the background.
-        The best software lets me focus on thinking rather than configuration.
+      <p class="text-base text-[#A1A1AA] leading-relaxed">
+        I optimize for tools that disappear into the background. I prefer software that reduces friction instead of adding features.
       </p>
     </header>
 
-    <!-- Specs Lists -->
-    <div class="flex flex-col gap-12">
-      {categories.map((cat) => (
-        <section class="flex flex-col gap-4">
-          <h2 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
-            {cat.title}
-          </h2>
-          <ul class="flex flex-col gap-4">
-            {cat.items.map((item) => (
-              <li class="flex flex-col gap-1">
-                <span class="text-sm font-medium text-[#FAFAFA]">{item.name}</span>
-                <span class="text-sm text-[#A1A1AA] leading-relaxed">{item.desc}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
+    <!-- Decisions and Workflows -->
+    <div class="flex flex-col gap-10 text-[#FAFAFA] text-sm leading-[1.7] tracking-tight font-normal">
+      
+      <!-- Writing -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold font-mono">Writing</h2>
+        <p class="text-[#A1A1AA]">
+          <strong class="text-white font-medium">Why I write in Markdown.</strong> 
+          Writing in plain text guarantees absolute content longevity. Word processors and proprietary databases create vendor lock-in. Markdown files can be searched, compiled, and read on any system fifty years from now.
+        </p>
+      </section>
+
+      <!-- Development -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold font-mono">Development</h2>
+        <p class="text-[#A1A1AA]">
+          <strong class="text-white font-medium">Why I prefer simple tooling.</strong> 
+          Complex configurations introduce subtle breakages. I favor terminal tools and minimal environments because they reduce the surface area of potential friction. If an editor requires more than a few lines of configuration to be usable, it is too complex.
+        </p>
+      </section>
+
+      <!-- Learning -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold font-mono">Learning</h2>
+        <p class="text-[#A1A1AA]">
+          <strong class="text-white font-medium">Why I study from primary sources.</strong> 
+          Tutorials summarize another person's understanding, which frequently filters out essential edge cases. Reading the raw RFCs, system documentation, and specifications reveals the actual trade-offs that designers struggled with.
+        </p>
+      </section>
+
+      <!-- Reading -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold font-mono">Reading</h2>
+        <p class="text-[#A1A1AA]">
+          <strong class="text-white font-medium">How I annotate books.</strong> 
+          Passive reading leaves little lasting trace. I read physical copies or static PDFs, writing summaries, margins arguments, and systems structures diagrams inside my notes for every chapter finished.
+        </p>
+      </section>
+
+      <!-- Planning -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold font-mono">Planning</h2>
+        <p class="text-[#A1A1AA]">
+          <strong class="text-white font-medium">Why I keep plans lightweight.</strong> 
+          Detailed long-term charts rarely survive contact with real-world requirements. I structure tasks in simple, text-based checklists that cover only immediate, actionable goals for the current development cycles.
+        </p>
+      </section>
+
+      <!-- Research -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold font-mono">Research</h2>
+        <p class="text-[#A1A1AA]">
+          <strong class="text-white font-medium">How I validate ideas.</strong> 
+          Before writing code, I compile a system architecture model, mapping database constraints and request sequences. Only when the data states transition predictably do I begin writing source code.
+        </p>
+      </section>
+
+      <!-- Software & Hardware specifications (Muted at the bottom) -->
+      <section class="border-t border-[rgba(255,255,255,0.06)] pt-8 mt-4 flex flex-col gap-4 text-xs font-mono text-[#71717A]">
+        <h3 class="text-[10px] uppercase font-semibold text-white tracking-wider">The Stack</h3>
+        <div class="flex flex-col gap-2">
+          <div>Hardware: <span class="text-[#A1A1AA]">LOQ Ryzen 7, Xiaomi Pad 5, Realme 12 Pro</span></div>
+          <div>Editor & Term: <span class="text-[#A1A1AA]">Cursor / Neovim, Warp Terminal</span></div>
+          <div>Security: <span class="text-[#A1A1AA]">1Password, GnuPG commit signing keys</span></div>
+        </div>
+      </section>
+
     </div>
 
   </main>

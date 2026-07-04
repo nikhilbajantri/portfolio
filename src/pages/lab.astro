@@ -1,0 +1,81 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+
+const activeExperiments = [
+  {
+    title: "JWT Visualizer",
+    description: "An interactive color-coded explanation of JSON Web Token internals, signatures, and client verification mechanisms.",
+    url: "/lab/jwt-visualizer"
+  },
+  {
+    title: "TCP Handshake Explorer",
+    description: "A step-by-step interactive terminal simulator demonstrating SYN, SYN-ACK, ACK, and connection state transitions.",
+    url: "/lab/tcp-handshake"
+  }
+];
+
+const plannedExperiments = [
+  "PostgreSQL MVCC Timeline",
+  "RBAC Permission Explorer",
+  "DNS Resolution Sequence",
+  "Linux Process Tree Explorer",
+  "Memory Layout Boundaries",
+  "CPU Scheduling Algorithms",
+  "Distributed Consensus Simulator",
+  "Cache Invalidation Mechanics"
+];
+---
+
+<Layout title="Lab">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Header -->
+    <header class="flex flex-col gap-6">
+      <h1 class="text-4xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
+        Lab
+      </h1>
+      <p class="text-base text-[#A1A1AA] leading-relaxed">
+        The Lab is where I turn difficult engineering concepts into interactive explanations. Most experiments begin as questions while learning. Some become articles. Others become reusable teaching tools.
+      </p>
+    </header>
+
+    <!-- Active Experiments -->
+    <section class="flex flex-col gap-6">
+      <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono border-b border-[rgba(255,255,255,0.06)] pb-2">
+        Active Experiments
+      </h2>
+      <div class="flex flex-col gap-8">
+        {activeExperiments.map((exp) => (
+          <div class="flex flex-col gap-2">
+            <h3 class="text-base font-medium">
+              <a href={exp.url} class="text-white hover:text-[#2563EB] transition-colors">{exp.title}</a>
+            </h3>
+            <p class="text-sm text-[#A1A1AA] leading-relaxed">{exp.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Planned Experiments -->
+    <section class="flex flex-col gap-6">
+      <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono border-b border-[rgba(255,255,255,0.06)] pb-2">
+        Coming Next
+      </h2>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono text-[#A1A1AA] list-none pl-0">
+        {plannedExperiments.map((p) => (
+          <li class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#27272A]"></span>
+            {p}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

@@ -122,13 +122,23 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
           <input
             id="search-input"
             type="text"
-            placeholder="Search articles, case studies, library..."
+            placeholder="Search articles, case studies, knowledge..."
             class="bg-transparent text-sm text-[#FAFAFA] placeholder-[#71717A] w-full outline-none"
             autocomplete="off"
           />
           <button id="close-search-button" class="text-xs text-[#71717A] hover:text-[#FAFAFA] transition-colors font-mono">
             ESC
           </button>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div id="search-filters" class="flex gap-2 px-4 py-2 border-b border-[rgba(255,255,255,0.06)] bg-[#0C0C0E]/50 overflow-x-auto text-[10px] font-mono text-[#71717A]">
+          <button data-filter="all" class="px-2 py-0.5 rounded border border-[#27272A] bg-[#18181B] text-white transition-colors">All</button>
+          <button data-filter="writing" class="px-2 py-0.5 rounded border border-transparent hover:text-white transition-colors">Articles</button>
+          <button data-filter="work" class="px-2 py-0.5 rounded border border-transparent hover:text-white transition-colors">Projects</button>
+          <button data-filter="notes" class="px-2 py-0.5 rounded border border-transparent hover:text-white transition-colors">Notes</button>
+          <button data-filter="lab" class="px-2 py-0.5 rounded border border-transparent hover:text-white transition-colors">Lab</button>
+          <button data-filter="knowledge" class="px-2 py-0.5 rounded border border-transparent hover:text-white transition-colors">Knowledge</button>
         </div>
 
         <!-- Search Results List -->
@@ -156,26 +166,30 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
       const searchInput = document.getElementById('search-input');
       const searchResults = document.getElementById('search-results');
       const closeSearchButton = document.getElementById('close-search-button');
+      const filterContainer = document.getElementById('search-filters');
 
       let isOpen = false;
       let activeIndex = -1;
       let filteredItems = [];
+      let activeFilter = 'all';
 
       // Search Database
       const searchData = [
         { title: "Home", category: "Page", url: "/", desc: "Homepage of nikhilbajantri.dev." },
         { title: "Writing", category: "Page", url: "/writing", desc: "Technical articles, deep dives, and long-form essays." },
         { title: "Work", category: "Page", url: "/work", desc: "Detailed software engineering case studies." },
-        { title: "Reading", category: "Page", url: "/reading", desc: "Nikhil's bookshelf, re-reading lists, and ideas." },
+        { title: "Knowledge", category: "Page", url: "/knowledge", desc: "Permanent knowledge base of books, papers, and references." },
+        { title: "Lab", category: "Page", url: "/lab", desc: "Interactive systems engineering experiments." },
         { title: "About", category: "Page", url: "/about", desc: "Operating manual, motives, and philosophies." },
         { title: "Now", category: "Page", url: "/now", desc: "Current focus, priorities, and status updates." },
-        { title: "Uses", category: "Page", url: "/uses", desc: "Physical setup, developer workflow, and security tools." },
+        { title: "Uses", category: "Page", url: "/uses", desc: "Workflow choices and tools." },
         { title: "Principles", category: "Page", url: "/principles", desc: "Core philosophies that guide decision making." },
         { title: "Thinking", category: "Page", url: "/thinking", desc: "Curated active exploration questions." },
         { title: "Favorites", category: "Page", url: "/favorites", desc: "Influential books, articles, tools, and repositories." },
         { title: "Notes", category: "Page", url: "/notes", desc: "Second brain directory of single-idea logs." },
         { title: "Colophon", category: "Page", url: "/colophon", desc: "Technical details, framework, and fonts." },
         { title: "Résumé", category: "Page", url: "/about/resume", desc: "Skimmable resume and professional summary." },
+        { title: "History", category: "Page", url: "/history", desc: "Concise annual self-changelog highlights." },
         
         { title: "Why I Started Writing", category: "Essay", url: "/writing/why-i-started-writing", desc: "How writing compounds software understanding." },
         { title: "Why I Built This Website", category: "Essay", url: "/writing/why-i-built-this-website", desc: "A defense of personal websites and local-first layouts." },
@@ -208,8 +222,25 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
         { title: "Networking: The TCP Sliding Window Protocol", category: "Note", url: "/notes", desc: "Congestion control buffers and sliding windows." },
         { title: "Postgres: Multi-Version Concurrency Control (MVCC)", category: "Note", url: "/notes", desc: "Row transaction IDs and non-blocking reads." },
         { title: "AI: Weights Transformations and Attention Maps", category: "Note", url: "/notes", desc: "Self-attention matrix math." },
-        { title: "Security: Stack Frames and Buffer Overflows", category: "Note", url: "/notes", desc: "Function return addresses and instruction injection." }
+        { title: "Security: Stack Frames and Buffer Overflows", category: "Note", url: "/notes", desc: "Function return addresses and instruction injection." },
+
+        { title: "JWT Visualizer Experiment", category: "Lab", url: "/lab/jwt-visualizer", desc: "Interactive JWT encoder and verification explorer." },
+        { title: "TCP Handshake Simulator", category: "Lab", url: "/lab/tcp-handshake", desc: "Visualized packet exchange flags and socket transitions." }
       ];
+
+      // Setup filter button listeners
+      filterContainer.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Reset old active styles
+          filterContainer.querySelectorAll('button').forEach(b => {
+            b.className = "px-2 py-0.5 rounded border border-transparent hover:text-white transition-colors";
+          });
+          // Set new active styles
+          btn.className = "px-2 py-0.5 rounded border border-[#27272A] bg-[#18181B] text-white transition-colors";
+          activeFilter = btn.getAttribute('data-filter');
+          renderResults(searchInput.value);
+        });
+      });
 
       function toggleSearch(forceState) {
         isOpen = forceState !== undefined ? forceState : !isOpen;
@@ -229,11 +260,34 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
         searchResults.innerHTML = "";
         activeIndex = -1;
         
+        let pool = searchData;
+        if (activeFilter !== 'all') {
+          pool = searchData.filter(item => {
+            const cat = item.category.toLowerCase();
+            if (activeFilter === 'writing') {
+              return ['essay', 'journal', 'field notes', 'engineering', 'cybersecurity'].includes(cat);
+            }
+            if (activeFilter === 'work') {
+              return ['selected work', 'professional work', 'community', 'archive'].includes(cat);
+            }
+            if (activeFilter === 'notes') {
+              return cat === 'note';
+            }
+            if (activeFilter === 'lab') {
+              return cat === 'lab' || (cat === 'page' && item.url === '/lab');
+            }
+            if (activeFilter === 'knowledge') {
+              return cat === 'knowledge' || (cat === 'page' && item.url === '/knowledge');
+            }
+            return false;
+          });
+        }
+
         if (!query) {
-          filteredItems = searchData.slice(0, 6); // Show top pages by default
+          filteredItems = pool.slice(0, 8); // Show top filtered items by default
         } else {
           const lowerQuery = query.toLowerCase();
-          filteredItems = searchData.filter(item => 
+          filteredItems = pool.filter(item => 
             item.title.toLowerCase().includes(lowerQuery) || 
             item.desc.toLowerCase().includes(lowerQuery) ||
             item.category.toLowerCase().includes(lowerQuery)
