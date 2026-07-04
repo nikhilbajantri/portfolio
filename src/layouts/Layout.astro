@@ -10,42 +10,36 @@ export interface Props {
 
 const {
   title,
-  description = "Nikhil Bajantri - Full Stack Developer & CTO at DailyDine. Expert in Python, JavaScript, React, Machine Learning, and AI/ML. Building scalable applications and leading technology teams.",
-  image = "https://nick-portfolio123.netlify.app/profile-image.jpg",
+  description = "A place to build, learn, write, and think in public. Personal website of Nikhil Bajantri, documenting software engineering, systems, cybersecurity, and books.",
+  image = "/profile-image.jpg",
   canonical = Astro.url.href,
   type = "website",
-  keywords = "Nikhil Bajantri, Full Stack Developer, CTO, DailyDine, Python Developer, JavaScript Developer, React Developer, Machine Learning Engineer, AI Developer, Web Developer, Software Engineer, Portfolio",
+  keywords = "Nikhil Bajantri, Software Engineer, Writer, Systems, Cybersecurity, Distributed Systems, Books, nikhilbajantri.dev",
 } = Astro.props;
 
-const siteName = "Nikhil Bajantri - Portfolio";
-const fullTitle = `${title} | ${siteName}`;
+const siteName = "nikhilbajantri.dev";
+const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth bg-[#09090B] text-[#FAFAFA]">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2563EB" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="6F8WceAuAicNFX86Tsc_oMI-CKOgDdIb3x-Bm7Xkb1Y" />
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-59S5B1XTM4"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-59S5B1XTM4');
     </script>
-    <meta name="theme-color" content="#00f5ff" />
-    <meta
-      name="robots"
-      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
-    />
-
-    <!-- Google Site Verification -->
-    <meta
-      name="google-site-verification"
-      content="6F8WceAuAicNFX86Tsc_oMI-CKOgDdIb3x-Bm7Xkb1Y"
-    />
 
     <!-- Primary Meta Tags -->
     <title>{fullTitle}</title>
@@ -56,6 +50,9 @@ const fullTitle = `${title} | ${siteName}`;
 
     <!-- Canonical URL -->
     <link rel="canonical" href={canonical} />
+
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title={`RSS Feed for ${siteName}`} href="/rss.xml" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content={type} />
@@ -73,1005 +70,111 @@ const fullTitle = `${title} | ${siteName}`;
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={image} />
     <meta property="twitter:creator" content="@nikkkkhil_2604" />
-    <meta property="twitter:site" content="@nikkkkhil_2604" />
-
-    <!-- Additional SEO Meta Tags -->
-    <meta name="application-name" content="Nikhil Bajantri Portfolio" />
-    <meta name="apple-mobile-web-app-title" content="Nikhil Bajantri" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
-    />
-    <meta name="format-detection" content="telephone=no" />
-
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="/manifest.json" />
 
     <!-- Favicon and Icons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link
-      rel="apple-touch-icon"
-      sizes="114x114"
-      href="/apple-touch-icon-114x114.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="120x120"
-      href="/apple-touch-icon-120x120.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="144x144"
-      href="/apple-touch-icon-144x144.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="152x152"
-      href="/apple-touch-icon-152x152.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/apple-touch-icon-180x180.png"
-    />
 
-    <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <!-- Fonts: Geist, Inter, JetBrains Mono -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/font/sans.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/font/mono.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-    <!-- Preload critical resources -->
-    <link
-      rel="preload"
-      href="/fonts/Satoshi-Variable.ttf"
-      as="font"
-      type="font/ttf"
-      crossorigin
-    />
+    <!-- Preload critical assets -->
     <link rel="preload" href="/profile-image.jpg" as="image" />
 
-    <!-- Font Awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-
-    <!-- GSAP + ScrollTrigger -->
-    <script
-      is:inline
-      src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"
-    ></script>
-    <script
-      is:inline
-      src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"
-    ></script>
-
-    <!-- Smooth scroll handled via CSS -->
-
-    <!-- Structured Data for SEO -->
-    <script
-      type="application/ld+json"
-      set:html={JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Person",
-        name: "Nikhil Bajantri",
-        url: "https://nick-portfolio123.netlify.app/",
-        image: "https://nick-portfolio123.netlify.app/profile-image.jpg",
-        sameAs: [
-          "https://github.com/programmer-nick234/",
-          "https://www.linkedin.com/in/nikhil-bajantri-dev",
-          "https://x.com/nikkkkhil_2604",
-        ],
-        jobTitle: "Chief Technology Officer (CTO)",
-        worksFor: {
-          "@type": "Organization",
-          name: "DailyDine",
-        },
-        description:
-          "Full Stack Developer & CTO at DailyDine. Expert in Python, JavaScript, React, Machine Learning, and AI/ML. Building scalable applications and leading technology teams.",
-        knowsAbout: [
-          "Python",
-          "JavaScript",
-          "React.js",
-          "Next.js",
-          "Machine Learning",
-          "Artificial Intelligence",
-          "Full Stack Development",
-          "Web Development",
-          "Mobile Development",
-          "Cloud Computing",
-          "DevOps",
-          "Database Management",
-        ],
-        alumniOf: {
-          "@type": "EducationalOrganization",
-          name: "Srinivas Institute of Technology, Mangaluru",
-        },
-        hasCredential:
-          "Bachelor of Engineering - BE, Artificial Intelligence and Data Science",
-      })}
-    ></script>
-
-    <!-- Website Structured Data -->
-    <script
-      type="application/ld+json"
-      set:html={JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        name: "Nikhil Bajantri - Portfolio",
-        url: "https://nick-portfolio123.netlify.app/",
-        description:
-          "Professional portfolio of Nikhil Bajantri - Full Stack Developer & CTO at DailyDine",
-        author: {
-          "@type": "Person",
-          name: "Nikhil Bajantri",
-        },
-        publisher: {
-          "@type": "Person",
-          name: "Nikhil Bajantri",
-        },
-      })}
-    ></script>
+    <!-- Font Awesome (for minimal icon references if needed, but prefer text/SVG) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   </head>
-  <body
-    class="bg-[#050505] text-[#f0f0f0] font-sans antialiased overflow-x-hidden"
-  >
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- CINEMATIC LOADING SCREEN                               -->
-    <!-- ═══════════════════════════════════════════════════════ -->
+  <body class="bg-[#09090B] text-[#FAFAFA] antialiased selection:bg-[#2563EB]/25 selection:text-white min-h-screen flex flex-col font-sans">
+    
+    <!-- Skip to content for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#2563EB] focus:text-white focus:rounded-lg focus:outline-none">
+      Skip to main content
+    </a>
+
+    <!-- Subtle noise texture overlay for analog feel -->
     <div
-      id="loader"
-      class="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-[#050505]"
-    >
-      <!-- Loader background particles -->
-      <div class="absolute inset-0 overflow-hidden" id="loader-particles"></div>
-
-      <!-- Animated initials -->
-      <div class="relative z-10 flex flex-col items-center">
-        <div
-          id="loader-logo"
-          class="text-6xl sm:text-8xl font-bold tracking-tighter mb-6"
-          style="opacity: 0;"
-        >
-          <span
-            class="inline-block"
-            style="background: linear-gradient(135deg, #00f5ff, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
-            >N</span
-          ><span
-            class="inline-block"
-            style="background: linear-gradient(135deg, #a855f7, #00f5ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
-            >B</span
-          >
-        </div>
-
-        <!-- Loading bar -->
-        <div
-          class="w-48 sm:w-64 h-[2px] bg-white/10 rounded-full overflow-hidden"
-        >
-          <div
-            id="loader-bar"
-            class="h-full w-0 rounded-full"
-            style="background: linear-gradient(90deg, #00f5ff, #a855f7);"
-          >
-          </div>
-        </div>
-
-        <!-- Counter -->
-        <div
-          id="loader-counter"
-          class="mt-4 text-sm font-mono tracking-widest text-white/40"
-          style="opacity: 0;"
-        >
-          0%
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- CUSTOM CURSOR                                          -->
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <canvas id="cursor-canvas" class="fixed inset-0 pointer-events-none z-[148]" style="will-change: transform;"></canvas>
-    <div
-      id="cursor-dot"
-      class="fixed pointer-events-none z-[150]"
-      style="top: 0; left: 0; width: 8px; height: 8px; border-radius: 50%; background: #00f5ff; will-change: transform; transform: translate3d(-100px, -100px, 0); box-shadow: 0 0 12px rgba(0, 245, 255, 0.8), 0 0 4px rgba(0, 245, 255, 1);"
-    ></div>
-    <div
-      id="cursor-ring"
-      class="fixed pointer-events-none z-[149]"
-      style="top: 0; left: 0; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid rgba(0, 245, 255, 0.35); will-change: transform; transform: translate3d(-100px, -100px, 0); transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), height 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, background 0.4s ease, border-radius 0.4s cubic-bezier(0.16, 1, 0.3, 1);"
+      class="fixed inset-0 pointer-events-none z-50 opacity-[0.015]"
+      style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 256 256%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/></filter><rect width=%22256%22 height=%22256%22 filter=%22url(%23n)%22 opacity=%220.5%22/></svg>'); background-size: 128px;"
     ></div>
 
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- ANIMATED BACKGROUND                                    -->
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
-      <!-- Base gradient -->
-      <div class="absolute inset-0 bg-[#050505]"></div>
+    <slot />
 
-      <!-- Noise texture overlay -->
-      <div
-        class="absolute inset-0 opacity-[0.03]"
-        style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 256 256%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/></filter><rect width=%22256%22 height=%22256%22 filter=%22url(%23n)%22 opacity=%220.5%22/></svg>'); background-size: 128px;"
-      >
-      </div>
-
-      <!-- Gradient orbs with subtle animation (GPU-promoted) -->
-      <div
-        class="absolute top-[15%] left-[20%] w-[500px] h-[500px] rounded-full opacity-[0.04]"
-        style="background: radial-gradient(circle, #a855f7, transparent 70%); animation: float 20s ease-in-out infinite; will-change: transform; contain: layout style paint;"
-      >
-      </div>
-      <div
-        class="absolute bottom-[20%] right-[15%] w-[600px] h-[600px] rounded-full opacity-[0.03]"
-        style="background: radial-gradient(circle, #00f5ff, transparent 70%); animation: float 25s ease-in-out infinite reverse; will-change: transform; contain: layout style paint;"
-      >
-      </div>
-      <div
-        class="absolute top-[50%] left-[50%] w-[400px] h-[400px] rounded-full opacity-[0.02] -translate-x-1/2 -translate-y-1/2"
-        style="background: radial-gradient(circle, #22d3ee, transparent 70%); animation: float 18s ease-in-out infinite 5s; will-change: transform; contain: layout style paint;"
-      >
-      </div>
-
-      <!-- Grid overlay -->
-      <div
-        class="absolute inset-0 opacity-[0.02]"
-        style="background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 60px 60px;"
-      >
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- MAIN CONTENT                                           -->
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <div
-      id="main-wrapper"
-      class="relative z-10"
-      style="opacity: 0; transition: opacity 0.6s ease;"
-    >
-      <slot />
-    </div>
-
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- SCROLL PROGRESS INDICATOR                              -->
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <div
-      id="scroll-progress"
-      class="fixed top-0 left-0 h-[2px] z-[100]"
-      style="width: 0%; background: linear-gradient(90deg, #00f5ff, #a855f7, #00f5ff); box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);"
-    >
-    </div>
-
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- GLOBAL SCRIPTS                                         -->
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <script is:inline>
-      // ====================================================
-      // 1. NATIVE SMOOTH SCROLL (no JS hijacking)
-      // ====================================================
-      // ScrollTrigger uses native scroll — zero lag
-      gsap.ticker.lagSmoothing(0);
-
-      // ====================================================
-      // 2. CINEMATIC LOADING ANIMATION
-      // ====================================================
-      (function initLoader() {
-        const loader = document.getElementById("loader");
-        const loaderLogo = document.getElementById("loader-logo");
-        const loaderBar = document.getElementById("loader-bar");
-        const loaderCounter = document.getElementById("loader-counter");
-        const mainWrapper = document.getElementById("main-wrapper");
-        const body = document.body;
-
-        if (
-          !loader ||
-          !loaderLogo ||
-          !loaderBar ||
-          !loaderCounter ||
-          !mainWrapper
-        )
-          return;
-
-        // Create loader particles
-        const particlesContainer = document.getElementById("loader-particles");
-        if (particlesContainer) {
-          for (let i = 0; i < 30; i++) {
-            const particle = document.createElement("div");
-            particle.style.cssText = `
-              position: absolute;
-              width: ${Math.random() * 3 + 1}px;
-              height: ${Math.random() * 3 + 1}px;
-              background: ${Math.random() > 0.5 ? "#00f5ff" : "#a855f7"};
-              border-radius: 50%;
-              left: ${Math.random() * 100}%;
-              top: ${Math.random() * 100}%;
-              opacity: ${Math.random() * 0.3 + 0.1};
-            `;
-            particlesContainer.appendChild(particle);
-
-            gsap.to(particle, {
-              y: `random(-100, 100)`,
-              x: `random(-50, 50)`,
-              duration: `random(3, 6)`,
-              repeat: -1,
-              yoyo: true,
-              ease: "sine.inOut",
-            });
-          }
-        }
-
-        const tl = gsap.timeline();
-
-        // Animate logo in
-        tl.to(loaderLogo, {
-          opacity: 1,
-          duration: 0.5,
-          ease: "power2.out",
-        });
-
-        tl.to(
-          loaderCounter,
-          {
-            opacity: 1,
-            duration: 0.3,
-            ease: "power2.out",
-          },
-          "<0.2"
-        );
-
-        // Animate loading bar
-        tl.to(
-          loaderBar,
-          {
-            width: "100%",
-            duration: 1.8,
-            ease: "power2.inOut",
-            onUpdate: function () {
-              const progress = Math.round(this.progress() * 100);
-              loaderCounter.textContent = progress + "%";
-            },
-          },
-          "<0.1"
-        );
-
-        // Logo scale up + fade out
-        tl.to(loaderLogo, {
-          scale: 1.5,
-          opacity: 0,
-          duration: 0.6,
-          ease: "power3.in",
-        });
-
-        tl.to(
-          loaderCounter,
-          {
-            opacity: 0,
-            duration: 0.3,
-          },
-          "<"
-        );
-
-        // Loader exit
-        tl.to(loader, {
-          yPercent: -100,
-          duration: 0.8,
-          ease: "power4.inOut",
-          onComplete: () => {
-            loader.style.display = "none";
-          },
-        });
-
-        // Reveal content
-        tl.to(
-          mainWrapper,
-          {
-            opacity: 1,
-            duration: 0.6,
-            ease: "power2.out",
-          },
-          "<0.3"
-        );
-
-        // Animate sections in
-        tl.add(() => {
-          initScrollAnimations();
-          initScrollProgress();
-        });
-      })();
-
-      // ====================================================
-      // SAFETY FALLBACK — ensure content is ALWAYS visible
-      // ====================================================
-      setTimeout(() => {
-        const mw = document.getElementById("main-wrapper");
-        const ld = document.getElementById("loader");
-        if (mw && parseFloat(getComputedStyle(mw).opacity) < 0.5) {
-          mw.style.opacity = "1";
-        }
-        if (ld && ld.style.display !== "none") {
-          ld.style.display = "none";
-        }
-        // Force-reveal any still-hidden animated elements
-        document.querySelectorAll("[data-animate]").forEach((el) => {
-          if (parseFloat(getComputedStyle(el).opacity) < 0.1) {
-            el.style.opacity = "1";
-            el.style.transform = "none";
-          }
-        });
-        document.querySelectorAll("[data-stagger]").forEach((container) => {
-          Array.from(container.children).forEach((child) => {
-            if (parseFloat(getComputedStyle(child).opacity) < 0.1) {
-              child.style.opacity = "1";
-              child.style.transform = "none";
-            }
-          });
-        });
-      }, 5000);
-
-      // ====================================================
-      // 3. CUSTOM CURSOR — Spring Physics + Glow Trail
-      // ====================================================
-      (function initCursor() {
-        // Only on desktop
-        if (window.matchMedia("(pointer: coarse)").matches) {
-          const dot = document.getElementById("cursor-dot");
-          const ring = document.getElementById("cursor-ring");
-          const canvas = document.getElementById("cursor-canvas");
-          if (dot) dot.style.display = "none";
-          if (ring) ring.style.display = "none";
-          if (canvas) canvas.style.display = "none";
-          return;
-        }
-
-        const cursorDot = document.getElementById("cursor-dot");
-        const cursorRing = document.getElementById("cursor-ring");
-        const canvas = document.getElementById("cursor-canvas");
-        if (!cursorDot || !cursorRing || !canvas) return;
-
-        const ctx = canvas.getContext("2d");
-        let w, h;
-        function resize() {
-          w = canvas.width = window.innerWidth;
-          h = canvas.height = window.innerHeight;
-        }
-        resize();
-        window.addEventListener("resize", resize);
-
-        // ── State ──
-        let mouseX = -100, mouseY = -100;
-        let dotX = -100, dotY = -100;
-        let ringX = -100, ringY = -100;
-        let ringVX = 0, ringVY = 0;
-        let isHovering = false;
-        let isClicking = false;
-        let isVisible = false;
-        let hoverScale = 1;
-
-        // ── Trail particles ──
-        const trail = [];
-        const TRAIL_LENGTH = 18;
-
-        // ── Mouse tracking (passive for perf) ──
-        document.addEventListener("mousemove", (e) => {
-          mouseX = e.clientX;
-          mouseY = e.clientY;
-          if (!isVisible) isVisible = true;
-        }, { passive: true });
-
-        document.addEventListener("mousedown", () => { isClicking = true; }, { passive: true });
-        document.addEventListener("mouseup", () => { isClicking = false; }, { passive: true });
-
-        // ── Spring physics constants ──
-        const SPRING = 0.08;
-        const DAMPING = 0.72;
-        const DOT_LERP = 0.35;
-
-        // ── Main animation loop (synced to GSAP ticker for no jank) ──
-        gsap.ticker.add(() => {
-          if (!isVisible) return;
-
-          // Dot: snappy lerp follow
-          dotX += (mouseX - dotX) * DOT_LERP;
-          dotY += (mouseY - dotY) * DOT_LERP;
-          cursorDot.style.transform = `translate3d(${dotX - 4}px, ${dotY - 4}px, 0) scale(${isClicking ? 0.6 : 1})`;
-
-          // Ring: spring physics for satisfying elastic follow
-          const dx = mouseX - ringX;
-          const dy = mouseY - ringY;
-          ringVX += dx * SPRING;
-          ringVY += dy * SPRING;
-          ringVX *= DAMPING;
-          ringVY *= DAMPING;
-          ringX += ringVX;
-          ringY += ringVY;
-
-          const targetScale = isHovering ? 1.6 : (isClicking ? 0.75 : 1);
-          hoverScale += (targetScale - hoverScale) * 0.12;
-          const ringSize = 40 * hoverScale;
-          cursorRing.style.transform = `translate3d(${ringX - ringSize / 2}px, ${ringY - ringSize / 2}px, 0)`;
-          cursorRing.style.width = ringSize + "px";
-          cursorRing.style.height = ringSize + "px";
-
-          // ── Trail ──
-          const speed = Math.sqrt(ringVX * ringVX + ringVY * ringVY);
-          trail.push({ x: ringX, y: ringY, alpha: Math.min(1, speed / 8), life: 1 });
-          if (trail.length > TRAIL_LENGTH) trail.shift();
-
-          // ── Draw trail on canvas ──
-          ctx.clearRect(0, 0, w, h);
-          for (let i = 0; i < trail.length; i++) {
-            const p = trail[i];
-            p.life -= 0.04;
-            if (p.life <= 0) continue;
-            const t = i / trail.length;
-            const radius = 2 + t * 3;
-            const alpha = t * p.alpha * p.life * 0.5;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(0, 245, 255, ${alpha})`;
-            ctx.fill();
-          }
-          // Soft glow around dot
-          if (speed > 1) {
-            const glowAlpha = Math.min(0.15, speed / 60);
-            const grad = ctx.createRadialGradient(dotX, dotY, 0, dotX, dotY, 30);
-            grad.addColorStop(0, `rgba(0, 245, 255, ${glowAlpha})`);
-            grad.addColorStop(1, "rgba(0, 245, 255, 0)");
-            ctx.beginPath();
-            ctx.arc(dotX, dotY, 30, 0, Math.PI * 2);
-            ctx.fillStyle = grad;
-            ctx.fill();
-          }
-        });
-
-        // ── Hover effects ──
-        const interactiveElements =
-          'a, button, [role="button"], input, textarea, select, [data-cursor="pointer"]';
-
-        document.addEventListener("mouseover", (e) => {
-          if (e.target.closest(interactiveElements)) {
-            isHovering = true;
-            cursorRing.style.borderColor = "rgba(0, 245, 255, 0.5)";
-            cursorRing.style.background = "rgba(0, 245, 255, 0.06)";
-            cursorDot.style.boxShadow = "0 0 20px rgba(0, 245, 255, 1), 0 0 6px rgba(0, 245, 255, 1)";
-          }
-        });
-
-        document.addEventListener("mouseout", (e) => {
-          if (e.target.closest(interactiveElements)) {
-            isHovering = false;
-            cursorRing.style.borderColor = "rgba(0, 245, 255, 0.35)";
-            cursorRing.style.background = "transparent";
-            cursorDot.style.boxShadow = "0 0 12px rgba(0, 245, 255, 0.8), 0 0 4px rgba(0, 245, 255, 1)";
-          }
-        });
-
-        // Hide/show on window leave/enter
-        document.addEventListener("mouseleave", () => {
-          isVisible = false;
-          cursorDot.style.opacity = "0";
-          cursorRing.style.opacity = "0";
-          ctx.clearRect(0, 0, w, h);
-        });
-        document.addEventListener("mouseenter", () => {
-          isVisible = true;
-          cursorDot.style.opacity = "1";
-          cursorRing.style.opacity = "1";
-        });
-      })();
-
-      // ====================================================
-      // 4. SCROLL-TRIGGERED ANIMATIONS (GSAP)
-      // ====================================================
-      function initScrollAnimations() {
-        // Small delay ensures DOM paint is complete before measuring
-        requestAnimationFrame(() => {
-          ScrollTrigger.refresh();
-        });
-
-        // Animate all elements with data-animate attribute
-        gsap.utils.toArray("[data-animate]").forEach((el) => {
-          const type = el.dataset.animate || "fade-up";
-          const delay = parseFloat(el.dataset.animateDelay) || 0;
-          const duration = parseFloat(el.dataset.animateDuration) || 0.8;
-
-          let fromVars = { opacity: 0 };
-          let toVars = {
-            opacity: 1,
-            duration: duration,
-            delay: delay,
-            ease: "power3.out",
-          };
-
-          switch (type) {
-            case "fade-up":
-              fromVars.y = 50;
-              toVars.y = 0;
-              break;
-            case "fade-down":
-              fromVars.y = -50;
-              toVars.y = 0;
-              break;
-            case "fade-left":
-              fromVars.x = 50;
-              toVars.x = 0;
-              break;
-            case "fade-right":
-              fromVars.x = -50;
-              toVars.x = 0;
-              break;
-            case "scale":
-              fromVars.scale = 0.85;
-              toVars.scale = 1;
-              break;
-            case "fade":
-              break;
-          }
-
-          gsap.fromTo(el, fromVars, {
-            ...toVars,
-            scrollTrigger: {
-              trigger: el,
-              start: "top 90%",
-              end: "bottom 20%",
-              toggleActions: "play none none none",
-            },
-            clearProps: "all",
-          });
-        });
-
-        // Staggered children animation
-        gsap.utils.toArray("[data-stagger]").forEach((container) => {
-          const children = container.children;
-          const staggerDelay = parseFloat(container.dataset.stagger) || 0.1;
-
-          gsap.fromTo(
-            children,
-            { opacity: 0, y: 30 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.6,
-              stagger: staggerDelay,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: container,
-                start: "top 90%",
-                toggleActions: "play none none none",
-              },
-              clearProps: "all",
-            }
-          );
-        });
-
-        // Section headers
-        gsap.utils.toArray(".section-title").forEach((title) => {
-          gsap.fromTo(
-            title,
-            { opacity: 0, y: 30 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.8,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: title,
-                start: "top 90%",
-                toggleActions: "play none none none",
-              },
-              clearProps: "all",
-            }
-          );
-        });
-      }
-
-      // ====================================================
-      // 5. SCROLL PROGRESS BAR
-      // ====================================================
-      function initScrollProgress() {
-        const progressBar = document.getElementById("scroll-progress");
-        if (!progressBar) return;
-
-        gsap.to(progressBar, {
-          width: "100%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: document.body,
-            start: "top top",
-            end: "bottom bottom",
-            scrub: 0.3,
-          },
-        });
-      }
-
-      // ====================================================
-      // 6. MAGNETIC BUTTONS
-      // ====================================================
-      document.addEventListener("DOMContentLoaded", () => {
-        if (window.matchMedia("(pointer: coarse)").matches) return;
-
-        document.querySelectorAll("[data-magnetic]").forEach((btn) => {
-          btn.addEventListener("mousemove", (e) => {
-            const rect = btn.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            const strength = parseFloat(btn.dataset.magnetic) || 0.3;
-
-            gsap.to(btn, {
-              x: x * strength,
-              y: y * strength,
-              duration: 0.4,
-              ease: "power2.out",
-            });
-          });
-
-          btn.addEventListener("mouseleave", () => {
-            gsap.to(btn, {
-              x: 0,
-              y: 0,
-              duration: 0.6,
-              ease: "elastic.out(1, 0.5)",
-            });
-          });
-        });
-      });
-    </script>
-
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- GLOBAL STYLES                                          -->
-    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- Global Styles & Custom Reset -->
     <style is:global>
-      /* ── Animation Fallback ─────────────────────────────── */
-      /* Removed will-change: excess layers cause compositing lag */
-      [data-animate],
-      [data-stagger] > * {
-        /* GSAP handles promotion only when animating */
-      }
-
-      /* ── Font Face ─────────────────────────────────────── */
-      @font-face {
-        font-family: "Satoshi";
-        src: url("/fonts/Satoshi-Variable.ttf") format("truetype");
-        font-weight: 300 900;
-        font-display: swap;
-      }
-
-      /* ── Global Reset & Base ───────────────────────────── */
-      *,
-      *::before,
-      *::after {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
+      /* Base Resets */
       html {
-        scroll-behavior: smooth;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        background-color: #09090B;
       }
 
       body {
-        font-family: "Satoshi", "Inter", "Poppins", system-ui, sans-serif;
-        background: #050505;
-        color: #f0f0f0;
-        cursor: none;
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: touch;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
       }
 
-      @media (pointer: coarse) {
-        body {
-          cursor: auto;
-        }
+      /* Heading typography using Geist Sans */
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Geist Sans', 'Inter', system-ui, sans-serif;
+        font-weight: 500;
+        letter-spacing: -0.02em;
       }
 
-      /* ── Custom Scrollbar ──────────────────────────────── */
+      /* Custom scrollbar matching dark theme */
       ::-webkit-scrollbar {
-        width: 6px;
+        width: 8px;
+        height: 8px;
       }
       ::-webkit-scrollbar-track {
-        background: #0d0d0d;
+        background: #09090B;
       }
       ::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, #00f5ff, #a855f7);
-        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(180deg, #00f5ff, #ec4899);
+        background: rgba(255, 255, 255, 0.15);
       }
 
-      /* Firefox scrollbar */
+      /* Firefox scrollbar compatibility */
       * {
         scrollbar-width: thin;
-        scrollbar-color: #00f5ff #0d0d0d;
+        scrollbar-color: rgba(255, 255, 255, 0.08) #09090B;
       }
 
-      /* ── Selection Styles ──────────────────────────────── */
-      ::selection {
-        background: rgba(0, 245, 255, 0.25);
-        color: #ffffff;
-      }
-
-      /* ── Focus Styles ──────────────────────────────────── */
+      /* Focus Ring Philosophy (Teach once, visible focus) */
       *:focus-visible {
-        outline: 2px solid #00f5ff;
-        outline-offset: 3px;
-        border-radius: 2px;
+        outline: 2px solid #2563EB;
+        outline-offset: 4px;
       }
 
-      /* ── Skip Link ─────────────────────────────────────── */
-      .skip-link {
-        position: fixed;
-        top: -100%;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #00f5ff;
-        color: #050505;
-        padding: 0.75rem 1.5rem;
-        border-radius: 0 0 8px 8px;
-        font-weight: 600;
-        z-index: 999;
-        transition: top 0.3s ease;
-      }
-      .skip-link:focus {
-        top: 0;
+      /* Smooth content rendering */
+      main {
+        opacity: 0;
+        animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       }
 
-      /* ── Gradient Text Utility ─────────────────────────── */
-      .gradient-text {
-        background: linear-gradient(135deg, #00f5ff, #a855f7);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .gradient-text-alt {
-        background: linear-gradient(135deg, #a855f7, #ec4899);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .gradient-text-teal {
-        background: linear-gradient(135deg, #00f5ff, #22d3ee);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      /* ── Glass Morphism Utility ────────────────────────── */
-      .glass {
-        background: rgba(13, 13, 13, 0.6);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-      }
-
-      .glass-card {
-        background: rgba(13, 13, 13, 0.4);
-        backdrop-filter: blur(30px);
-        -webkit-backdrop-filter: blur(30px);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      .glass-card:hover {
-        border-color: rgba(0, 245, 255, 0.15);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
-          0 0 20px rgba(0, 245, 255, 0.05);
-      }
-
-      /* ── Glow Effects ──────────────────────────────────── */
-      .glow-effect {
-        box-shadow: 0 0 20px rgba(0, 245, 255, 0.15);
-      }
-
-      .glow-text {
-        text-shadow: 0 0 20px rgba(0, 245, 255, 0.3),
-          0 0 40px rgba(0, 245, 255, 0.1);
-      }
-
-      /* ── Hover Lift ────────────────────────────────────── */
-      .hover-lift {
-        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-          box-shadow 0.4s ease;
-      }
-      .hover-lift:hover {
-        transform: translateY(-5px);
-      }
-
-      /* ── Section Styles ────────────────────────────────── */
-      .section-title {
-        font-size: clamp(2rem, 5vw, 3.5rem);
-        font-weight: 700;
-        letter-spacing: -0.02em;
-        line-height: 1.1;
-      }
-
-      .section-subtitle {
-        font-size: clamp(0.875rem, 2vw, 1.125rem);
-        color: #8a8a8a;
-        max-width: 600px;
-        line-height: 1.6;
-      }
-
-      /* ── Animated Underline ────────────────────────────── */
-      .animated-underline {
-        position: relative;
-        display: inline-block;
-      }
-      .animated-underline::after {
-        content: "";
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: linear-gradient(90deg, #00f5ff, #a855f7);
-        transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .animated-underline:hover::after {
-        width: 100%;
-      }
-
-      /* ── Shimmer Effect ────────────────────────────────── */
-      .shimmer {
-        background: linear-gradient(
-          90deg,
-          transparent 0%,
-          rgba(0, 245, 255, 0.05) 50%,
-          transparent 100%
-        );
-        background-size: 200% 100%;
-        animation: shimmer 2s linear infinite;
-      }
-
-      /* ── Tilt Card ─────────────────────────────────────── */
-      .tilt-card {
-        transform-style: preserve-3d;
-        perspective: 1000px;
-      }
-
-      /* ── Float animation keyframes (global) ────────────── */
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0px);
-        }
-        50% {
-          transform: translateY(-20px);
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
         }
       }
 
-      @keyframes shimmer {
-        0% {
-          background-position: -200% 0;
+      /* Reduced motion support */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
         }
-        100% {
-          background-position: 200% 0;
-        }
-      }
-
-      @keyframes gradientShift {
-        0%,
-        100% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-      }
-
-      /* ── Responsive Typography Scale ───────────────────── */
-      @media (max-width: 640px) {
-        .section-title {
-          letter-spacing: -0.01em;
+        main {
+          opacity: 1 !important;
+          animation: none !important;
         }
       }
     </style>

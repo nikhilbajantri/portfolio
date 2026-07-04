@@ -1,86 +1,134 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navigation from '../components/Navigation.astro';
-import Footer from '../components/Footer.astro';
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
 ---
 
-<Layout title="What I'm up to now - Nick" description="Current activities and focus areas">
+<Layout title="Now">
   <Navigation />
-  <main class="pt-16">
-    <section class="py-20 bg-dark-bg">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-          <h1 class="text-4xl sm:text-5xl font-bold text-text-primary mb-4">
-            What I'm up to <span class="text-neon-cyan">now</span>
-          </h1>
-          <div class="w-24 h-1 bg-neon-cyan mx-auto mb-6"></div>
-          <p class="text-text-secondary text-lg">
-            Inspired by <a href="https://nownownow.com/about" class="text-neon-cyan hover:underline" target="_blank" rel="noopener noreferrer">nownownow.com</a>
-          </p>
-        </div>
 
-        <!-- Currently Working On Section -->
-        <div class="mb-12">
-          <h2 class="text-2xl font-bold text-text-primary mb-6">
-            Currently Working On
-          </h2>
-          <ul class="space-y-4 text-text-secondary">
-            <li class="flex items-start">
-              <span class="text-neon-cyan mr-3 mt-1">•</span>
-              <span>
-                <strong class="text-text-primary">Work:</strong> Building DailyDine a scalable and innovative restaurant reservation platform.
-              </span>
-            </li>
-            <li class="flex items-start">
-              <span class="text-neon-cyan mr-3 mt-1">•</span>
-              <span>
-                <strong class="text-text-primary">Side Project:</strong> Building <a href="#" class="text-neon-cyan hover:underline">HisabProx</a>, simplifying Freelancer invoice work.
-              </span>
-            </li>
-            <li class="flex items-start">
-              <span class="text-neon-cyan mr-3 mt-1">•</span>
-              <span>
-                Hitting the gym 5 days in a week, and eating healthy.
-              </span>
-            </li>
-            <li class="flex items-start">
-              <span class="text-neon-cyan mr-3 mt-1">•</span>
-              <span>
-                Growing <a href="#" class="text-neon-cyan hover:underline">DailyDine</a>, a restaurant reservation platform. 
-             </span>
-            </li>
-          </ul>
-        </div>
+  <main id="main-content" class="flex-1 max-w-[72ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-16 font-sans">
+    
+    <!-- Header -->
+    <header class="flex flex-col gap-6">
+      <h1 class="text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
+        Now
+      </h1>
+      <p class="text-lg text-[#A1A1AA] leading-relaxed">
+        What I'm doing today: a live update of active priorities, domains of study, and open questions.
+      </p>
+    </header>
 
-        <!-- Current Focus Section -->
-        <div class="mb-12">
-          <h2 class="text-2xl font-bold text-text-primary mb-6">
-            Current Focus
-          </h2>
-          <ul class="space-y-4 text-text-secondary">
-            <li class="flex items-start">
-              <span class="text-neon-cyan mr-3 mt-1">•</span>
-              <span>
-                Level up my Fullstack Development skills
-              </span>
-            </li>
-            <li class="flex items-start">
-              <span class="text-neon-cyan mr-3 mt-1">•</span>
-              <span>
-                Be a consistent reader, and writer, and a better person
-              </span>
-            </li>
-          </ul>
-        </div>
+    <!-- Priorities & Domain Exploration -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-12">
+      
+      <!-- Priorities -->
+      <section class="flex flex-col gap-4">
+        <h2 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
+          Priorities
+        </h2>
+        <ul class="flex flex-col gap-3 text-sm text-[#A1A1AA]">
+          <li class="flex items-start gap-2">
+            <span class="text-[#2563EB] font-bold">•</span>
+            Building thoughtful software
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-[#2563EB] font-bold">•</span>
+            Developing stronger engineering fundamentals
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-[#2563EB] font-bold">•</span>
+            Learning cybersecurity
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-[#2563EB] font-bold">•</span>
+            Writing consistently
+          </li>
+        </ul>
+      </section>
 
-        <!-- Last Updated -->
-        <div class="text-center pt-8 border-t border-dark-border">
-          <p class="text-text-muted text-sm">
-            Last updated: 24th August 2025
-          </p>
+      <!-- Currently Exploring -->
+      <section class="flex flex-col gap-4">
+        <h2 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
+          Exploring
+        </h2>
+        <ul class="flex flex-col gap-3 text-sm text-[#A1A1AA]">
+          <li class="flex items-start gap-2">
+            <span class="text-[#2563EB] font-bold">•</span>
+            Cybersecurity and computer systems
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-[#2563EB] font-bold">•</span>
+            Distributed systems architecture
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-[#2563EB] font-bold">•</span>
+            Linux kernel networking and compilers
+          </li>
+        </ul>
+      </section>
+
+    </div>
+
+    <!-- Currently (Status Indicators) -->
+    <section class="flex flex-col gap-6 border-t border-[rgba(255,255,255,0.08)] pt-12">
+      <h2 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
+        Status
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm text-[#A1A1AA]">
+        <div>
+          <span class="text-[#71717A] block text-xs">Listening To</span>
+          Ambient soundscapes
+        </div>
+        <div>
+          <span class="text-[#71717A] block text-xs">Reading</span>
+          "The Pragmatic Programmer"
+        </div>
+        <div>
+          <span class="text-[#71717A] block text-xs">Learning</span>
+          Linux kernel fundamentals
+        </div>
+        <div>
+          <span class="text-[#71717A] block text-xs">Building</span>
+          DailyDine core reservation engine
+        </div>
+        <div>
+          <span class="text-[#71717A] block text-xs">Thinking About</span>
+          Build systems that endure
         </div>
       </div>
     </section>
+
+    <!-- Open Questions -->
+    <section class="flex flex-col gap-4 border-t border-[rgba(255,255,255,0.08)] pt-12">
+      <h2 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
+        Open Questions
+      </h2>
+      <ul class="flex flex-col gap-3 text-sm text-[#A1A1AA]">
+        <li class="flex items-start gap-2">
+          <span class="text-[#2563EB] font-bold">•</span>
+          How should AI change software engineering?
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-[#2563EB] font-bold">•</span>
+          What makes software feel trustworthy?
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-[#2563EB] font-bold">•</span>
+          Can security become invisible?
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-[#2563EB] font-bold">•</span>
+          How do great engineering cultures emerge?
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-[#2563EB] font-bold">•</span>
+          What makes products endure?
+        </li>
+      </ul>
+    </section>
+
   </main>
+
   <Footer />
 </Layout>

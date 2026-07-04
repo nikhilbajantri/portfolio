@@ -1,0 +1,157 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+
+// Pre-defined list of articles/essays categorized by types
+const articles = [
+  {
+    title: "Why I Started Writing",
+    type: "Essay",
+    date: "July 2026",
+    description: "An inquiry into how writing helps clarify software architecture and structures memory.",
+    slug: "/writing/why-i-started-writing"
+  },
+  {
+    title: "The Kind of Engineer I Want to Become",
+    type: "Essay",
+    date: "June 2026",
+    description: "Reflections on craftsman philosophy, engineering humility, and long-term design patterns.",
+    slug: "/writing/the-kind-of-engineer-i-want-to-become"
+  },
+  {
+    title: "From Curiosity to Code: My Journey Into the World of Computers",
+    type: "Essay",
+    date: "August 2025",
+    description: "A narrative on the spark of curiosity in computer systems, starting from childhood computer luxury.",
+    slug: "/writing/from-curiosity-to-code"
+  }
+];
+
+// Grouping by type
+const essays = articles.filter(a => a.type === "Essay");
+const deepDives = articles.filter(a => a.type === "Deep Dive");
+const techArticles = articles.filter(a => a.type === "Article");
+const bookNotes = articles.filter(a => a.type === "Book Note");
+---
+
+<Layout title="Writing">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[960px] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-16 font-sans">
+    
+    <!-- Header -->
+    <header class="flex flex-col gap-6 max-w-[72ch]">
+      <h1 class="text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
+        Writing
+      </h1>
+      <p class="text-lg text-[#A1A1AA] leading-relaxed">
+        Writing is how I organize my thinking. Most articles begin as questions. Some become essays. Others become documentation. A few become ideas worth building.
+      </p>
+    </header>
+
+    <!-- Sections by Hierarchy -->
+    <div class="flex flex-col gap-16">
+      
+      <!-- Essays Section -->
+      {essays.length > 0 && (
+        <section class="flex flex-col gap-6">
+          <h2 class="text-xs font-medium text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
+            Essays
+          </h2>
+          <div class="flex flex-col gap-6">
+            {essays.map(post => (
+              <a href={post.slug} class="group flex flex-col gap-2">
+                <div class="flex justify-between items-baseline gap-4">
+                  <h3 class="text-lg font-medium text-[#FAFAFA] group-hover:text-[#2563EB] transition-colors duration-180">
+                    {post.title}
+                  </h3>
+                  <span class="text-xs text-[#71717A] font-mono whitespace-nowrap">{post.date}</span>
+                </div>
+                <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[72ch]">
+                  {post.description}
+                </p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Deep Dives Section -->
+      {deepDives.length > 0 && (
+        <section class="flex flex-col gap-6">
+          <h2 class="text-xs font-medium text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
+            Deep Dives
+          </h2>
+          <div class="flex flex-col gap-6">
+            {deepDives.map(post => (
+              <a href={post.slug} class="group flex flex-col gap-2">
+                <div class="flex justify-between items-baseline gap-4">
+                  <h3 class="text-lg font-medium text-[#FAFAFA] group-hover:text-[#2563EB] transition-colors duration-180">
+                    {post.title}
+                  </h3>
+                  <span class="text-xs text-[#71717A] font-mono whitespace-nowrap">{post.date}</span>
+                </div>
+                <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[72ch]">
+                  {post.description}
+                </p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Articles Section -->
+      {techArticles.length > 0 && (
+        <section class="flex flex-col gap-6">
+          <h2 class="text-xs font-medium text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
+            Articles
+          </h2>
+          <div class="flex flex-col gap-6">
+            {techArticles.map(post => (
+              <a href={post.slug} class="group flex flex-col gap-2">
+                <div class="flex justify-between items-baseline gap-4">
+                  <h3 class="text-lg font-medium text-[#FAFAFA] group-hover:text-[#2563EB] transition-colors duration-180">
+                    {post.title}
+                  </h3>
+                  <span class="text-xs text-[#71717A] font-mono whitespace-nowrap">{post.date}</span>
+                </div>
+                <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[72ch]">
+                  {post.description}
+                </p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Book Notes Section -->
+      {bookNotes.length > 0 && (
+        <section class="flex flex-col gap-6">
+          <h2 class="text-xs font-medium text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
+            Book Notes
+          </h2>
+          <div class="flex flex-col gap-6">
+            {bookNotes.map(post => (
+              <a href={post.slug} class="group flex flex-col gap-2">
+                <div class="flex justify-between items-baseline gap-4">
+                  <h3 class="text-lg font-medium text-[#FAFAFA] group-hover:text-[#2563EB] transition-colors duration-180">
+                    {post.title}
+                  </h3>
+                  <span class="text-xs text-[#71717A] font-mono whitespace-nowrap">{post.date}</span>
+                </div>
+                <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[72ch]">
+                  {post.description}
+                </p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+    </div>
+
+  </main>
+
+  <Footer />
+</Layout>

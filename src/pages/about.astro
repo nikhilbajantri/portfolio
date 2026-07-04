@@ -1,0 +1,206 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+
+// Looking Back: Narrative timeline items
+const timelineItems = [
+  {
+    period: "2024 - Present",
+    role: "Core Software Engineering",
+    details: "Focusing on backend systems and concurrency coordination. Contributing to DailyDine's scheduling backend."
+  },
+  {
+    period: "2023 - 2024",
+    role: "Open Source and Linux Fundamentals",
+    details: "Began contributing to student developer groups. Focused on mastering Linux command line and system administration."
+  },
+  {
+    period: "2021 - 2023",
+    role: "Initial Programming and Exploration",
+    details: "Explored programming fundamentals. Focused on basic data structures, algorithms, and script automation."
+  }
+];
+
+// Site Updates (Changelog)
+const siteUpdates = [
+  {
+    version: "v2.3",
+    date: "July 2026",
+    changes: [
+      "Simplified global navigation structure.",
+      "Replaced neon visual details with a unified zinc theme.",
+      "Added reading recommendations directory.",
+      "Constructed online resume representation page."
+    ]
+  },
+  {
+    version: "v2.2",
+    date: "June 2026",
+    changes: [
+      "Restructured homepage hierarchy to highlight current focus.",
+      "Implemented Geist and Inter typography system."
+    ]
+  }
+];
+---
+
+<Layout title="About">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[960px] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-20 font-sans">
+    
+    <!-- Header -->
+    <header class="flex flex-col gap-6 max-w-[72ch]">
+      <h1 class="text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
+        About
+      </h1>
+      <p class="text-lg text-[#A1A1AA] leading-relaxed">
+        Why I build: I believe that software should be quiet, reliable, and built to endure.
+        I value clear thinking, careful implementation, and documenting what I learn.
+      </p>
+    </header>
+
+    <!-- Narrative Story (Philosophy-First) -->
+    <section class="flex flex-col gap-4 max-w-[72ch]">
+      <h2 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
+        Philosophy
+      </h2>
+      <div class="flex flex-col gap-6 text-sm text-[#A1A1AA] leading-[1.7]">
+        <p>
+          I started coding because I wanted to understand how systems operate.
+          Over time, I learned that the best systems are simple and maintainable.
+          I prefer architectures that run efficiently with minimal dependencies.
+          This focus helps me write code that is clean and resilient.
+        </p>
+        <p>
+          Learning is not a temporary phase.
+          It is the engineering work itself.
+          I believe in sharing errors and documentation openly.
+          This helps clarify concepts and builds trust over the long term.
+        </p>
+      </div>
+    </section>
+
+    <!-- Operating Manual Section -->
+    <section class="flex flex-col gap-6">
+      <h2 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
+        Operating Manual
+      </h2>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        
+        <div class="flex flex-col gap-2">
+          <h3 class="text-sm font-medium text-[#FAFAFA]">How I Work</h3>
+          <p class="text-sm text-[#A1A1AA] leading-relaxed">
+            I prioritize deep focus blocks over fragmented multitasking.
+            I optimize my development tools to run locally and stay out of the way.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <h3 class="text-sm font-medium text-[#FAFAFA]">How I Learn</h3>
+          <p class="text-sm text-[#A1A1AA] leading-relaxed">
+            I study domains by reading documentation first.
+            I build simple labs to test systems limits and verify concepts.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <h3 class="text-sm font-medium text-[#FAFAFA]">How I Read</h3>
+          <p class="text-sm text-[#A1A1AA] leading-relaxed">
+            I read to change how I think.
+            I highlight key concepts and write summaries to internalize the lessons.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <h3 class="text-sm font-medium text-[#FAFAFA]">Workflow</h3>
+          <p class="text-sm text-[#A1A1AA] leading-relaxed">
+            I use git version control, clear issue lists, and local testing.
+            I ship incremental improvements rather than large, complex releases.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Looking Back (Timeline) -->
+    <section class="flex flex-col gap-6">
+      <h2 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
+        Looking Back
+      </h2>
+      <div class="flex flex-col gap-8">
+        {timelineItems.map((item) => (
+          <div class="flex flex-col sm:flex-row gap-2 sm:gap-12">
+            <span class="text-xs text-[#71717A] font-mono sm:w-28 flex-shrink-0">{item.period}</span>
+            <div class="flex flex-col gap-1">
+              <h3 class="text-sm font-medium text-[#FAFAFA]">{item.role}</h3>
+              <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[72ch]">{item.details}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Monthly Review -->
+    <section class="flex flex-col gap-6">
+      <h2 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
+        Monthly Review (July 2026)
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm text-[#A1A1AA] leading-relaxed">
+        <div>
+          <span class="font-medium text-[#FAFAFA] block mb-1">What I Built</span>
+          Redesigned the portfolio into a clean publication site.
+        </div>
+        <div>
+          <span class="font-medium text-[#FAFAFA] block mb-1">What I Learned</span>
+          Deeper systems security models and local-first architecture patterns.
+        </div>
+        <div>
+          <span class="font-medium text-[#FAFAFA] block mb-1">What I Read</span>
+          Finished Cal Newport's Deep Work.
+        </div>
+        <div>
+          <span class="font-medium text-[#FAFAFA] block mb-1">Mistakes</span>
+          Over-engineered the initial database queue logic.
+        </div>
+      </div>
+    </section>
+
+    <!-- Speaking Placeholder -->
+    <section class="flex flex-col gap-3">
+      <h2 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
+        Speaking
+      </h2>
+      <p class="text-sm text-[#71717A] italic">
+        Coming Soon
+      </p>
+    </section>
+
+    <!-- Site Updates (Changelog) -->
+    <section class="flex flex-col gap-6">
+      <h2 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
+        Site Updates
+      </h2>
+      <div class="flex flex-col gap-6">
+        {siteUpdates.map((update) => (
+          <div class="flex flex-col gap-2">
+            <div class="flex gap-2 items-baseline">
+              <span class="text-sm font-medium text-[#FAFAFA]">{update.version}</span>
+              <span class="text-xs text-[#71717A] font-mono">{update.date}</span>
+            </div>
+            <ul class="flex flex-col gap-1.5 text-xs text-[#A1A1AA] pl-4 list-disc">
+              {update.changes.map((change) => (
+                <li>{change}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

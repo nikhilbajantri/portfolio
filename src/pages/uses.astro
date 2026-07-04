@@ -1,114 +1,71 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navigation from '../components/Navigation.astro';
-import Footer from '../components/Footer.astro';
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
 
-const deskItems = [
-  { name: "LOQ Ryzen 7", description: "My primary development machine. I'm a big fan of Ryzen processors for their performance and value." },
-  { name: "Xiaomi Pad 5", description: "Perfect for taking notes, reading books, and consuming content on the go." },
-  { name: "Realme 12 Pro", description: "Absolute great camera and my testing phone for development work." },
-  { name: "CMF by Nothing", description: "Best earbuds for my price range, great sound quality and design." }
-];
-
-const developmentItems = [
-  { name: "Cursor Pro", description: "My primary code editor with AI capabilities. The autocomplete and AI assistance have become essential to my workflow." },
-  { name: "Brave Browser", description: "Used for watching YouTube and general browsing with better privacy." },
-  { name: "GitHub Desktop", description: "I prefer deploying using the visual interface rather than command line." }
-];
-
-const productivityItems = [
-  { name: "Notion", description: "My all-in-one workspace for notes, project management, and documentation." },
-  { name: "Notion Calendar", description: "Integrated calendar that syncs perfectly with my Notion workspace." },
-  { name: "1Password", description: "Secure password management for all my accounts and services." }
-];
-
-const notableMentions = [
-  { name: "Mettle Bottle", description: "Given from Nivius Solutions at GDG Mangalore event." },
-  { name: "Logitech Mouse Pad", description: "Reliable and comfortable mouse pad for long coding sessions." },
-  { name: "Ryzen Fan Club", description: "Proud member of the Ryzen community - love the performance and efficiency!" }
+const categories = [
+  {
+    title: "Hardware",
+    items: [
+      { name: "LOQ Ryzen 7", desc: "Main development laptop. Quiet, reliable, and capable of running heavy compilations." },
+      { name: "Xiaomi Pad 5", desc: "Digital notepad and reader used for studying system manuals on the go." },
+      { name: "Realme 12 Pro", desc: "Physical testing device for mobile software builds." }
+    ]
+  },
+  {
+    title: "Development",
+    items: [
+      { name: "Cursor / Neovim", desc: "Default editors. Fast, distraction-free environment containing autocomplete capabilities." },
+      { name: "Brave Browser", desc: "Default Web browser. Safe browsing with robust tracker blocking." },
+      { name: "Git", desc: "Decentralized version control system ensuring full code history ownership." }
+    ]
+  },
+  {
+    title: "Security Workflow",
+    items: [
+      { name: "1Password", desc: "Encrypted password storage for credentials." },
+      { name: "GnuPG", desc: "Sign commits and encrypt communication keys." }
+    ]
+  }
 ];
 ---
 
-<Layout title="My setup - Nick" description="Here's what I use on a daily basis for development and productivity">
+<Layout title="Uses">
   <Navigation />
-  <main class="pt-16">
-    <section class="py-20 bg-dark-bg min-h-screen">
-      <div class="max-w-4xl mx-auto px-8">
-        <!-- Header -->
-        <div class="mb-16">
-          <h1 class="text-5xl font-bold text-text-primary mb-4">
-            My setup
-          </h1>
-          <p class="text-text-secondary text-lg">
-            Here's what I use on a daily basis for development and productivity
-          </p>
-        </div>
 
-        <!-- Desk Section -->
-        <div class="mb-16">
-          <div class="mb-8">
-            <h2 class="text-2xl font-bold text-text-primary mb-2">Desk</h2>
-            <div class="h-px bg-text-secondary w-full"></div>
-          </div>
-          <div class="space-y-3">
-            {deskItems.map((item) => (
-              <div class="text-text-primary">
-                <span class="font-bold">{item.name}</span>
-                <span class="text-text-secondary">: {item.description}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+  <main id="main-content" class="flex-1 max-w-[72ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-16 font-sans">
+    
+    <!-- Header -->
+    <header class="flex flex-col gap-6">
+      <h1 class="text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
+        Uses
+      </h1>
+      <p class="text-lg text-[#A1A1AA] leading-relaxed">
+        Why I Use These Tools: I optimize for tools that disappear into the background.
+        The best software lets me focus on thinking rather than configuration.
+      </p>
+    </header>
 
-        <!-- Development Section -->
-        <div class="mb-16">
-          <div class="mb-8">
-            <h2 class="text-2xl font-bold text-text-primary mb-2">Development</h2>
-            <div class="h-px bg-text-secondary w-full"></div>
-          </div>
-          <div class="space-y-3">
-            {developmentItems.map((item) => (
-              <div class="text-text-primary">
-                <span class="font-bold">{item.name}</span>
-                <span class="text-text-secondary">: {item.description}</span>
-              </div>
+    <!-- Specs Lists -->
+    <div class="flex flex-col gap-12">
+      {categories.map((cat) => (
+        <section class="flex flex-col gap-4">
+          <h2 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
+            {cat.title}
+          </h2>
+          <ul class="flex flex-col gap-4">
+            {cat.items.map((item) => (
+              <li class="flex flex-col gap-1">
+                <span class="text-sm font-medium text-[#FAFAFA]">{item.name}</span>
+                <span class="text-sm text-[#A1A1AA] leading-relaxed">{item.desc}</span>
+              </li>
             ))}
-          </div>
-        </div>
+          </ul>
+        </section>
+      ))}
+    </div>
 
-        <!-- Productivity Section -->
-        <div class="mb-16">
-          <div class="mb-8">
-            <h2 class="text-2xl font-bold text-text-primary mb-2">Productivity</h2>
-            <div class="h-px bg-text-secondary w-full"></div>
-          </div>
-          <div class="space-y-3">
-            {productivityItems.map((item) => (
-              <div class="text-text-primary">
-                <span class="font-bold">{item.name}</span>
-                <span class="text-text-secondary">: {item.description}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <!-- Notable Mentions Section -->
-        <div class="mb-16">
-          <div class="mb-8">
-            <h2 class="text-2xl font-bold text-text-primary mb-2">Notable Mentions</h2>
-            <div class="h-px bg-text-secondary w-full"></div>
-          </div>
-          <div class="space-y-3">
-            {notableMentions.map((item) => (
-              <div class="text-text-primary">
-                <span class="font-bold">{item.name}</span>
-                <span class="text-text-secondary">: {item.description}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
+
   <Footer />
 </Layout>

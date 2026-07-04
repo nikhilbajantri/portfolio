@@ -1,170 +1,87 @@
 ---
-// Footer — Premium parallax footer with animated links
-
 const currentYear = new Date().getFullYear();
 
-const quickLinks = [
-  { name: "Now", href: "/now" },
-  { name: "Blog", href: "/blog" },
-  { name: "Uses", href: "/uses" },
-  { name: "Books", href: "/books" },
-  { name: "Achievements", href: "/achievements" },
+const footerLinks = [
+  { name: 'Now', href: '/now' },
+  { name: 'Uses', href: '/uses' },
+  { name: 'Resume', href: '/about/resume' },
+  { name: 'RSS', href: '/rss.xml' },
 ];
 
 const socialLinks = [
-  {
-    name: "GitHub",
-    href: "https://github.com/programmer-nick234/",
-    icon: "fab fa-github",
-  },
-  {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/in/nikhil-bajantri-dev",
-    icon: "fab fa-linkedin-in",
-  },
-  {
-    name: "X (Twitter)",
-    href: "https://x.com/nikkkkhil_2604",
-    icon: "fab fa-x-twitter",
-  },
+  { name: 'GitHub', href: 'https://github.com/programmer-nick234/' },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/nikhil-bajantri-dev' },
+  { name: 'Email', href: 'mailto:nikhilbajantri2604@gmail.com' },
 ];
 ---
 
-<footer class="relative pt-16 sm:pt-20 pb-8 overflow-hidden">
-  <!-- Top divider -->
-  <div
-    class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
-  >
-  </div>
-
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Footer Grid -->
-    <div
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-8 mb-12 sm:mb-16"
-      data-animate="fade-up"
-    >
-      <!-- Brand -->
-      <div class="lg:col-span-2">
-        <a href="/" class="inline-block mb-4 group">
-          <span class="text-2xl font-bold gradient-text">NB</span>
-        </a>
-        <p class="text-sm text-[#555] leading-relaxed max-w-sm mb-6">
-          Full Stack Developer & CTO crafting digital experiences with modern
-          technologies. Always learning, always building.
-        </p>
-        <div class="flex items-center gap-3">
-          {
-            socialLinks.map((link) => (
-              <a
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group w-9 h-9 rounded-lg bg-white/[0.03] border border-white/5 flex items-center justify-center text-[#555] hover:text-[#00f5ff] hover:border-[#00f5ff]/20 hover:bg-[#00f5ff]/5 transition-all duration-400"
-                aria-label={link.name}
-                data-magnetic="0.3"
-              >
-                <i
-                  class={`${link.icon} text-sm group-hover:scale-110 transition-transform duration-400`}
-                />
-              </a>
-            ))
-          }
-        </div>
+<footer class="w-full border-t border-[rgba(255,255,255,0.08)] bg-[#09090B] mt-auto">
+  <div class="max-w-[1200px] mx-auto px-6 py-12 flex flex-col md:flex-row md:items-start justify-between gap-8">
+    
+    <!-- Left: Colophon and Copyright -->
+    <div class="flex flex-col gap-4 max-w-sm">
+      <div class="text-sm text-[#A1A1AA] leading-relaxed">
+        This website was designed and built by me. Built with Astro, Tailwind CSS, TypeScript, and deployed on Vercel. Typography uses Geist, Inter, and JetBrains Mono. The source code is available on GitHub.
       </div>
-
-      <!-- Quick Links -->
-      <div>
-        <h4
-          class="text-xs uppercase tracking-[0.2em] text-[#555] font-medium mb-4"
-        >
-          Explore
-        </h4>
-        <ul class="space-y-2.5">
-          {
-            quickLinks.map((link) => (
-              <li>
-                <a
-                  href={link.href}
-                  class="animated-underline text-sm text-[#8a8a8a] hover:text-[#f0f0f0] transition-colors duration-300"
-                >
-                  {link.name}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      <!-- Contact Quick -->
-      <div>
-        <h4
-          class="text-xs uppercase tracking-[0.2em] text-[#555] font-medium mb-4"
-        >
-          Say Hello
-        </h4>
-        <ul class="space-y-2.5">
-          <li>
-            <a
-              href="mailto:nikhilbajantri2604@gmail.com"
-              class="animated-underline text-sm text-[#8a8a8a] hover:text-[#f0f0f0] transition-colors duration-300"
-            >
-              nikhilbajantri2604@gmail.com
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.linkedin.com/in/nikhil-bajantri-dev"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="animated-underline text-sm text-[#8a8a8a] hover:text-[#f0f0f0] transition-colors duration-300"
-            >
-              LinkedIn Profile
-            </a>
-          </li>
-          <li>
-            <a
-              href="/resume.pdf"
-              download
-              class="animated-underline text-sm text-[#8a8a8a] hover:text-[#f0f0f0] transition-colors duration-300"
-            >
-              Download Resume
-            </a>
-          </li>
-        </ul>
+      <div class="text-xs text-[#71717A] tracking-tight">
+        Built carefully. Updated continuously. Last updated: July 2026.
       </div>
     </div>
 
-    <!-- Bottom Bar -->
-    <div
-      class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-white/5"
-    >
-      <p class="text-xs text-[#555]">
-        © {currentYear} Nikhil Bajantri. Crafted with
-        <span class="text-[#ec4899]">♥</span>
-      </p>
+    <!-- Right: Navigation, Socials and Live Metadata -->
+    <div class="flex flex-col sm:flex-row gap-12 sm:gap-16">
+      
+      <!-- Links -->
+      <div class="flex flex-col gap-3">
+        <h3 class="text-xs text-[#FAFAFA] font-medium tracking-wider uppercase">Menu</h3>
+        <nav class="flex flex-col gap-2">
+          {footerLinks.map((link) => (
+            <a
+              href={link.href}
+              class="text-sm text-[#A1A1AA] hover:text-[#2563EB] transition-colors duration-180"
+            >
+              {link.name}
+            </a>
+          ))}
+        </nav>
+      </div>
 
-      <!-- Back to top -->
-      <button
-        id="back-to-top"
-        class="group flex items-center gap-2 text-xs text-[#555] hover:text-[#00f5ff] transition-all duration-400"
-        aria-label="Scroll back to top"
-        data-magnetic="0.3"
-      >
-        <span>Back to top</span>
-        <div
-          class="w-7 h-7 rounded-lg bg-white/[0.03] border border-white/5 flex items-center justify-center group-hover:border-[#00f5ff]/20 group-hover:-translate-y-0.5 transition-all duration-400"
-        >
-          <i class="fas fa-arrow-up text-[8px]"></i>
+      <!-- Socials -->
+      <div class="flex flex-col gap-3">
+        <h3 class="text-xs text-[#FAFAFA] font-medium tracking-wider uppercase">Connect</h3>
+        <div class="flex flex-col gap-2">
+          {socialLinks.map((link) => (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sm text-[#A1A1AA] hover:text-[#2563EB] transition-colors duration-180"
+            >
+              {link.name}
+            </a>
+          ))}
         </div>
-      </button>
+      </div>
+
+      <!-- Live Metadata -->
+      <div class="flex flex-col gap-3">
+        <h3 class="text-xs text-[#FAFAFA] font-medium tracking-wider uppercase">Status</h3>
+        <div class="flex flex-col gap-2 text-sm text-[#A1A1AA]">
+          <div>
+            <span class="text-[#71717A] block text-xs">Updated</span>
+            July 2026
+          </div>
+          <div>
+            <span class="text-[#71717A] block text-xs">Reading</span>
+            "The Pragmatic Programmer"
+          </div>
+          <div>
+            <span class="text-[#71717A] block text-xs">Building</span>
+            DailyDine
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </footer>
-
-<script>
-  // Back to top
-  const backToTop = document.getElementById("back-to-top");
-  backToTop?.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-</script>

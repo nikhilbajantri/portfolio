@@ -1,0 +1,93 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navigation from "../../components/Navigation.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout title="From Curiosity to Code: My Journey Into the World of Computers">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[72ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Article Header -->
+    <header class="flex flex-col gap-4">
+      <div class="flex gap-2 text-xs text-[#71717A] font-mono">
+        <span>Essay</span>
+        <span>·</span>
+        <span>August 2025</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
+        From Curiosity to Code: My Journey Into the World of Computers
+      </h1>
+      <p class="text-sm text-[#A1A1AA] italic">
+        "Build things that still make sense a decade later."
+      </p>
+    </header>
+
+    <!-- Article Content -->
+    <div class="flex flex-col gap-8 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
+      <p>
+        Every journey begins with a spark of curiosity.
+        Mine started when I was in third standard.
+        At that time, computers were rare in households.
+        Owning one felt like a luxury.
+      </p>
+      
+      <p>
+        My first exposure was simple observation.
+        I watched how software responded to user inputs.
+        The ability to direct a machine fascinated me.
+        This curiosity soon turned into a desire to build.
+      </p>
+
+      <p>
+        I began learning programming fundamentals step by step.
+        I spent hours understanding syntax and logic.
+        Each solved bug built my confidence.
+        I realized that software is a medium for craftsmanship.
+      </p>
+
+      <p>
+        Today, my focus remains on building reliable systems.
+        I continue to explore operating systems and networking.
+        The luxury is no longer just owning a computer.
+        The luxury is having the capacity to understand them.
+      </p>
+    </div>
+
+    <!-- Article Footer: Network of Knowledge -->
+    <footer class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.08)] pt-12 mt-8">
+      
+      <!-- Related Links -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm">
+        
+        <div class="flex flex-col gap-3">
+          <h4 class="text-xs text-[#71717A] uppercase tracking-wider font-medium">Further Reading</h4>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a href="/writing/why-i-started-writing" class="text-[#2563EB] hover:underline">
+                Why I Started Writing
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h4 class="text-xs text-[#71717A] uppercase tracking-wider font-medium">Referenced Books</h4>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a href="/reading" class="text-[#2563EB] hover:underline">
+                Steve Jobs (Biography)
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </footer>
+
+  </main>
+
+  <Footer />
+</Layout>

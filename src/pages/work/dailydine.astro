@@ -1,0 +1,110 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navigation from "../../components/Navigation.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout title="DailyDine Case Study">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[72ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Header -->
+    <header class="flex flex-col gap-4">
+      <div class="flex gap-2 text-xs text-[#71717A] font-mono">
+        <span>Work</span>
+        <span>·</span>
+        <span>Case Study</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
+        DailyDine
+      </h1>
+      <p class="text-sm text-[#A1A1AA] italic">
+        "Build things that still make sense a decade later."
+      </p>
+    </header>
+
+    <!-- Case Study Content -->
+    <div class="flex flex-col gap-12 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
+      
+      <!-- Overview -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Overview</h2>
+        <p>
+          DailyDine coordinates table reservations for local restaurants, focusing on scheduling reliability.
+          The utility coordinates dining schedules and prevents double bookings.
+          It serves as a clean alternative to bloated, third-party coordination tools.
+        </p>
+      </section>
+
+      <!-- Challenge -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Challenge</h2>
+        <p>
+          The system must balance venue capacity limits with customer dining requests.
+          Peak times introduce concurrent writes that can lead to overbooking.
+          Resolving this issue requires strict inventory tracking without compromising scheduling speed.
+        </p>
+      </section>
+
+      <!-- Approach -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Approach</h2>
+        <p>
+          I designed a queuing model that processes reservation updates sequentially.
+          The queue locks inventory elements while a transaction compiles.
+          This prevents race conditions and ensures transaction integrity under high write load.
+        </p>
+      </section>
+
+      <!-- Architecture -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Architecture</h2>
+        <p>
+          The backend runs on Go, utilizing a PostgreSQL instance for transactional persistence.
+          The client uses a minimal React interface built with Tailwind CSS.
+          API communication uses strict JSON payloads for predictable parsing.
+        </p>
+      </section>
+
+      <!-- Trade-offs -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Trade-offs</h2>
+        <p>
+          I chose server-side polling instead of WebSockets to reduce active database connections.
+          This increases client network calls slightly but reduces server memory allocation.
+          Simple HTTP polling remains robust and easier to scale than persistent socket connections.
+        </p>
+      </section>
+
+      <!-- Outcome -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Outcome</h2>
+        <p>
+          The platform successfully processes reservations across local venues.
+          Double booking incidents have been completely eliminated.
+          The simplicity of the database schema has kept runtime latencies minimal.
+        </p>
+      </section>
+
+      <!-- Lessons -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Lessons</h2>
+        <p>
+          Simple database transactions are easier to maintain than distributed state machines.
+          Over-engineering early in product design adds unnecessary maintenance overhead.
+          Clear database design is often the most reliable solution.
+        </p>
+      </section>
+
+    </div>
+
+    <!-- Tech Stack footer -->
+    <footer class="flex flex-col gap-6 border-t border-[rgba(255,255,255,0.08)] pt-8 mt-4 text-xs font-mono text-[#71717A]">
+      <span>Technologies: Go · React · PostgreSQL · Tailwind CSS</span>
+    </footer>
+
+  </main>
+
+  <Footer />
+</Layout>

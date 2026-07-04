@@ -1,0 +1,110 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navigation from "../../components/Navigation.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout title="HisabProx Case Study">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[72ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Header -->
+    <header class="flex flex-col gap-4">
+      <div class="flex gap-2 text-xs text-[#71717A] font-mono">
+        <span>Work</span>
+        <span>·</span>
+        <span>Case Study</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
+        HisabProx
+      </h1>
+      <p class="text-sm text-[#A1A1AA] italic">
+        "Build things that still make sense a decade later."
+      </p>
+    </header>
+
+    <!-- Case Study Content -->
+    <div class="flex flex-col gap-12 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
+      
+      <!-- Overview -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Overview</h2>
+        <p>
+          HisabProx helps freelance developers generate and manage client invoices without external database storage.
+          The utility focuses on complete client privacy and data ownership.
+          It compiles and stores all records locally on the user's machine.
+        </p>
+      </section>
+
+      <!-- Challenge -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Challenge</h2>
+        <p>
+          Ensuring client data privacy without hosting expensive cloud database infrastructure.
+          Freelancers want to avoid paying recurring fees for simple invoice utilities.
+          The solution must remain lightweight, fast, and secure.
+        </p>
+      </section>
+
+      <!-- Approach -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Approach</h2>
+        <p>
+          I built a static application that runs completely in the browser sandbox.
+          It stores data inside browser local storage and compiles PDFs on the client side.
+          The user can export their record dataset as a static JSON file for backups.
+        </p>
+      </section>
+
+      <!-- Architecture -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Architecture</h2>
+        <p>
+          The utility is built with TypeScript and React.
+          It uses local storage for temporary persistence and PDFKit for client-side PDF generation.
+          The application has no backend servers or database integrations.
+        </p>
+      </section>
+
+      <!-- Trade-offs -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Trade-offs</h2>
+        <p>
+          I traded multi-device synchronization for complete client privacy and zero maintenance costs.
+          Users must manually export backups if they switch computers.
+          However, this eliminates data leaks and removes any operating costs.
+        </p>
+      </section>
+
+      <!-- Outcome -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Outcome</h2>
+        <p>
+          The application serves as a reliable invoice generator.
+          Operating cost is zero dollars, and client data never leaves the user's browser.
+          The compiler exports clean, standard PDF invoices instantly.
+        </p>
+      </section>
+
+      <!-- Lessons -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Lessons</h2>
+        <p>
+          The most secure and cost-effective system is the one that avoids storing data on a remote server.
+          Client-side capabilities are often underutilized in modern web development.
+          Local-first architectures are ideal for utility tools.
+        </p>
+      </section>
+
+    </div>
+
+    <!-- Tech Stack footer -->
+    <footer class="flex flex-col gap-6 border-t border-[rgba(255,255,255,0.08)] pt-8 mt-4 text-xs font-mono text-[#71717A]">
+      <span>Technologies: TypeScript · React · Local Storage · PDFKit</span>
+    </footer>
+
+  </main>
+
+  <Footer />
+</Layout>

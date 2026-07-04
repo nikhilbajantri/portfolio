@@ -1,0 +1,86 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navigation from "../../components/Navigation.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout title="Why I Started Writing">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[72ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Article Header -->
+    <header class="flex flex-col gap-4">
+      <div class="flex gap-2 text-xs text-[#71717A] font-mono">
+        <span>Essay</span>
+        <span>·</span>
+        <span>July 2026</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
+        Why I Started Writing
+      </h1>
+      <p class="text-sm text-[#A1A1AA] italic">
+        "Build things that still make sense a decade later."
+      </p>
+    </header>
+
+    <!-- Article Content -->
+    <div class="flex flex-col gap-8 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
+      <p>
+        Software engineers build tools that resolve immediate needs.
+        We write code to automate systems and coordinate data.
+        However, coding is only part of the engineering process.
+        The other half consists of structured thinking.
+      </p>
+      
+      <p>
+        Writing is how I organize my thinking.
+        Most articles begin as questions that arise during study.
+        By writing, I force myself to explain complex architectural components.
+        If I cannot write a simple explanation, I do not understand the system.
+      </p>
+
+      <p>
+        Documenting what I learn creates a record of progress.
+        It turns lessons into permanent assets that I can refer to later.
+        This practice compounds over time, making future builds cleaner.
+        The goal is to communicate with clarity and humility.
+      </p>
+    </div>
+
+    <!-- Article Footer: Network of Knowledge -->
+    <footer class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.08)] pt-12 mt-8">
+      
+      <!-- Related Links -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm">
+        
+        <div class="flex flex-col gap-3">
+          <h4 class="text-xs text-[#71717A] uppercase tracking-wider font-medium">Further Reading</h4>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a href="/writing/the-kind-of-engineer-i-want-to-become" class="text-[#2563EB] hover:underline">
+                The Kind of Engineer I Want to Become
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h4 class="text-xs text-[#71717A] uppercase tracking-wider font-medium">Referenced Books</h4>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a href="/reading" class="text-[#2563EB] hover:underline">
+                The Pragmatic Programmer
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </footer>
+
+  </main>
+
+  <Footer />
+</Layout>
