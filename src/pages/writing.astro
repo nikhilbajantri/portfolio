@@ -3,36 +3,66 @@ import Layout from "../layouts/Layout.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
 
-// Pre-defined list of articles/essays categorized by types
 const articles = [
   {
     title: "Why I Started Writing",
-    type: "Essay",
+    type: "Essays",
     date: "July 2026",
     description: "An inquiry into how writing helps clarify software architecture and structures memory.",
     slug: "/writing/why-i-started-writing"
   },
   {
     title: "The Kind of Engineer I Want to Become",
-    type: "Essay",
+    type: "Essays",
     date: "June 2026",
     description: "Reflections on craftsman philosophy, engineering humility, and long-term design patterns.",
     slug: "/writing/the-kind-of-engineer-i-want-to-become"
   },
   {
     title: "From Curiosity to Code: My Journey Into the World of Computers",
-    type: "Essay",
+    type: "Essays",
     date: "August 2025",
     description: "A narrative on the spark of curiosity in computer systems, starting from childhood computer luxury.",
     slug: "/writing/from-curiosity-to-code"
+  },
+  {
+    title: "Designing the DailyDine Scheduling Queue",
+    type: "Engineering",
+    date: "July 2026",
+    description: "Building transactional concurrency queues to coordinate table inventory under peak loads.",
+    slug: "/work/dailydine"
+  },
+  {
+    title: "Understanding Local-first Utility Tools",
+    type: "Engineering",
+    date: "June 2026",
+    description: "How client-side invoice utilities ensure user data privacy and eliminate operating overhead.",
+    slug: "/work/hisabprox"
+  },
+  {
+    title: "Analyzing JWT Authentication Mechanisms",
+    type: "Cybersecurity",
+    date: "May 2026",
+    description: "Investigating token signature validations, cross-site leaks, and secure cookie storage layouts.",
+    slug: "/now"
+  },
+  {
+    title: "Deep Work Notes",
+    type: "Book Notes",
+    date: "July 2026",
+    description: "Synthesized takeaways on attention scheduling, distraction blocks, and high-intensity production.",
+    slug: "/reading"
+  },
+  {
+    title: "Linux Network Security and Port Monitoring Logs",
+    type: "Field Notes",
+    date: "April 2026",
+    description: "Short notes on iptables configurations, socket audits, and local buffer monitoring commands.",
+    slug: "/uses"
   }
 ];
 
-// Grouping by type
-const essays = articles.filter(a => a.type === "Essay");
-const deepDives = articles.filter(a => a.type === "Deep Dive");
-const techArticles = articles.filter(a => a.type === "Article");
-const bookNotes = articles.filter(a => a.type === "Book Note");
+const categories = ["Essays", "Engineering", "Cybersecurity", "Book Notes", "Field Notes"];
 ---
 
 <Layout title="Writing">
@@ -41,114 +71,42 @@ const bookNotes = articles.filter(a => a.type === "Book Note");
   <main id="main-content" class="flex-1 max-w-[960px] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-16 font-sans">
     
     <!-- Header -->
-    <header class="flex flex-col gap-6 max-w-[72ch]">
+    <header class="flex flex-col gap-6 max-w-[68ch]">
       <h1 class="text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
         Writing
       </h1>
       <p class="text-lg text-[#A1A1AA] leading-relaxed">
-        Writing is how I organize my thinking. Most articles begin as questions. Some become essays. Others become documentation. A few become ideas worth building.
+        Writing is how I organize my thinking. Most articles begin as questions. Some become essays. Others become engineering docs or field notes. All of them are records of progress.
       </p>
     </header>
 
-    <!-- Sections by Hierarchy -->
+    <!-- Categories List -->
     <div class="flex flex-col gap-16">
-      
-      <!-- Essays Section -->
-      {essays.length > 0 && (
-        <section class="flex flex-col gap-6">
-          <h2 class="text-xs font-medium text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
-            Essays
-          </h2>
-          <div class="flex flex-col gap-6">
-            {essays.map(post => (
-              <a href={post.slug} class="group flex flex-col gap-2">
-                <div class="flex justify-between items-baseline gap-4">
-                  <h3 class="text-lg font-medium text-[#FAFAFA] group-hover:text-[#2563EB] transition-colors duration-180">
-                    {post.title}
-                  </h3>
-                  <span class="text-xs text-[#71717A] font-mono whitespace-nowrap">{post.date}</span>
-                </div>
-                <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[72ch]">
-                  {post.description}
-                </p>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
-
-      <!-- Deep Dives Section -->
-      {deepDives.length > 0 && (
-        <section class="flex flex-col gap-6">
-          <h2 class="text-xs font-medium text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
-            Deep Dives
-          </h2>
-          <div class="flex flex-col gap-6">
-            {deepDives.map(post => (
-              <a href={post.slug} class="group flex flex-col gap-2">
-                <div class="flex justify-between items-baseline gap-4">
-                  <h3 class="text-lg font-medium text-[#FAFAFA] group-hover:text-[#2563EB] transition-colors duration-180">
-                    {post.title}
-                  </h3>
-                  <span class="text-xs text-[#71717A] font-mono whitespace-nowrap">{post.date}</span>
-                </div>
-                <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[72ch]">
-                  {post.description}
-                </p>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
-
-      <!-- Articles Section -->
-      {techArticles.length > 0 && (
-        <section class="flex flex-col gap-6">
-          <h2 class="text-xs font-medium text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
-            Articles
-          </h2>
-          <div class="flex flex-col gap-6">
-            {techArticles.map(post => (
-              <a href={post.slug} class="group flex flex-col gap-2">
-                <div class="flex justify-between items-baseline gap-4">
-                  <h3 class="text-lg font-medium text-[#FAFAFA] group-hover:text-[#2563EB] transition-colors duration-180">
-                    {post.title}
-                  </h3>
-                  <span class="text-xs text-[#71717A] font-mono whitespace-nowrap">{post.date}</span>
-                </div>
-                <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[72ch]">
-                  {post.description}
-                </p>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
-
-      <!-- Book Notes Section -->
-      {bookNotes.length > 0 && (
-        <section class="flex flex-col gap-6">
-          <h2 class="text-xs font-medium text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
-            Book Notes
-          </h2>
-          <div class="flex flex-col gap-6">
-            {bookNotes.map(post => (
-              <a href={post.slug} class="group flex flex-col gap-2">
-                <div class="flex justify-between items-baseline gap-4">
-                  <h3 class="text-lg font-medium text-[#FAFAFA] group-hover:text-[#2563EB] transition-colors duration-180">
-                    {post.title}
-                  </h3>
-                  <span class="text-xs text-[#71717A] font-mono whitespace-nowrap">{post.date}</span>
-                </div>
-                <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[72ch]">
-                  {post.description}
-                </p>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
-
+      {categories.map((category) => {
+        const catArticles = articles.filter(a => a.type === category);
+        return catArticles.length > 0 && (
+          <section class="flex flex-col gap-6">
+            <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
+              {category}
+            </h2>
+            <div class="flex flex-col gap-6">
+              {catArticles.map(post => (
+                <a href={post.slug} class="group flex flex-col gap-2">
+                  <div class="flex justify-between items-baseline gap-4">
+                    <h3 class="text-lg font-medium text-[#FAFAFA] group-hover:text-[#2563EB] transition-colors duration-180">
+                      {post.title}
+                    </h3>
+                    <span class="text-xs text-[#71717A] font-mono whitespace-nowrap">{post.date}</span>
+                  </div>
+                  <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[68ch]">
+                    {post.description}
+                  </p>
+                </a>
+              ))}
+            </div>
+          </section>
+        );
+      })}
     </div>
 
   </main>

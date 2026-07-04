@@ -5,36 +5,28 @@ import Footer from "../components/Footer.astro";
 
 const principles = [
   {
-    topic: "Learning",
-    statement: "Study foundational systems instead of chasing framework trends. Understanding core mechanics compounds, while APIs expire."
+    title: "Build Slowly",
+    description: "Take time to study the systems you use. Rushing to ship adds hidden technical debt. Understanding core mechanics compounds, while APIs expire."
   },
   {
-    topic: "Building",
-    statement: "Keep systems simple and code readable. Every dependency added is a potential point of failure. Write code that survives deletions."
+    title: "Learn Publicly",
+    description: "Document lessons and correct mistakes in the open. Sharing the progress of understanding builds trust. Intellectual honesty is a permanent asset."
   },
   {
-    topic: "Writing",
-    statement: "Write to clarify complex concepts. Use simple words and stories rather than marketing jargon. Aim to make the reader feel intelligent."
+    title: "Prefer Clarity",
+    description: "Write simple, readable code that is easy to maintain. Clever tricks introduce points of failure. Choose straightforward designs that survive deletion tests."
   },
   {
-    topic: "Reading",
-    statement: "Read books to shift your perspective and build technical judgment. Re-read quality resources rather than rushing to finish lists."
+    title: "Stay Curious",
+    description: "Explore domains out of interest rather than utility. Read specifications, manuals, and RFC sheets. Great engineering requires builders' humility and focus."
   },
   {
-    topic: "Engineering",
-    statement: "Prioritize reliability over clever solutions. Choose stable, boring technologies that scale predictably under load."
+    title: "Think Long-Term",
+    description: "Prioritize reliability over hype. Choose boring, stable technologies that scale predictably. Build tools that still make sense ten years from now."
   },
   {
-    topic: "Decision Making",
-    statement: "Evaluate engineering choices by their long-term trade-offs. Play the long game rather than chasing quick accolades."
-  },
-  {
-    topic: "Quality",
-    statement: "Focus attention on invisible details. Code organization, semantic HTML, and accessibility are the foundations of true craft."
-  },
-  {
-    topic: "Curiosity",
-    statement: "Maintain a lifelong student mindset. Accept mistakes publicly, correct them, and learn in public with humility."
+    title: "Leave Things Better",
+    description: "Improve code blocks and documentation whenever you edit them. Small optimizations compound. Leave every system slightly clearer than you found it."
   }
 ];
 ---
@@ -49,20 +41,20 @@ const principles = [
       <h1 class="text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
         Principles
       </h1>
-      <p class="text-lg text-[#A1A1AA] leading-relaxed">
-        The core principles that shape my engineering decisions, learning workflow, and long-term values.
+      <p class="text-lg text-[#A1A1AA] leading-relaxed max-w-[65ch]">
+        The core philosophies that guide my technical decisions, learning habits, and long-term work.
       </p>
     </header>
 
     <!-- Principles list -->
     <div class="flex flex-col gap-10">
-      {principles.map((principle) => (
+      {principles.map((p) => (
         <section class="flex flex-col gap-3">
-          <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-1.5">
-            {principle.topic}
+          <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-1.5">
+            {p.title}
           </h2>
-          <p class="text-sm text-[#A1A1AA] leading-relaxed">
-            {principle.statement}
+          <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[65ch]">
+            {p.description}
           </p>
         </section>
       ))}
