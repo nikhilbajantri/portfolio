@@ -7,7 +7,7 @@ import Footer from "../../components/Footer.astro";
 <Layout title="HisabProx Case Study">
   <Navigation />
 
-  <main id="main-content" class="flex-1 max-w-[72ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
     
     <!-- Header -->
     <header class="flex flex-col gap-4">
@@ -27,43 +27,36 @@ import Footer from "../../components/Footer.astro";
     <!-- Case Study Content -->
     <div class="flex flex-col gap-12 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
       
-      <!-- Overview -->
+      <!-- Why We Built It -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Overview</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Why We Built HisabProx</h2>
         <p>
-          HisabProx helps freelance developers generate and manage client invoices without external database storage.
-          The utility focuses on complete client privacy and data ownership.
-          It compiles and stores all records locally on the user's machine.
+          Freelancers frequently need to compile professional invoices for clients.
+          Many existing billing services require cloud subscription accounts and collect client data.
+          I built HisabProx to offer developers a private, local-first invoice editor.
+          The goal was to keep invoice generation distraction-free and completely private.
         </p>
       </section>
 
-      <!-- Challenge -->
+      <!-- The Biggest Mistake -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Challenge</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">The Biggest Mistake</h2>
         <p>
-          Ensuring client data privacy without hosting expensive cloud database infrastructure.
-          Freelancers want to avoid paying recurring fees for simple invoice utilities.
-          The solution must remain lightweight, fast, and secure.
+          I originally integrated a remote backup sync utility.
+          This required setting up database credentials and user accounts.
+          It added maintenance complexity to what should have been a simple client utility.
+          I removed the remote sync to ensure client data never leaves the browser environment.
         </p>
       </section>
 
-      <!-- Approach -->
+      <!-- The Architecture -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Approach</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">The Architecture</h2>
         <p>
-          I built a static application that runs completely in the browser sandbox.
-          It stores data inside browser local storage and compiles PDFs on the client side.
-          The user can export their record dataset as a static JSON file for backups.
-        </p>
-      </section>
-
-      <!-- Architecture -->
-      <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Architecture</h2>
-        <p>
-          The utility is built with TypeScript and React.
-          It uses local storage for temporary persistence and PDFKit for client-side PDF generation.
-          The application has no backend servers or database integrations.
+          HisabProx is a static React application built with TypeScript and Tailwind CSS.
+          It uses the browser local storage API to retain client and invoice datasets.
+          PDF compilation is handled directly on the client side using PDFKit.
+          The entire application operates offline without backend servers.
         </p>
       </section>
 
@@ -71,19 +64,10 @@ import Footer from "../../components/Footer.astro";
       <section class="flex flex-col gap-3">
         <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Trade-offs</h2>
         <p>
-          I traded multi-device synchronization for complete client privacy and zero maintenance costs.
-          Users must manually export backups if they switch computers.
-          However, this eliminates data leaks and removes any operating costs.
-        </p>
-      </section>
-
-      <!-- Outcome -->
-      <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Outcome</h2>
-        <p>
-          The application serves as a reliable invoice generator.
-          Operating cost is zero dollars, and client data never leaves the user's browser.
-          The compiler exports clean, standard PDF invoices instantly.
+          I traded automated multi-device syncing for zero server maintenance costs and total privacy.
+          Users must manually export JSON backups to move records across devices.
+          This design decision ensures complete data security for client invoices.
+          The application requires no external database infrastructure to operate.
         </p>
       </section>
 
@@ -95,6 +79,16 @@ import Footer from "../../components/Footer.astro";
           Client-side capabilities are often underutilized in modern web development.
           Local-first architectures are ideal for utility tools.
         </p>
+      </section>
+
+      <!-- Links / GitHub -->
+      <section class="flex flex-col gap-3 border-t border-[rgba(255,255,255,0.08)] pt-6">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Source Code</h2>
+        <div class="flex items-center gap-4 text-xs font-mono">
+          <a href="https://github.com/programmer-nick234/hisabprox" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] hover:underline">
+            GitHub Repository
+          </a>
+        </div>
       </section>
 
     </div>

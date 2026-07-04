@@ -7,7 +7,7 @@ import Footer from "../../components/Footer.astro";
 <Layout title="DailyDine Case Study">
   <Navigation />
 
-  <main id="main-content" class="flex-1 max-w-[72ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
     
     <!-- Header -->
     <header class="flex flex-col gap-4">
@@ -27,43 +27,36 @@ import Footer from "../../components/Footer.astro";
     <!-- Case Study Content -->
     <div class="flex flex-col gap-12 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
       
-      <!-- Overview -->
+      <!-- Why We Built It -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Overview</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Why We Built DailyDine</h2>
         <p>
-          DailyDine coordinates table reservations for local restaurants, focusing on scheduling reliability.
-          The utility coordinates dining schedules and prevents double bookings.
-          It serves as a clean alternative to bloated, third-party coordination tools.
+          Restaurant reservations are often managed by expensive, closed-source platforms.
+          Venues pay high commissions for simple scheduling functionality.
+          We built DailyDine to provide local restaurants with independent reservation software.
+          The goal was to make dining coordination simple and cost-effective.
         </p>
       </section>
 
-      <!-- Challenge -->
+      <!-- The Biggest Mistake -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Challenge</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">The Biggest Mistake</h2>
         <p>
-          The system must balance venue capacity limits with customer dining requests.
-          Peak times introduce concurrent writes that can lead to overbooking.
-          Resolving this issue requires strict inventory tracking without compromising scheduling speed.
+          We initially built a complex real-time seat tracking engine.
+          This system used WebSockets to stream table layouts to all browsers.
+          It quickly created desynchronization bugs under high concurrent write loads.
+          This taught us that complex state streaming is rarely worth the operational cost.
         </p>
       </section>
 
-      <!-- Approach -->
+      <!-- The Architecture -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Approach</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">The Architecture</h2>
         <p>
-          I designed a queuing model that processes reservation updates sequentially.
-          The queue locks inventory elements while a transaction compiles.
-          This prevents race conditions and ensures transaction integrity under high write load.
-        </p>
-      </section>
-
-      <!-- Architecture -->
-      <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Architecture</h2>
-        <p>
-          The backend runs on Go, utilizing a PostgreSQL instance for transactional persistence.
-          The client uses a minimal React interface built with Tailwind CSS.
-          API communication uses strict JSON payloads for predictable parsing.
+          DailyDine runs on a Go API backend paired with a PostgreSQL database.
+          The user interface is a static React client built with Tailwind CSS.
+          API communication uses simple JSON payloads for predictable parsing.
+          The system operates securely inside isolated server containers.
         </p>
       </section>
 
@@ -71,19 +64,10 @@ import Footer from "../../components/Footer.astro";
       <section class="flex flex-col gap-3">
         <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Trade-offs</h2>
         <p>
-          I chose server-side polling instead of WebSockets to reduce active database connections.
-          This increases client network calls slightly but reduces server memory allocation.
-          Simple HTTP polling remains robust and easier to scale than persistent socket connections.
-        </p>
-      </section>
-
-      <!-- Outcome -->
-      <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Outcome</h2>
-        <p>
-          The platform successfully processes reservations across local venues.
-          Double booking incidents have been completely eliminated.
-          The simplicity of the database schema has kept runtime latencies minimal.
+          We replaced WebSockets with database transaction locks and client-side polling.
+          This increases network requests slightly but makes reservation flows predictable.
+          Simple polling is robust and requires no persistent connection monitoring.
+          We traded real-time animations for system reliability and simplicity.
         </p>
       </section>
 
@@ -95,6 +79,16 @@ import Footer from "../../components/Footer.astro";
           Over-engineering early in product design adds unnecessary maintenance overhead.
           Clear database design is often the most reliable solution.
         </p>
+      </section>
+
+      <!-- Links / GitHub -->
+      <section class="flex flex-col gap-3 border-t border-[rgba(255,255,255,0.08)] pt-6">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Source Code</h2>
+        <div class="flex items-center gap-4 text-xs font-mono">
+          <a href="https://github.com/programmer-nick234/dailydine" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] hover:underline">
+            GitHub Repository
+          </a>
+        </div>
       </section>
 
     </div>
