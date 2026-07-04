@@ -3,31 +3,111 @@ import Layout from "../layouts/Layout.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
 
-const projects = [
+const categories = [
+  { id: "selected", name: "Selected" },
+  { id: "professional", name: "Professional" },
+  { id: "community", name: "Community" },
+  { id: "archive", name: "Archive" }
+];
+
+const selectedWork = [
   {
     title: "DailyDine",
-    subtitle: "Dining coordination platform",
-    overview: "DailyDine coordinates table reservations for local restaurants, focusing on scheduling reliability.",
-    challenge: "Balancing table inventory with customer convenience under high reservation concurrency.",
-    approach: "Designed an event-driven lock system to prevent overbooking during peak dining hours.",
-    architecture: "React frontend communicating with a Go backend and a PostgreSQL database.",
-    tradeoffs: "Chose server-side polling instead of WebSockets to reduce state management complexity on the server.",
-    outcome: "Coordinated reservations across three venues, reducing customer wait times.",
-    lessons: "Simple database transactions are easier to maintain than distributed reservation state machines.",
-    tech: ["Go", "React", "PostgreSQL", "Tailwind CSS"],
+    year: "2026",
+    role: "Founder & CTO",
+    status: "Active Development",
+    oneLiner: "A restaurant operations platform built to reduce uncertainty around reservations, ordering, and table management.",
+    tech: "Go · PostgreSQL · React",
     slug: "/work/dailydine"
   },
   {
+    title: "XELIQ",
+    year: "2026",
+    role: "Co-founder & Lead Engineer",
+    status: "Active Development",
+    oneLiner: "A travel platform built to rethink how creators plan, document, and share travel.",
+    tech: "Swift · Node.js · SQLite · MongoDB",
+    slug: "/work/xeliq"
+  },
+  {
+    title: "CodeBud",
+    year: "2025",
+    role: "Software Engineer",
+    status: "Production",
+    oneLiner: "A learning platform built to provide secure authentication and role-based access for developers.",
+    tech: "TypeScript · Next.js · Keycloak · Docker",
+    slug: "/work/codebud"
+  },
+  {
+    title: "Great British Doner",
+    year: "2025",
+    role: "Software Engineer",
+    status: "Production",
+    oneLiner: "A headless restaurant website built to improve content workflows, SEO, and performance.",
+    tech: "Next.js · Sanity CMS · Vercel · Tailwind CSS",
+    slug: "/work/great-british-doner"
+  }
+];
+
+const professionalWork = [
+  {
+    title: "Shiktra Technologies",
+    year: "2025",
+    role: "Software Engineer",
+    status: "Client Delivery",
+    oneLiner: "A modern corporate platform built to scale branding, client operations, and service architecture.",
+    tech: "Next.js · React · Tailwind CSS",
+    slug: "/work/shiktra-technologies"
+  },
+  {
+    title: "Ivytree Essex",
+    year: "2024",
+    role: "Full Stack Engineer",
+    status: "Production",
+    oneLiner: "A high-performance educational portal built to simplify content updates and registration flows.",
+    tech: "Next.js · Strapi CMS · PostgreSQL",
+    slug: "/work/ivytree-essex"
+  },
+  {
+    title: "Doqtra",
+    year: "2024",
+    role: "Software Engineer",
+    status: "Client Delivery",
+    oneLiner: "A clinical marketing website built to communicate diagnostic tools and startup operations.",
+    tech: "Next.js · Tailwind CSS · Vercel",
+    slug: "/work/doqtra"
+  },
+  {
+    title: "42 Holborn",
+    year: "2023",
+    role: "Full Stack Engineer",
+    status: "Maintained",
+    oneLiner: "A custom WordPress site built to handle client constraints and local business details.",
+    tech: "WordPress · PHP · MySQL",
+    slug: "/work/42-holborn"
+  }
+];
+
+const communityWork = [
+  {
+    title: "SSOSC",
+    year: "2024",
+    role: "Co-founder & Organizer",
+    status: "Maintained",
+    oneLiner: "A student-run open source community platform built to share learning repositories and host hackathons.",
+    tech: "Next.js · GitHub API · Vercel",
+    slug: "/work/ssosc"
+  }
+];
+
+const archiveWork = [
+  {
     title: "HisabProx",
-    subtitle: "Local invoice utility",
-    overview: "HisabProx helps freelance developers generate and manage client invoices without external database storage.",
-    challenge: "Ensuring developer data privacy without hosting expensive cloud database infrastructure.",
-    approach: "Built a client-side storage utility that runs completely locally in the browser.",
-    architecture: "Static TypeScript app utilizing local storage and client-side PDF compilation.",
-    tradeoffs: "Traded multi-device synchronization for complete client privacy and zero server maintenance costs.",
-    outcome: "Active local utility used to draft and compile PDF invoices daily.",
-    lessons: "The most secure and cost-effective system is the one that avoids storing data on a remote server.",
-    tech: ["TypeScript", "React", "Local Storage", "PDFKit"],
+    year: "2024",
+    role: "Founder",
+    status: "Archived",
+    oneLiner: "A local invoice generation tool built to let developers compile PDF invoices completely offline.",
+    tech: "TypeScript · React · Local Storage · PDFKit",
     slug: "/work/hisabprox"
   }
 ];
@@ -39,53 +119,196 @@ const projects = [
   <main id="main-content" class="flex-1 max-w-[960px] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-16 font-sans">
     
     <!-- Header -->
-    <header class="flex flex-col gap-6 max-w-[72ch]">
+    <header class="flex flex-col gap-6 max-w-[68ch]">
       <h1 class="text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
         Work
       </h1>
-      <p class="text-lg text-[#A1A1AA] leading-relaxed">
-        Thoughtful systems and utilities built with precision.
-        I value simple design patterns, complete data ownership, and minimal runtime overhead.
+      <p class="text-lg text-[#A1A1AA] leading-[1.7]">
+        Every project changes the way I think. Some became startups. Others solved problems for clients. Together they represent my journey through product development, systems design, and engineering.
       </p>
     </header>
 
-    <!-- Case Studies List -->
-    <div class="flex flex-col gap-20">
-      {projects.map((project) => (
-        <section class="flex flex-col gap-6 border-b border-[rgba(255,255,255,0.06)] pb-12 last:border-0 last:pb-0">
-          <div class="flex flex-col gap-2">
-            <div class="flex justify-between items-baseline">
-              <h2 class="text-3xl font-display font-medium text-[#FAFAFA] tracking-tight">{project.title}</h2>
-              <a href={project.slug} class="text-xs text-[#2563EB] hover:underline font-mono">
-                View Case Study →
-              </a>
-            </div>
-            <p class="text-xs text-[#71717A] font-mono tracking-wider uppercase">{project.subtitle}</p>
-          </div>
-
-          <p class="text-base text-[#A1A1AA] leading-relaxed max-w-[72ch]">
-            {project.overview}
-          </p>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm text-[#A1A1AA] pt-4">
-            <div class="flex flex-col gap-1.5">
-              <span class="font-medium text-[#FAFAFA] text-xs uppercase tracking-wider">The Challenge</span>
-              <p class="leading-relaxed">{project.challenge}</p>
-            </div>
-            <div class="flex flex-col gap-1.5">
-              <span class="font-medium text-[#FAFAFA] text-xs uppercase tracking-wider">The Architecture</span>
-              <p class="leading-relaxed">{project.architecture}</p>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-4 text-xs font-mono text-[#71717A] pt-4 border-t border-[rgba(255,255,255,0.04)]">
-            <span>Stack: {project.tech.join(" · ")}</span>
-          </div>
-        </section>
+    <!-- Editorial Filter Navigation -->
+    <nav class="flex flex-wrap gap-3 border-b border-[rgba(255,255,255,0.06)] pb-4">
+      <button
+        data-filter="all"
+        class="filter-btn px-4 py-1.5 rounded-full text-xs font-medium font-mono border border-[#2563EB] bg-[#2563EB]/10 text-white transition-all cursor-pointer"
+      >
+        All
+      </button>
+      {categories.map((cat) => (
+        <button
+          data-filter={cat.id}
+          class="filter-btn px-4 py-1.5 rounded-full text-xs font-medium font-mono border border-[rgba(255,255,255,0.08)] bg-transparent text-[#A1A1AA] hover:text-[#FAFAFA] hover:border-[#2563EB]/40 transition-all cursor-pointer"
+        >
+          {cat.name}
+        </button>
       ))}
+    </nav>
+
+    <!-- Projects Sections List -->
+    <div class="flex flex-col gap-20">
+      
+      <!-- Selected Work -->
+      <section data-category="selected" class="project-group flex flex-col gap-8">
+        <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
+          Selected Work
+        </h2>
+        <div class="flex flex-col gap-10">
+          {selectedWork.map((project) => (
+            <article class="flex flex-col gap-2">
+              <div class="flex justify-between items-baseline">
+                <h3 class="text-lg font-medium text-[#FAFAFA]">
+                  <a href={project.slug} class="hover:text-[#2563EB] transition-colors">{project.title}</a>
+                </h3>
+                <span class="text-xs text-[#71717A] font-mono">{project.year}</span>
+              </div>
+              <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[680px]">
+                {project.oneLiner}
+              </p>
+              <div class="flex flex-wrap gap-4 items-center text-[11px] font-mono text-[#71717A] mt-1">
+                <span>Stack: {project.tech}</span>
+                <span>·</span>
+                <span>{project.role}</span>
+                <span>·</span>
+                <span class="flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#71717A]/60"></span>
+                  {project.status}
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- Professional Work -->
+      <section data-category="professional" class="project-group flex flex-col gap-8">
+        <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
+          Professional Work
+        </h2>
+        <div class="flex flex-col gap-10">
+          {professionalWork.map((project) => (
+            <article class="flex flex-col gap-2">
+              <div class="flex justify-between items-baseline">
+                <h3 class="text-lg font-medium text-[#FAFAFA]">
+                  <a href={project.slug} class="hover:text-[#2563EB] transition-colors">{project.title}</a>
+                </h3>
+                <span class="text-xs text-[#71717A] font-mono">{project.year}</span>
+              </div>
+              <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[680px]">
+                {project.oneLiner}
+              </p>
+              <div class="flex flex-wrap gap-4 items-center text-[11px] font-mono text-[#71717A] mt-1">
+                <span>Stack: {project.tech}</span>
+                <span>·</span>
+                <span>{project.role}</span>
+                <span>·</span>
+                <span class="flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#71717A]/60"></span>
+                  {project.status}
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- Community -->
+      <section data-category="community" class="project-group flex flex-col gap-8">
+        <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
+          Community
+        </h2>
+        <div class="flex flex-col gap-10">
+          {communityWork.map((project) => (
+            <article class="flex flex-col gap-2">
+              <div class="flex justify-between items-baseline">
+                <h3 class="text-lg font-medium text-[#FAFAFA]">
+                  <a href={project.slug} class="hover:text-[#2563EB] transition-colors">{project.title}</a>
+                </h3>
+                <span class="text-xs text-[#71717A] font-mono">{project.year}</span>
+              </div>
+              <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[680px]">
+                {project.oneLiner}
+              </p>
+              <div class="flex flex-wrap gap-4 items-center text-[11px] font-mono text-[#71717A] mt-1">
+                <span>Stack: {project.tech}</span>
+                <span>·</span>
+                <span>{project.role}</span>
+                <span>·</span>
+                <span class="flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#71717A]/60"></span>
+                  {project.status}
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- Archive -->
+      <section data-category="archive" class="project-group flex flex-col gap-8">
+        <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
+          Archive
+        </h2>
+        <div class="flex flex-col gap-10">
+          {archiveWork.map((project) => (
+            <article class="flex flex-col gap-2">
+              <div class="flex justify-between items-baseline">
+                <h3 class="text-lg font-medium text-[#FAFAFA]">
+                  <a href={project.slug} class="hover:text-[#2563EB] transition-colors">{project.title}</a>
+                </h3>
+                <span class="text-xs text-[#71717A] font-mono">{project.year}</span>
+              </div>
+              <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[680px]">
+                {project.oneLiner}
+              </p>
+              <div class="flex flex-wrap gap-4 items-center text-[11px] font-mono text-[#71717A] mt-1">
+                <span>Stack: {project.tech}</span>
+                <span>·</span>
+                <span>{project.role}</span>
+                <span>·</span>
+                <span class="flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#71717A]/60"></span>
+                  {project.status}
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
     </div>
 
   </main>
 
   <Footer />
+
+  <!-- Client-side filter script -->
+  <script is:inline>
+    const buttons = document.querySelectorAll('.filter-btn');
+    const groups = document.querySelectorAll('.project-group');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        // Style updates
+        buttons.forEach((b) => {
+          b.classList.remove('border-[#2563EB]', 'bg-[#2563EB]/10', 'text-white');
+          b.classList.add('border-[rgba(255,255,255,0.08)]', 'bg-transparent', 'text-[#A1A1AA]');
+        });
+        btn.classList.add('border-[#2563EB]', 'bg-[#2563EB]/10', 'text-white');
+        btn.classList.remove('border-[rgba(255,255,255,0.08)]', 'bg-transparent', 'text-[#A1A1AA]');
+
+        // Visibility toggle
+        groups.forEach((g) => {
+          if (filter === 'all' || g.getAttribute('data-category') === filter) {
+            g.style.display = 'flex';
+          } else {
+            g.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
 </Layout>

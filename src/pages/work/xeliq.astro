@@ -4,7 +4,7 @@ import Navigation from "../../components/Navigation.astro";
 import Footer from "../../components/Footer.astro";
 ---
 
-<Layout title="DailyDine Case Study">
+<Layout title="XELIQ Case Study">
   <Navigation />
 
   <!-- Scroll progress bar script -->
@@ -31,10 +31,10 @@ import Footer from "../../components/Footer.astro";
         <span>2026</span>
       </div>
       <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
-        DailyDine: Reservation Engine
+        XELIQ: Travel Platform
       </h1>
       <p class="text-base text-[#A1A1AA] leading-relaxed">
-        A restaurant operations platform built to reduce uncertainty around reservations, ordering, and table management.
+        A creator-first travel platform built to help creators plan, document, and share travel.
       </p>
     </header>
 
@@ -45,8 +45,8 @@ import Footer from "../../components/Footer.astro";
       <div class="flex flex-col gap-3">
         <h4 class="text-[#FAFAFA] font-sans font-medium uppercase tracking-wider text-[11px]">Project at a Glance</h4>
         <div class="flex flex-col gap-1.5">
-          <div>Role: <span class="text-white">Founder & CTO</span></div>
-          <div>Duration: <span class="text-white">2024–Present</span></div>
+          <div>Role: <span class="text-white">Co-founder & Lead</span></div>
+          <div>Duration: <span class="text-white">2026–Present</span></div>
           <div>Status: <span class="text-white">● Active Development</span></div>
           <div>Team: <span class="text-white">5 Engineers</span></div>
         </div>
@@ -80,7 +80,7 @@ import Footer from "../../components/Footer.astro";
     <div class="border-l-2 border-[#2563EB] pl-6 py-1 max-w-[68ch]">
       <h4 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold mb-2 font-mono">What did this project teach me?</h4>
       <p class="text-sm text-[#FAFAFA] leading-relaxed italic">
-        "This project fundamentally changed how I think about transactional systems, database consistency, and engineering trade-offs."
+        "This project fundamentally changed how I think about offline mobile data synchronization, media pipelines, and creator-first product design."
       </p>
     </div>
 
@@ -110,42 +110,42 @@ import Footer from "../../components/Footer.astro";
           <div class="flex flex-col gap-6">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Executive Summary</h3>
             <p class="text-sm text-[#A1A1AA]">
-              DailyDine is a restaurant operations platform built to reduce uncertainty around table reservations and real-time seating inventory. The project served as my largest experiment in database concurrency controls and operational simplicity. By coordinating real-time reservations without distributed locking layers, the system demonstrates how transactional database constraints can replace complex caching networks.
+              XELIQ is a creator-first travel platform built to help creators plan, document, and share travel without relying on continuous network connectivity. The project focuses on solving offline synchronization challenges and high-throughput media pipeline bottlenecks. By utilizing a local SQLite write-ahead-log alongside dynamic queue state verification checks, XELIQ ensures that creator media uploads and itineraries compile correctly regardless of network drops.
             </p>
 
             <h4 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Key Takeaways</h4>
             <ul class="list-disc pl-5 text-sm text-[#A1A1AA] flex flex-col gap-2">
-              <li>Built a reservation engine with transactional consistency.</li>
-              <li>Replaced optimistic assumptions with measurable concurrency controls.</li>
-              <li>Learned that operational simplicity scales better than premature complexity.</li>
+              <li>Built an offline-first synchronization flow using local databases.</li>
+              <li>Replaced optimistic caching with transactional queue updates.</li>
+              <li>Optimized local media pipelines to process high-resolution assets efficiently.</li>
             </ul>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Context</h3>
             <p>
-              DailyDine was built to allow local restaurants to host direct table reservations on their own web domains, escaping directory commissions. Venues retain absolute customer database ownership while serving real customers daily.
+              XELIQ serves travel content creators who often edit itineraries and upload media while in transit or remote locations with poor cellular networks.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">The Problem</h3>
             <p>
-              Double-booking a table ruins customer confidence instantly. Restaurants experience bursts of booking requests during holiday seasons or weekend rush hours. If two customers book the same table simultaneously, the system fails.
+              Traditional mobile platforms fail when network drops occur, interrupting itinerary planning and causing media upload drops. Retrying uploads without checking transaction state results in duplicate assets.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Why It Mattered</h3>
             <p>
-              For small restaurants, operational margins are thin. A single double-booking error ruins customer experiences and causes active staff stress during busy dining windows.
+              For content creators, efficiency is paramount. If itinerary data gets lost during sync drops, it wastes hours of operational work.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Research</h3>
             <p>
-              We researched distributed locking architectures using central in-memory stores like Redis. While viable, managing lock expiries, connection drops, and failovers introduces complex failure modes that exceed team constraints.
+              We researched direct API uploads for media assets. However, uploading raw videos directly from mobile threads under unstable networks results in frequent timeouts. We chose a background queue model.
             </p>
           </div>
         </section>
@@ -160,47 +160,44 @@ import Footer from "../../components/Footer.astro";
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Architecture</h3>
             <div class="flex flex-col gap-1.5 text-xs font-mono text-[#A1A1AA] bg-[#111113] p-4 rounded-xl border border-[rgba(255,255,255,0.04)]">
-              <div>Frontend: React</div>
+              <div>Mobile Client: Swift / iOS</div>
               <div class="text-[#71717A]">↓</div>
-              <div>Backend: Go API</div>
+              <div>Local Store: SQLite (WAL Mode)</div>
               <div class="text-[#71717A]">↓</div>
-              <div>Database: PostgreSQL</div>
+              <div>Sync Sync: Node.js API</div>
               <div class="text-[#71717A]">↓</div>
-              <div>Deployment: Docker / AWS</div>
+              <div>Database Backend: MongoDB</div>
             </div>
           </div>
 
           <!-- Architecture SVG Flowchart -->
           <div class="flex flex-col gap-3 bg-[#111113] border border-[rgba(255,255,255,0.04)] p-6 rounded-xl">
-            <h4 class="text-[11px] font-mono text-[#71717A] uppercase">Reservation Sequence Diagram</h4>
+            <h4 class="text-[11px] font-mono text-[#71717A] uppercase">Sync State Flowchart</h4>
             <svg viewBox="0 0 400 180" class="w-full h-auto text-white">
-              <rect x="10" y="20" width="80" height="30" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1.5" />
-              <text x="50" y="38" text-anchor="middle" font-size="10" fill="#FAFAFA" font-family="monospace">Client UI</text>
-              <path d="M90 35 h80" stroke="#71717A" stroke-width="1.5" stroke-dasharray="4" />
+              <rect x="10" y="25" width="90" height="30" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1.5" />
+              <text x="55" y="43" text-anchor="middle" font-size="9" fill="#FAFAFA" font-family="monospace">Swift SQLite</text>
               
-              <rect x="170" y="20" width="80" height="30" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1.5" />
-              <text x="210" y="38" text-anchor="middle" font-size="10" fill="#FAFAFA" font-family="monospace">Go API</text>
-              <path d="M250 35 h80" stroke="#71717A" stroke-width="1.5" stroke-dasharray="4" />
+              <rect x="160" y="25" width="80" height="30" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1.5" />
+              <text x="200" y="43" text-anchor="middle" font-size="9" fill="#FAFAFA" font-family="monospace">Node API</text>
               
-              <rect x="330" y="20" width="60" height="30" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1.5" />
-              <text x="360" y="38" text-anchor="middle" font-size="10" fill="#FAFAFA" font-family="monospace">Postgres</text>
+              <rect x="310" y="25" width="80" height="30" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1.5" />
+              <text x="350" y="43" text-anchor="middle" font-size="9" fill="#FAFAFA" font-family="monospace">S3 Storage</text>
 
-              <path d="M50 50 v100" stroke="#27272A" stroke-width="1" stroke-dasharray="2" />
-              <path d="M210 50 v100" stroke="#27272A" stroke-width="1" stroke-dasharray="2" />
-              <path d="M360 50 v100" stroke="#27272A" stroke-width="1" stroke-dasharray="2" />
+              <path d="M55 55 v100" stroke="#27272A" stroke-width="1" stroke-dasharray="2" />
+              <path d="M200 55 v100" stroke="#27272A" stroke-width="1" stroke-dasharray="2" />
+              <path d="M350 55 v100" stroke="#27272A" stroke-width="1" stroke-dasharray="2" />
 
-              <!-- Flow arrows -->
-              <path d="M50 70 h160" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow)" />
-              <text x="130" y="65" text-anchor="middle" font-size="8" fill="#71717A" font-family="monospace">Post Booking</text>
+              <path d="M55 75 h145" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow)" />
+              <text x="127" y="70" text-anchor="middle" font-size="8" fill="#71717A" font-family="monospace">Push Queue</text>
 
-              <path d="M210 90 h150" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow)" />
-              <text x="285" y="85" text-anchor="middle" font-size="8" fill="#71717A" font-family="monospace">SQL Transaction</text>
+              <path d="M200 95 h150" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow)" />
+              <text x="275" y="90" text-anchor="middle" font-size="8" fill="#71717A" font-family="monospace">Multipart Upload</text>
 
-              <path d="M360 120 h-150" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow)" />
-              <text x="285" y="115" text-anchor="middle" font-size="8" fill="#71717A" font-family="monospace">Exclusion Lock Match</text>
+              <path d="M350 120 h-150" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow)" />
+              <text x="275" y="115" text-anchor="middle" font-size="8" fill="#71717A" font-family="monospace">Storage URL ACK</text>
 
-              <path d="M210 140 h-160" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow)" />
-              <text x="130" y="135" text-anchor="middle" font-size="8" fill="#71717A" font-family="monospace">HTTP 201 Created</text>
+              <path d="M200 140 h-145" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow)" />
+              <text x="127" y="135" text-anchor="middle" font-size="8" fill="#71717A" font-family="monospace">Update Local Store</text>
             </svg>
           </div>
 
@@ -210,15 +207,15 @@ import Footer from "../../components/Footer.astro";
             
             <div class="flex flex-col gap-4 pl-4 border-l border-[rgba(255,255,255,0.06)]">
               <div>
-                <span class="text-xs text-[#71717A] font-mono block mb-1">March 2025 · PostgreSQL over MongoDB</span>
-                <div class="text-sm font-medium text-white">Decision: PostgreSQL serialization constraints.</div>
-                <p class="text-xs text-[#A1A1AA] mt-1">MongoDB lacks the native exclusion locks required to validate seating overlaps at database boundary levels.</p>
+                <span class="text-xs text-[#71717A] font-mono block mb-1">February 2026 · Local SQLite over CoreData</span>
+                <div class="text-sm font-medium text-white">Decision: Raw SQLite WAL mode.</div>
+                <p class="text-xs text-[#A1A1AA] mt-1">CoreData introduced serialization overhead that degraded main thread interface frame rates during background syncs.</p>
               </div>
               
               <div>
-                <span class="text-xs text-[#71717A] font-mono block mb-1">June 2025 · Short Polling over WebSockets</span>
-                <div class="text-sm font-medium text-white">Decision: Server-side connection simplicity.</div>
-                <p class="text-xs text-[#A1A1AA] mt-1">Maintaining WebSockets consumed idle memory resources on low-cost virtual private servers.</p>
+                <span class="text-xs text-[#71717A] font-mono block mb-1">April 2026 · Chunked Multipart Uploads</span>
+                <div class="text-sm font-medium text-white">Decision: Chunked S3 background pipeline.</div>
+                <p class="text-xs text-[#A1A1AA] mt-1">Direct single-file uploads timed out frequently. Chunking allowed successful resume checks after network reconnects.</p>
               </div>
             </div>
           </div>
@@ -237,19 +234,19 @@ import Footer from "../../components/Footer.astro";
                 </thead>
                 <tbody class="divide-y divide-[rgba(255,255,255,0.04)] text-[#A1A1AA]">
                   <tr>
-                    <td class="py-3 pr-4 font-medium text-[#FAFAFA]">Serializable Isolation</td>
-                    <td class="py-3 px-4">Zero duplicate bookings</td>
-                    <td class="py-3 pl-4">Transaction abort retries</td>
+                    <td class="py-3 pr-4 font-medium text-[#FAFAFA]">SQLite WAL</td>
+                    <td class="py-3 px-4">Non-blocking local writes</td>
+                    <td class="py-3 pl-4">Manual schema migration</td>
                   </tr>
                   <tr>
-                    <td class="py-3 pr-4 font-medium text-[#FAFAFA]">SQL constraints</td>
-                    <td class="py-3 px-4">Guaranteed schema state</td>
-                    <td class="py-3 pl-4">Complex SQL migrations</td>
+                    <td class="py-3 pr-4 font-medium text-[#FAFAFA]">Background Uploads</td>
+                    <td class="py-3 px-4">Predictable thread memory</td>
+                    <td class="py-3 pl-4">Delayed publication state</td>
                   </tr>
                   <tr>
-                    <td class="py-3 pr-4 font-medium text-[#FAFAFA]">Short Polling</td>
-                    <td class="py-3 px-4">Lower active RAM usage</td>
-                    <td class="py-3 pl-4">Higher network log counts</td>
+                    <td class="py-3 pr-4 font-medium text-[#FAFAFA]">Multipart Sync</td>
+                    <td class="py-3 px-4">Resumable uploads</td>
+                    <td class="py-3 pl-4">Additional network logic</td>
                   </tr>
                 </tbody>
               </table>
@@ -259,41 +256,40 @@ import Footer from "../../components/Footer.astro";
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">What Didn't Work</h3>
             <p>
-              Implementing Redis distributed locks introduced connection drop vulnerabilities and key state mismatches.
-              If the API instance restarted during validation, the lock stayed orphaned, freezing seat inventory.
-              We replaced this with PostgreSQL index-level exclusion bounds.
+              Our initial client-side synchronization logic resolved database conflicts by overwriting with the latest timestamp.
+              This created race conditions when multiple devices edited the same itinerary concurrently.
+              We replaced this with conflict-free replicated data type (CRDT) logical logs.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Security</h3>
             <p>
-              To guard user information and transactions, we set secure headers, CSRF middleware tokens, and strict authorization levels.
-              Reservation writes are validated against active date-range limits to block boundary attacks.
+              Auth tokens are stored in the iOS Secure Keychain boundary.
+              All S3 media uploads require backend pre-signed tokens to block unauthorized storage writes.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Performance</h3>
             <p>
-              By partitioning the database tables by month, we optimized reservation reads.
-              Tested under simulated concurrent workloads, booking transactions achieve sub-10ms response latencies.
+              We moved video transcode actions from CPU bounds to hardware encoders.
+              This optimization reduced client device battery temperatures during media operations.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Monitoring</h3>
             <p>
-              Structured Go logs are output to stdout.
-              Daemons track database lock wait durations and API latency parameters, sending notifications if lock contention triggers transaction aborts.
+              Mobile client errors are aggregated locally and reported to our logging API when network connectivity recovers.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Scalability</h3>
             <p>
-              As traffic grows, database read volume is mitigated by caching layout bundles on the CDN edge.
-              Only booking writes reach the transaction databases.
+              Only metadata transactions route through MongoDB.
+              Static media files bypass application servers, scaling natively at CDN edge levels.
             </p>
           </div>
         </section>
@@ -307,40 +303,40 @@ import Footer from "../../components/Footer.astro";
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Outcome</h3>
             <p>
-              DailyDine operates across three active local venues, processing hundreds of weekly reservations without a single double-booking failure.
+              The XELIQ mobile client successfully process large media asset uploads and itinerary changes offline, synchronization correctly on reconnect.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Lessons</h3>
             <p>
-              Relying on database guarantees is safer than coordinating state inside applications.
-              Database schemas and transactional engines are designed for consensus; developers should avoid re-implementing locks.
+              Design for offline states first.
+              Assuming persistent network connectivity in client applications leads to fragile user experiences.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Things I'd Do Differently</h3>
             <ul class="list-disc pl-5 text-sm text-[#A1A1AA] flex flex-col gap-1.5">
-              <li>Use PostgreSQL exclusion constraints from day one.</li>
-              <li>Avoid overcomplicating with cache networks early in development.</li>
-              <li>Map database schemas before building user interfaces.</li>
+              <li>Use local SQLite from the first prototype.</li>
+              <li>Implement CRDT logs early in conflict resolutions.</li>
+              <li>Design local assets cache configurations systematically.</li>
             </ul>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">If I Rebuilt It Today</h3>
             <p>
-              If I restarted, I would explore using SQLite with WAL mode enabled to support single-venue setups.
-              It eliminates the database server administration overhead while retaining transactional boundaries.
+              If I restarted, I would explore using Apple's Network framework paths exclusively rather than third-party networking abstractions.
+              This reduces runtime size and optimizes low-level sync configurations.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Questions I'm Still Exploring</h3>
             <ul class="list-disc pl-5 text-sm text-[#A1A1AA] flex flex-col gap-1.5">
-              <li>Could optimistic concurrency checks replace row-level locks under peak traffic?</li>
-              <li>How will table-allocation algorithms perform when handling multi-table seating bounds?</li>
+              <li>Could WebRTC facilitate peer-to-peer itinerary synchronization for offline traveling companions?</li>
+              <li>How to improve client-side local cache garbage collection policies?</li>
             </ul>
           </div>
         </section>
@@ -359,10 +355,6 @@ import Footer from "../../components/Footer.astro";
                 <span class="text-[#71717A] block mb-0.5">July 2026</span>
                 Initial case study publication.
               </div>
-              <div>
-                <span class="text-[#71717A] block mb-0.5">June 2026</span>
-                Updated database isolation sections.
-              </div>
             </div>
           </div>
 
@@ -370,9 +362,7 @@ import Footer from "../../components/Footer.astro";
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Downloads</h3>
             <div class="flex flex-wrap gap-4 text-xs font-mono">
-              <a href="#" class="text-[#2563EB] hover:underline">System Diagram (SVG)</a>
-              <span class="text-[#71717A]">·</span>
-              <a href="#" class="text-[#2563EB] hover:underline">Design Notes (PDF)</a>
+              <a href="#" class="text-[#2563EB] hover:underline">Sync Sequence (SVG)</a>
             </div>
           </div>
 
@@ -380,16 +370,15 @@ import Footer from "../../components/Footer.astro";
           <div class="flex flex-col gap-4 border-t border-[rgba(255,255,255,0.06)] pt-6">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Further Reading</h3>
             <div class="flex flex-col gap-2 text-sm">
-              <a href="/writing/lessons-from-building-dailydine" class="text-[#2563EB] hover:underline">Related Writing: Lessons From Building DailyDine</a>
-              <a href="/notes" class="text-[#2563EB] hover:underline">Related Notes: PostgreSQL MVCC</a>
-              <a href="/reading" class="text-[#2563EB] hover:underline">Related Books: Designing Data-Intensive Applications</a>
-              <a href="https://github.com/programmer-nick234/dailydine" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] hover:underline">Source Code: GitHub Repository</a>
+              <a href="/writing/lessons-from-building-dailydine" class="text-[#2563EB] hover:underline">Related Writing: Product Design Lessons</a>
+              <a href="/notes" class="text-[#2563EB] hover:underline">Related Notes: Local SQLite optimization</a>
+              <a href="https://github.com/programmer-nick234/xeliq" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] hover:underline">Source Code: GitHub Repository</a>
             </div>
           </div>
 
           <!-- Technical Stack (mono, last) -->
           <div class="flex flex-col gap-2 text-xs font-mono text-[#71717A] border-t border-[rgba(255,255,255,0.06)] pt-6">
-            <span>Technologies: Go · PostgreSQL · React · Docker · AWS · Tailwind CSS</span>
+            <span>Technologies: Swift · Node.js · SQLite · MongoDB · Docker · S3</span>
           </div>
         </section>
 
@@ -411,10 +400,8 @@ import Footer from "../../components/Footer.astro";
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = height > 0 ? Math.round((winScroll / height) * 100) : 0;
       
-      // Update top progress bar
       scrollIndicator.style.width = scrolled + '%';
       
-      // Update ASCII reading block progress indicator
       const totalBlocks = 12;
       const filledBlocks = Math.round((scrolled / 100) * totalBlocks);
       const emptyBlocks = totalBlocks - filledBlocks;

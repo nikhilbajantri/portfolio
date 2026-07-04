@@ -7,29 +7,31 @@ import Footer from "../components/Footer.astro";
 const highlightedWork = [
   {
     title: "DailyDine",
-    subtitle: "Dining coordination platform",
-    overview: "DailyDine coordinates table reservations for local restaurants, focusing on scheduling reliability.",
-    challenge: "Balancing table inventory with customer convenience under high reservation concurrency.",
-    approach: "Designed an event-driven lock system to prevent overbooking during peak dining hours.",
-    architecture: "React frontend communicating with a Go backend and a PostgreSQL database.",
-    tradeoffs: "Chose server-side polling instead of WebSockets to reduce state management complexity on the server.",
-    outcome: "Coordinated reservations across three venues, reducing customer wait times.",
-    lessons: "Simple database transactions are easier to maintain than distributed reservation state machines.",
+    subtitle: "Dining coordination platform · 2026",
+    overview: "A restaurant operations platform built to reduce uncertainty around reservations, ordering, and table management.",
     tech: ["Go", "React", "PostgreSQL", "Tailwind CSS"],
     slug: "/work/dailydine"
   },
   {
-    title: "HisabProx",
-    subtitle: "Local invoice utility",
-    overview: "HisabProx helps freelance developers generate and manage client invoices without external database storage.",
-    challenge: "Ensuring developer data privacy without hosting expensive cloud database infrastructure.",
-    approach: "Built a client-side storage utility that runs completely locally in the browser.",
-    architecture: "Static TypeScript app utilizing local storage and client-side PDF compilation.",
-    tradeoffs: "Traded multi-device synchronization for complete client privacy and zero server maintenance costs.",
-    outcome: "Active local utility used to draft and compile PDF invoices daily.",
-    lessons: "The most secure and cost-effective system is the one that avoids storing data on a remote server.",
-    tech: ["TypeScript", "React", "Local Storage", "PDFKit"],
-    slug: "/work/hisabprox"
+    title: "XELIQ",
+    subtitle: "Creator-first travel platform · 2026",
+    overview: "A travel platform built to rethink how creators plan, document, and share travel, utilizing offline sync protocols.",
+    tech: ["Swift", "Node.js", "SQLite", "MongoDB"],
+    slug: "/work/xeliq"
+  },
+  {
+    title: "CodeBud",
+    subtitle: "Developer authentication platform · 2025",
+    overview: "A learning platform built to provide secure authentication and role-based access for developers via Keycloak.",
+    tech: ["TypeScript", "Next.js", "Keycloak", "Docker"],
+    slug: "/work/codebud"
+  },
+  {
+    title: "Great British Doner",
+    subtitle: "Headless restaurant platform · 2025",
+    overview: "A headless restaurant website built to improve content workflows, SEO, and performance via Sanity CMS.",
+    tech: ["Next.js", "Sanity CMS", "Vercel", "Tailwind CSS"],
+    slug: "/work/great-british-doner"
   }
 ];
 
@@ -133,43 +135,25 @@ const latestWriting = [
     <!-- 3. Selected Work (Selected Case Studies) -->
     <section id="work" class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.08)] pt-12">
       <div class="flex justify-between items-baseline">
-        <h2 class="text-2xl font-display font-medium text-[#FAFAFA] tracking-tight">Work</h2>
-        <a href="/work" class="text-xs text-[#2563EB] hover:underline font-medium">Explore</a>
+        <h2 class="text-2xl font-display font-medium text-[#FAFAFA] tracking-tight">Selected Work</h2>
+        <a href="/work" class="text-xs text-[#2563EB] hover:underline font-mono">View All Projects →</a>
       </div>
 
-      <div class="flex flex-col gap-12">
+      <div class="flex flex-col gap-10">
         {highlightedWork.map((project) => (
-          <article class="p-6 bg-[#111113] border border-[rgba(255,255,255,0.08)] rounded-[16px] flex flex-col gap-4">
-            
-            <div class="flex flex-col gap-1">
-              <h3 class="text-lg font-medium text-[#FAFAFA]">{project.title}</h3>
-              <p class="text-xs text-[#71717A] font-mono">{project.subtitle}</p>
+          <article class="flex flex-col gap-2">
+            <div class="flex justify-between items-baseline">
+              <h3 class="text-lg font-medium text-[#FAFAFA]">
+                <a href={project.slug} class="hover:text-[#2563EB] transition-colors">{project.title}</a>
+              </h3>
+              <span class="text-xs text-[#71717A] font-mono">{project.subtitle}</span>
             </div>
-
-            <p class="text-sm text-[#A1A1AA] leading-relaxed">
+            <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[680px]">
               {project.overview}
             </p>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-[#A1A1AA] mt-2">
-              <div>
-                <span class="font-medium text-[#FAFAFA] block mb-1">Challenge</span>
-                {project.challenge}
-              </div>
-              <div>
-                <span class="font-medium text-[#FAFAFA] block mb-1">Architecture</span>
-                {project.architecture}
-              </div>
+            <div class="text-[11px] font-mono text-[#71717A] mt-1">
+              Stack: {project.tech.join(" · ")}
             </div>
-
-            <div class="flex justify-between items-center mt-4 border-t border-[rgba(255,255,255,0.04)] pt-4">
-              <span class="text-[11px] font-mono text-[#71717A]">
-                {project.tech.join(" · ")}
-              </span>
-              <a href={project.slug} class="text-xs text-[#2563EB] hover:underline">
-                View Case Study
-              </a>
-            </div>
-
           </article>
         ))}
       </div>

@@ -4,7 +4,7 @@ import Navigation from "../../components/Navigation.astro";
 import Footer from "../../components/Footer.astro";
 ---
 
-<Layout title="DailyDine Case Study">
+<Layout title="Great British Doner Case Study">
   <Navigation />
 
   <!-- Scroll progress bar script -->
@@ -18,7 +18,7 @@ import Footer from "../../components/Footer.astro";
     <div class="flex justify-between items-center text-xs text-[#71717A] font-mono border-b border-[rgba(255,255,255,0.06)] pb-4">
       <a href="/work" class="hover:text-[#FAFAFA] transition-colors">← Back to Work</a>
       <div class="flex items-center gap-4">
-        <span>Estimated Reading Time: 12 min</span>
+        <span>Estimated Reading Time: 9 min</span>
         <span id="progress-text" class="text-white">██████░░░░░░ 0%</span>
       </div>
     </div>
@@ -28,13 +28,13 @@ import Footer from "../../components/Footer.astro";
       <div class="flex gap-2 text-xs text-[#71717A] font-mono uppercase tracking-wider">
         <span>Selected Work</span>
         <span>·</span>
-        <span>2026</span>
+        <span>2025</span>
       </div>
       <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
-        DailyDine: Reservation Engine
+        Great British Doner: Headless CMS
       </h1>
       <p class="text-base text-[#A1A1AA] leading-relaxed">
-        A restaurant operations platform built to reduce uncertainty around reservations, ordering, and table management.
+        A headless restaurant website built to improve content workflows, SEO, and performance.
       </p>
     </header>
 
@@ -45,10 +45,10 @@ import Footer from "../../components/Footer.astro";
       <div class="flex flex-col gap-3">
         <h4 class="text-[#FAFAFA] font-sans font-medium uppercase tracking-wider text-[11px]">Project at a Glance</h4>
         <div class="flex flex-col gap-1.5">
-          <div>Role: <span class="text-white">Founder & CTO</span></div>
-          <div>Duration: <span class="text-white">2024–Present</span></div>
-          <div>Status: <span class="text-white">● Active Development</span></div>
-          <div>Team: <span class="text-white">5 Engineers</span></div>
+          <div>Role: <span class="text-white">Software Engineer</span></div>
+          <div>Duration: <span class="text-white">Duration: 3 Months</span></div>
+          <div>Status: <span class="text-white">● Production</span></div>
+          <div>Team: <span class="text-white">1 Engineer</span></div>
         </div>
       </div>
 
@@ -56,10 +56,10 @@ import Footer from "../../components/Footer.astro";
       <div class="flex flex-col gap-3">
         <h4 class="text-[#FAFAFA] font-sans font-medium uppercase tracking-wider text-[11px]">Scale</h4>
         <div class="flex flex-col gap-1.5">
-          <div>Users: <span class="text-white">Growing</span></div>
+          <div>Users: <span class="text-white">Production</span></div>
           <div>Traffic: <span class="text-white">Production</span></div>
           <div>Deployment: <span class="text-white">Cloud</span></div>
-          <div>Repository: <span class="text-white">Private</span></div>
+          <div>Repository: <span class="text-white">Client-owned</span></div>
         </div>
       </div>
 
@@ -80,7 +80,7 @@ import Footer from "../../components/Footer.astro";
     <div class="border-l-2 border-[#2563EB] pl-6 py-1 max-w-[68ch]">
       <h4 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold mb-2 font-mono">What did this project teach me?</h4>
       <p class="text-sm text-[#FAFAFA] leading-relaxed italic">
-        "This project fundamentally changed how I think about transactional systems, database consistency, and engineering trade-offs."
+        "This project fundamentally changed how I think about static site generation, structured headless content models, and SEO performance optimization."
       </p>
     </div>
 
@@ -110,42 +110,46 @@ import Footer from "../../components/Footer.astro";
           <div class="flex flex-col gap-6">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Executive Summary</h3>
             <p class="text-sm text-[#A1A1AA]">
-              DailyDine is a restaurant operations platform built to reduce uncertainty around table reservations and real-time seating inventory. The project served as my largest experiment in database concurrency controls and operational simplicity. By coordinating real-time reservations without distributed locking layers, the system demonstrates how transactional database constraints can replace complex caching networks.
+              Great British Doner is a headless restaurant website built to improve content management workflows, search engine visibility (SEO), and page load performance. The project details the migration of a legacy monolithic site to a headless Sanity CMS and Next.js static architecture. By utilizing structured content schemas and automated incremental static regeneration (ISR), the system delivers sub-second page loads and fast menu updates.
             </p>
 
             <h4 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Key Takeaways</h4>
             <ul class="list-disc pl-5 text-sm text-[#A1A1AA] flex flex-col gap-2">
-              <li>Built a reservation engine with transactional consistency.</li>
-              <li>Replaced optimistic assumptions with measurable concurrency controls.</li>
-              <li>Learned that operational simplicity scales better than premature complexity.</li>
+              <li>Migrated a legacy site to a headless static architecture.</li>
+              <li>Secured sub-second page rendering using static generation.</li>
+              <li>Simplified content editing workflows for restaurant administrators.</li>
             </ul>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Context</h3>
             <p>
-              DailyDine was built to allow local restaurants to host direct table reservations on their own web domains, escaping directory commissions. Venues retain absolute customer database ownership while serving real customers daily.
+              Great British Doner is a local restaurant brand.
+              The operations team requires quick updates to menus, hours, and banners without edit latency or coding knowledge.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">The Problem</h3>
             <p>
-              Double-booking a table ruins customer confidence instantly. Restaurants experience bursts of booking requests during holiday seasons or weekend rush hours. If two customers book the same table simultaneously, the system fails.
+              The legacy site had slow load times, poor SEO indexing, and required code changes for simple price edits.
+              This restricted marketing campaigns and reduced mobile ordering rates.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Why It Mattered</h3>
             <p>
-              For small restaurants, operational margins are thin. A single double-booking error ruins customer experiences and causes active staff stress during busy dining windows.
+              Fast loading speeds on mobile devices directly correlate with restaurant conversion and ordering rates.
+              Unoptimized images and slow servers impact customer conversion.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Research</h3>
             <p>
-              We researched distributed locking architectures using central in-memory stores like Redis. While viable, managing lock expiries, connection drops, and failovers introduces complex failure modes that exceed team constraints.
+              We researched maintaining the monolithic database stack.
+              However, serving dynamic queries for static menus is expensive and introduces database wait times that degrade SEO rankings.
             </p>
           </div>
         </section>
@@ -160,47 +164,44 @@ import Footer from "../../components/Footer.astro";
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Architecture</h3>
             <div class="flex flex-col gap-1.5 text-xs font-mono text-[#A1A1AA] bg-[#111113] p-4 rounded-xl border border-[rgba(255,255,255,0.04)]">
-              <div>Frontend: React</div>
+              <div>CMS Studio: Sanity CMS</div>
               <div class="text-[#71717A]">↓</div>
-              <div>Backend: Go API</div>
+              <div>Static Compiler: Next.js (ISR)</div>
               <div class="text-[#71717A]">↓</div>
-              <div>Database: PostgreSQL</div>
+              <div>Asset Optimization: Vercel CDN</div>
               <div class="text-[#71717A]">↓</div>
-              <div>Deployment: Docker / AWS</div>
+              <div>Analytics: Privacy-first edge tracking</div>
             </div>
           </div>
 
           <!-- Architecture SVG Flowchart -->
           <div class="flex flex-col gap-3 bg-[#111113] border border-[rgba(255,255,255,0.04)] p-6 rounded-xl">
-            <h4 class="text-[11px] font-mono text-[#71717A] uppercase">Reservation Sequence Diagram</h4>
+            <h4 class="text-[11px] font-mono text-[#71717A] uppercase">CMS Deploy Pipeline</h4>
             <svg viewBox="0 0 400 180" class="w-full h-auto text-white">
-              <rect x="10" y="20" width="80" height="30" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1.5" />
-              <text x="50" y="38" text-anchor="middle" font-size="10" fill="#FAFAFA" font-family="monospace">Client UI</text>
-              <path d="M90 35 h80" stroke="#71717A" stroke-width="1.5" stroke-dasharray="4" />
+              <rect x="10" y="25" width="80" height="30" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1.5" />
+              <text x="50" y="43" text-anchor="middle" font-size="9" fill="#FAFAFA" font-family="monospace">Sanity Editor</text>
               
-              <rect x="170" y="20" width="80" height="30" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1.5" />
-              <text x="210" y="38" text-anchor="middle" font-size="10" fill="#FAFAFA" font-family="monospace">Go API</text>
-              <path d="M250 35 h80" stroke="#71717A" stroke-width="1.5" stroke-dasharray="4" />
+              <rect x="160" y="25" width="80" height="30" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1.5" />
+              <text x="200" y="43" text-anchor="middle" font-size="9" fill="#FAFAFA" font-family="monospace">Vercel Webhook</text>
               
-              <rect x="330" y="20" width="60" height="30" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1.5" />
-              <text x="360" y="38" text-anchor="middle" font-size="10" fill="#FAFAFA" font-family="monospace">Postgres</text>
+              <rect x="310" y="25" width="80" height="30" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1.5" />
+              <text x="350" y="43" text-anchor="middle" font-size="9" fill="#FAFAFA" font-family="monospace">Next.js ISR</text>
 
-              <path d="M50 50 v100" stroke="#27272A" stroke-width="1" stroke-dasharray="2" />
-              <path d="M210 50 v100" stroke="#27272A" stroke-width="1" stroke-dasharray="2" />
-              <path d="M360 50 v100" stroke="#27272A" stroke-width="1" stroke-dasharray="2" />
+              <path d="M50 55 v100" stroke="#27272A" stroke-width="1" stroke-dasharray="2" />
+              <path d="M200 55 v100" stroke="#27272A" stroke-width="1" stroke-dasharray="2" />
+              <path d="M350 55 v100" stroke="#27272A" stroke-width="1" stroke-dasharray="2" />
 
-              <!-- Flow arrows -->
-              <path d="M50 70 h160" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow)" />
-              <text x="130" y="65" text-anchor="middle" font-size="8" fill="#71717A" font-family="monospace">Post Booking</text>
+              <path d="M50 75 h150" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow)" />
+              <text x="125" y="70" text-anchor="middle" font-size="8" fill="#71717A" font-family="monospace">Publish Menu</text>
 
-              <path d="M210 90 h150" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow)" />
-              <text x="285" y="85" text-anchor="middle" font-size="8" fill="#71717A" font-family="monospace">SQL Transaction</text>
+              <path d="M200 95 h150" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow)" />
+              <text x="275" y="90" text-anchor="middle" font-size="8" fill="#71717A" font-family="monospace">Trigger ISR Build</text>
 
-              <path d="M360 120 h-150" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow)" />
-              <text x="285" y="115" text-anchor="middle" font-size="8" fill="#71717A" font-family="monospace">Exclusion Lock Match</text>
+              <path d="M350 120 h-150" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow)" />
+              <text x="275" y="115" text-anchor="middle" font-size="8" fill="#71717A" font-family="monospace">Purge Static Cache</text>
 
-              <path d="M210 140 h-160" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow)" />
-              <text x="130" y="135" text-anchor="middle" font-size="8" fill="#71717A" font-family="monospace">HTTP 201 Created</text>
+              <path d="M200 140 h-150" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow)" />
+              <text x="125" y="135" text-anchor="middle" font-size="8" fill="#71717A" font-family="monospace">Sync Complete</text>
             </svg>
           </div>
 
@@ -210,15 +211,15 @@ import Footer from "../../components/Footer.astro";
             
             <div class="flex flex-col gap-4 pl-4 border-l border-[rgba(255,255,255,0.06)]">
               <div>
-                <span class="text-xs text-[#71717A] font-mono block mb-1">March 2025 · PostgreSQL over MongoDB</span>
-                <div class="text-sm font-medium text-white">Decision: PostgreSQL serialization constraints.</div>
-                <p class="text-xs text-[#A1A1AA] mt-1">MongoDB lacks the native exclusion locks required to validate seating overlaps at database boundary levels.</p>
+                <span class="text-xs text-[#71717A] font-mono block mb-1">March 2025 · Headless Sanity over WordPress</span>
+                <div class="text-sm font-medium text-white">Decision: Sanity CMS schemas.</div>
+                <p class="text-xs text-[#A1A1AA] mt-1">Sanity provides structured JSON menus, preventing editors from breaking layout designs through rich-text fields.</p>
               </div>
               
               <div>
-                <span class="text-xs text-[#71717A] font-mono block mb-1">June 2025 · Short Polling over WebSockets</span>
-                <div class="text-sm font-medium text-white">Decision: Server-side connection simplicity.</div>
-                <p class="text-xs text-[#A1A1AA] mt-1">Maintaining WebSockets consumed idle memory resources on low-cost virtual private servers.</p>
+                <span class="text-xs text-[#71717A] font-mono block mb-1">April 2025 · Incremental Static Regeneration</span>
+                <div class="text-sm font-medium text-white">Decision: Next.js ISR compilation.</div>
+                <p class="text-xs text-[#A1A1AA] mt-1">Rather than rebuild the entire site for single price edits, ISR updates individual static paths on-demand.</p>
               </div>
             </div>
           </div>
@@ -237,19 +238,19 @@ import Footer from "../../components/Footer.astro";
                 </thead>
                 <tbody class="divide-y divide-[rgba(255,255,255,0.04)] text-[#A1A1AA]">
                   <tr>
-                    <td class="py-3 pr-4 font-medium text-[#FAFAFA]">Serializable Isolation</td>
-                    <td class="py-3 px-4">Zero duplicate bookings</td>
-                    <td class="py-3 pl-4">Transaction abort retries</td>
+                    <td class="py-3 pr-4 font-medium text-[#FAFAFA]">Static Generation</td>
+                    <td class="py-3 px-4">Fast loading speeds</td>
+                    <td class="py-3 pl-4">Rebuild queue latency</td>
                   </tr>
                   <tr>
-                    <td class="py-3 pr-4 font-medium text-[#FAFAFA]">SQL constraints</td>
-                    <td class="py-3 px-4">Guaranteed schema state</td>
-                    <td class="py-3 pl-4">Complex SQL migrations</td>
+                    <td class="py-3 pr-4 font-medium text-[#FAFAFA]">Sanity CMS</td>
+                    <td class="py-3 px-4">Structured content data</td>
+                    <td class="py-3 pl-4">Separate dashboard logins</td>
                   </tr>
                   <tr>
-                    <td class="py-3 pr-4 font-medium text-[#FAFAFA]">Short Polling</td>
-                    <td class="py-3 px-4">Lower active RAM usage</td>
-                    <td class="py-3 pl-4">Higher network log counts</td>
+                    <td class="py-3 pr-4 font-medium text-[#FAFAFA]">Vercel Edge Caching</td>
+                    <td class="py-3 px-4">Sub-second global TTFB</td>
+                    <td class="py-3 pl-4">Cache invalidation checks</td>
                   </tr>
                 </tbody>
               </table>
@@ -259,41 +260,37 @@ import Footer from "../../components/Footer.astro";
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">What Didn't Work</h3>
             <p>
-              Implementing Redis distributed locks introduced connection drop vulnerabilities and key state mismatches.
-              If the API instance restarted during validation, the lock stayed orphaned, freezing seat inventory.
-              We replaced this with PostgreSQL index-level exclusion bounds.
+              Our initial setup fetched images directly from the CMS CDN without size optimization.
+              This bloated page sizes on mobile.
+              We replaced this with Next.js dynamic image transcoding layers to ensure optimal image delivery.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Security</h3>
             <p>
-              To guard user information and transactions, we set secure headers, CSRF middleware tokens, and strict authorization levels.
-              Reservation writes are validated against active date-range limits to block boundary attacks.
+              We secured the CMS webhook validations using custom header signature audits, preventing spoofed deploy triggers.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Performance</h3>
             <p>
-              By partitioning the database tables by month, we optimized reservation reads.
-              Tested under simulated concurrent workloads, booking transactions achieve sub-10ms response latencies.
+              By migrating to static builds, we achieved clean performance metrics: Lighthouse scores rose to 98, and static build times fell to 12 seconds.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Monitoring</h3>
             <p>
-              Structured Go logs are output to stdout.
-              Daemons track database lock wait durations and API latency parameters, sending notifications if lock contention triggers transaction aborts.
+              Aggregated build reports and webhook error logs are monitored directly on the deployment platform.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Scalability</h3>
             <p>
-              As traffic grows, database read volume is mitigated by caching layout bundles on the CDN edge.
-              Only booking writes reach the transaction databases.
+              Serving static pages from CDN edge nodes scales to handle traffic peaks seamlessly, without application database load.
             </p>
           </div>
         </section>
@@ -307,40 +304,38 @@ import Footer from "../../components/Footer.astro";
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Outcome</h3>
             <p>
-              DailyDine operates across three active local venues, processing hundreds of weekly reservations without a single double-booking failure.
+              Great British Doner operates stably, rendering menu variations instantly and handling traffic peaks without server overload.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Lessons</h3>
             <p>
-              Relying on database guarantees is safer than coordinating state inside applications.
-              Database schemas and transactional engines are designed for consensus; developers should avoid re-implementing locks.
+              Migrating to static pages eliminates database wait times for content sites, optimizing search engine indexes.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Things I'd Do Differently</h3>
             <ul class="list-disc pl-5 text-sm text-[#A1A1AA] flex flex-col gap-1.5">
-              <li>Use PostgreSQL exclusion constraints from day one.</li>
-              <li>Avoid overcomplicating with cache networks early in development.</li>
-              <li>Map database schemas before building user interfaces.</li>
+              <li>Define the CMS structured schema early in the project.</li>
+              <li>Configure image aspect ratios at the model boundary.</li>
+              <li>Incorporate SEO meta tags early in the layout designs.</li>
             </ul>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">If I Rebuilt It Today</h3>
             <p>
-              If I restarted, I would explore using SQLite with WAL mode enabled to support single-venue setups.
-              It eliminates the database server administration overhead while retaining transactional boundaries.
+              If I restarted, I would explore Astro to reduce JavaScript client bundle weight.
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Questions I'm Still Exploring</h3>
             <ul class="list-disc pl-5 text-sm text-[#A1A1AA] flex flex-col gap-1.5">
-              <li>Could optimistic concurrency checks replace row-level locks under peak traffic?</li>
-              <li>How will table-allocation algorithms perform when handling multi-table seating bounds?</li>
+              <li>Can edge-dynamic layouts customize menus by user location without database latencies?</li>
+              <li>How will automated layout tests prevent schema mismatch failures?</li>
             </ul>
           </div>
         </section>
@@ -359,10 +354,6 @@ import Footer from "../../components/Footer.astro";
                 <span class="text-[#71717A] block mb-0.5">July 2026</span>
                 Initial case study publication.
               </div>
-              <div>
-                <span class="text-[#71717A] block mb-0.5">June 2026</span>
-                Updated database isolation sections.
-              </div>
             </div>
           </div>
 
@@ -370,9 +361,7 @@ import Footer from "../../components/Footer.astro";
           <div class="flex flex-col gap-4">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Downloads</h3>
             <div class="flex flex-wrap gap-4 text-xs font-mono">
-              <a href="#" class="text-[#2563EB] hover:underline">System Diagram (SVG)</a>
-              <span class="text-[#71717A]">·</span>
-              <a href="#" class="text-[#2563EB] hover:underline">Design Notes (PDF)</a>
+              <a href="#" class="text-[#2563EB] hover:underline">Deploy Pipeline (SVG)</a>
             </div>
           </div>
 
@@ -380,16 +369,15 @@ import Footer from "../../components/Footer.astro";
           <div class="flex flex-col gap-4 border-t border-[rgba(255,255,255,0.06)] pt-6">
             <h3 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono">Further Reading</h3>
             <div class="flex flex-col gap-2 text-sm">
-              <a href="/writing/lessons-from-building-dailydine" class="text-[#2563EB] hover:underline">Related Writing: Lessons From Building DailyDine</a>
-              <a href="/notes" class="text-[#2563EB] hover:underline">Related Notes: PostgreSQL MVCC</a>
-              <a href="/reading" class="text-[#2563EB] hover:underline">Related Books: Designing Data-Intensive Applications</a>
-              <a href="https://github.com/programmer-nick234/dailydine" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] hover:underline">Source Code: GitHub Repository</a>
+              <a href="/writing/why-i-built-this-website" class="text-[#2563EB] hover:underline">Related Writing: Why I Built This Website</a>
+              <a href="/notes" class="text-[#2563EB] hover:underline">Related Notes: CMS migrations</a>
+              <a href="https://github.com/programmer-nick234/gbd" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] hover:underline">Source Code: GitHub Repository</a>
             </div>
           </div>
 
           <!-- Technical Stack (mono, last) -->
           <div class="flex flex-col gap-2 text-xs font-mono text-[#71717A] border-t border-[rgba(255,255,255,0.06)] pt-6">
-            <span>Technologies: Go · PostgreSQL · React · Docker · AWS · Tailwind CSS</span>
+            <span>Technologies: Next.js · Sanity CMS · Vercel · Tailwind CSS</span>
           </div>
         </section>
 
@@ -411,10 +399,8 @@ import Footer from "../../components/Footer.astro";
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = height > 0 ? Math.round((winScroll / height) * 100) : 0;
       
-      // Update top progress bar
       scrollIndicator.style.width = scrolled + '%';
       
-      // Update ASCII reading block progress indicator
       const totalBlocks = 12;
       const filledBlocks = Math.round((scrolled / 100) * totalBlocks);
       const emptyBlocks = totalBlocks - filledBlocks;

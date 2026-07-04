@@ -1,0 +1,103 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navigation from "../../components/Navigation.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout title="SSOSC Case Study">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Top Bar Navigation -->
+    <div class="text-xs text-[#71717A] font-mono border-b border-[rgba(255,255,255,0.06)] pb-4">
+      <a href="/work" class="hover:text-[#FAFAFA] transition-colors">← Back to Work</a>
+    </div>
+
+    <!-- Header Section -->
+    <header class="flex flex-col gap-4">
+      <div class="flex gap-2 text-xs text-[#71717A] font-mono uppercase tracking-wider">
+        <span>Community</span>
+        <span>·</span>
+        <span>2024</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
+        SSOSC
+      </h1>
+      <p class="text-sm text-[#A1A1AA] italic">
+        "A student-run open source community platform built to share learning repositories and host hackathons."
+      </p>
+    </header>
+
+    <!-- Project Snapshot -->
+    <section class="border-y border-[rgba(255,255,255,0.06)] py-6 text-xs font-mono text-[#A1A1AA] flex flex-col gap-2">
+      <div>Role: <span class="text-white">Co-founder & Organizer</span></div>
+      <div>Duration: <span class="text-white">Jan 2024 – Dec 2024</span></div>
+      <div>Status: <span class="text-white">● Maintained</span></div>
+      <div>Team: <span class="text-white">2 Engineers</span></div>
+      <div>Stack: <span class="text-white">Next.js · GitHub API · Vercel</span></div>
+      <div>Repository: <span class="text-white">Open Source</span></div>
+    </section>
+
+    <!-- Case Study Sections -->
+    <div class="flex flex-col gap-12 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
+      
+      <!-- 1. Executive Summary -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">01. Executive Summary</h2>
+        <p class="text-sm text-[#A1A1AA]">
+          SSOSC (Symbiosis Student Open Source Community) is a web hub built to coordinate open source learning workshops, maintain student code repositories, and list local hackathon events. The project focused on lowering contribution barriers for beginners.
+        </p>
+      </section>
+
+      <!-- 2. Goals -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">02. Goals</h2>
+        <p class="text-sm text-[#A1A1AA]">
+          The goal was to build a clean index of student projects and active repositories, utilizing the GitHub API to showcase code contributions and keep student logs updated automatically.
+        </p>
+      </section>
+
+      <!-- 3. Architecture -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">03. Architecture</h2>
+        <p class="text-sm text-[#A1A1AA]">
+          The site was built using a Next.js static setup, fetching active organization repository metadata via build-time GitHub API requests and caching parameters on edge CDNs.
+        </p>
+      </section>
+
+      <!-- 4. Challenges -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">04. Challenges</h2>
+        <p class="text-sm text-[#A1A1AA]">
+          Handling GitHub API rate limits during concurrent static build triggers required configuring build caches and fallback stale content data models.
+        </p>
+      </section>
+
+      <!-- 5. Outcome -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">05. Outcome</h2>
+        <p class="text-sm text-[#A1A1AA]">
+          The platform helped coordinate three local hackathons, indexing dozens of open student projects and supporting hundreds of active open contributions.
+        </p>
+      </section>
+
+      <!-- 6. Lessons -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">06. Lessons</h2>
+        <p class="text-sm text-[#A1A1AA]">
+          I learned that building community platforms requires designing simple contributor boundaries. Decoupling the codebase and documenting the deployment setup allows other students to contribute fixes easily.
+        </p>
+      </section>
+
+    </div>
+
+    <!-- Tech Stack footer (mono, last) -->
+    <footer class="flex flex-col gap-2 text-xs font-mono text-[#71717A] border-t border-[rgba(255,255,255,0.06)] pt-6 mt-4">
+      <span>Technologies: Next.js · GitHub API · Tailwind CSS · Vercel</span>
+    </footer>
+
+  </main>
+
+  <Footer />
+</Layout>

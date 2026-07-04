@@ -9,20 +9,35 @@ import Footer from "../../components/Footer.astro";
 
   <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
     
+    <!-- Top Bar Navigation -->
+    <div class="text-xs text-[#71717A] font-mono border-b border-[rgba(255,255,255,0.06)] pb-4">
+      <a href="/work" class="hover:text-[#FAFAFA] transition-colors">← Back to Work</a>
+    </div>
+
     <!-- Header -->
     <header class="flex flex-col gap-4">
-      <div class="flex gap-2 text-xs text-[#71717A] font-mono">
-        <span>Work</span>
+      <div class="flex gap-2 text-xs text-[#71717A] font-mono uppercase tracking-wider">
+        <span>Archive</span>
         <span>·</span>
-        <span>Case Study</span>
+        <span>2024</span>
       </div>
       <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
-        HisabProx: Local-First Invoice Compiler
+        HisabProx: Invoice Compiler
       </h1>
       <p class="text-sm text-[#A1A1AA] italic">
-        An architectural study on offline resilience, client-side PDF generation, and private data boundaries.
+        "A local invoice generation tool built to let developers compile PDF invoices completely offline."
       </p>
     </header>
+
+    <!-- Project Snapshot -->
+    <section class="border-y border-[rgba(255,255,255,0.06)] py-6 text-xs font-mono text-[#A1A1AA] flex flex-col gap-2">
+      <div>Role: <span class="text-white">Founder</span></div>
+      <div>Duration: <span class="text-white">2024</span></div>
+      <div>Status: <span class="text-white">● Archived</span></div>
+      <div>Team: <span class="text-white">1 Engineer</span></div>
+      <div>Stack: <span class="text-white">TypeScript · React · Local Storage · PDFKit</span></div>
+      <div>Repository: <span class="text-white">Open Source</span></div>
+    </section>
 
     <!-- Case Study Content -->
     <div class="flex flex-col gap-12 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
