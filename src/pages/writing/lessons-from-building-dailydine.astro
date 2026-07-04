@@ -1,0 +1,68 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navigation from "../../components/Navigation.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout title="Lessons From Building DailyDine">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Article Header -->
+    <header class="flex flex-col gap-4">
+      <div class="flex gap-2 text-xs text-[#71717A] font-mono">
+        <span>Engineering Log</span>
+        <span>·</span>
+        <span>July 2026</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
+        Lessons From Building DailyDine
+      </h1>
+      <p class="text-sm text-[#A1A1AA] italic">
+        "Favor simple structures over distributed state machines."
+      </p>
+    </header>
+
+    <!-- Article Content -->
+    <div class="flex flex-col gap-8 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
+      <p>
+        During the development of DailyDine's scheduling API, we ran into classic concurrency problems.
+        When booking system locks are handled in application code instead of database boundaries,
+        concurrent web requests can easily cause race conditions and duplicate reservations.
+      </p>
+      
+      <p>
+        We initially tried to coordinate this with a Redis lock mechanism.
+        However, managing key expiries, network drops, and cleanup scripts added too much complexity.
+        We deleted the Redis coordination layer entirely and moved constraints directly to PostgreSQL.
+        Using PostgreSQL exclusion constraints resolved scheduling conflicts with zero application overhead.
+      </p>
+
+      <p>
+        The biggest lesson is that over-engineering early in development is a trap.
+        WebSockets and cache layers look modern, but relational databases with transactional isolates
+        are almost always the most reliable solution.
+      </p>
+    </div>
+
+    <!-- Article Footer -->
+    <footer class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.06)] pt-12 mt-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm">
+        <div class="flex flex-col gap-3">
+          <h4 class="text-xs text-[#71717A] uppercase tracking-wider font-medium font-mono">Case Study Details</h4>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a href="/work/dailydine" class="text-[#2563EB] hover:underline">
+                Read DailyDine Case Study
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <Footer />
+</Layout>

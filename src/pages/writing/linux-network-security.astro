@@ -1,0 +1,67 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navigation from "../../components/Navigation.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout title="Linux Network Security and Port Monitoring Logs">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Article Header -->
+    <header class="flex flex-col gap-4">
+      <div class="flex gap-2 text-xs text-[#71717A] font-mono">
+        <span>Field Notes</span>
+        <span>·</span>
+        <span>April 2026</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
+        Linux Network Security and Port Monitoring Logs
+      </h1>
+      <p class="text-sm text-[#A1A1AA] italic">
+        "Audit active ports and log local network traffic filters."
+      </p>
+    </header>
+
+    <!-- Article Content -->
+    <div class="flex flex-col gap-8 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
+      <p>
+        Configuring system security requires auditing active network sockets.
+        I set up a local testing environment to practice locking down port exposures on a Linux server.
+        Using monitoring utilities like `ss`, `netstat`, and `lsof` helps track which processes bind to ports.
+      </p>
+      
+      <p>
+        I configured strict traffic rules using `iptables` and local packet filters.
+        By blocking incoming traffic by default and explicitly whitelisting SSH, HTTPS, and API boundaries,
+        you minimize the server attack surface area.
+        I also enabled simple logging rules to trace rejected network requests.
+      </p>
+
+      <p>
+        Security is about maintaining strict boundary rules.
+        Regular port auditing prevents accidental exposures and confirms system boundaries are intact.
+      </p>
+    </div>
+
+    <!-- Article Footer -->
+    <footer class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.06)] pt-12 mt-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm">
+        <div class="flex flex-col gap-3">
+          <h4 class="text-xs text-[#71717A] uppercase tracking-wider font-medium font-mono font-semibold">Related Logs</h4>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a href="/writing/learning-linux-from-scratch" class="text-[#2563EB] hover:underline">
+                Learning Linux From Scratch
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <Footer />
+</Layout>

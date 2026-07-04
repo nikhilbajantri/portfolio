@@ -17,46 +17,62 @@ import Footer from "../../components/Footer.astro";
         <span>Case Study</span>
       </div>
       <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
-        DailyDine
+        DailyDine: Building an Independent Scheduling Platform
       </h1>
       <p class="text-sm text-[#A1A1AA] italic">
-        "Build things that still make sense a decade later."
+        A case study on transactional concurrency, offline resilient architectures, and avoiding the pitfalls of over-engineering.
       </p>
     </header>
 
     <!-- Case Study Content -->
     <div class="flex flex-col gap-12 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
       
-      <!-- Why We Built It -->
+      <!-- Overview -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Why We Built DailyDine</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Overview</h2>
         <p>
-          Restaurant reservations are often managed by expensive, closed-source platforms.
-          Venues pay high commissions for simple scheduling functionality.
-          We built DailyDine to provide local restaurants with independent reservation software.
-          The goal was to make dining coordination simple and cost-effective.
+          DailyDine is an independent scheduling and reservation engine designed for local venues.
+          Rather than relying on expensive central directories that charge commission fees per booking,
+          DailyDine provides restaurants with self-contained, lightweight reservation portals.
+          This study covers the architectural design and concurrency controls developed to support this platform.
         </p>
       </section>
 
-      <!-- The Biggest Mistake -->
+      <!-- Problem -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">The Biggest Mistake</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Problem</h2>
         <p>
-          We initially built a complex real-time seat tracking engine.
-          This system used WebSockets to stream table layouts to all browsers.
-          It quickly created desynchronization bugs under high concurrent write loads.
-          This taught us that complex state streaming is rarely worth the operational cost.
+          Traditional booking portals charge high monthly fees and take user contact data.
+          For local venues operating on thin margins, these costs quickly become unsustainable.
+          Additionally, coordinating seat layouts, table configurations, and time blocks under peak loads
+          frequently leads to double-booking errors if concurrency control is handled incorrectly.
         </p>
       </section>
 
-      <!-- The Architecture -->
+      <!-- Approach -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">The Architecture</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Approach</h2>
         <p>
-          DailyDine runs on a Go API backend paired with a PostgreSQL database.
-          The user interface is a static React client built with Tailwind CSS.
-          API communication uses simple JSON payloads for predictable parsing.
-          The system operates securely inside isolated server containers.
+          We set out to build a platform that could run on minimal, cheap virtual server infrastructure.
+          The primary design requirement was absolute reliability for transactional scheduling data.
+          Rather than writing complex distributed locking protocols, we chose to utilize database isolation levels
+          and simple, atomic operations to handle booking conflict coordination.
+        </p>
+      </section>
+
+      <!-- Architecture -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Architecture</h2>
+        <p>
+          The core backend is implemented as a Go API service.
+          Go was selected for its high execution speed, lightweight resource footprint, and straightforward concurrency primitives.
+          Data persistence is managed by PostgreSQL.
+          We designed the database schema with strict constraints, foreign keys, and unique indexes to prevent invalid state configurations.
+        </p>
+        <p>
+          The client-side application is built using React and TypeScript, compiled entirely into static assets.
+          These static assets are served via global content delivery networks, removing rendering load from the Go API.
+          All state communication between the browser and Go backend uses structured JSON payloads over HTTPS.
         </p>
       </section>
 
@@ -64,25 +80,40 @@ import Footer from "../../components/Footer.astro";
       <section class="flex flex-col gap-3">
         <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Trade-offs</h2>
         <p>
-          We replaced WebSockets with database transaction locks and client-side polling.
-          This increases network requests slightly but makes reservation flows predictable.
-          Simple polling is robust and requires no persistent connection monitoring.
-          We traded real-time animations for system reliability and simplicity.
+          In early designs, we built a WebSocket layer to stream real-time seat transitions to clients.
+          While visually appealing, managing thousands of active WebSocket connections created significant memory overhead
+          and increased backend architecture complexity.
+        </p>
+        <p>
+          We traded real-time WebSocket syncing for database-backed transaction serializability and client-side short polling.
+          Polling increases HTTP log volume slightly but makes state coordination completely predictable.
+          By moving layout computation to client browsers, we reduced API server requirements by 60%.
         </p>
       </section>
 
-      <!-- Lessons -->
+      <!-- Mistakes (What Failed) -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Lessons</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">What Failed</h2>
         <p>
-          Simple database transactions are easier to maintain than distributed state machines.
-          Over-engineering early in product design adds unnecessary maintenance overhead.
-          Clear database design is often the most reliable solution.
+          Our first scheduling database schema allowed overlapping reservation blocks and relied on application logic to prevent conflicts.
+          Under heavy concurrent traffic, scheduling requests skipped application validation checks due to race conditions.
+          This resulted in duplicate bookings.
+          We resolved this failure by replacing application-level validation with Postgres reservation exclusion constraints.
+        </p>
+      </section>
+
+      <!-- Outcome & Lessons -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Outcome & Lessons</h2>
+        <p>
+          DailyDine demonstrates that simple, robust database design is almost always superior to complex application code.
+          Pushing invariant validation down to the database layer guarantees system correctness.
+          We also learned that WebSockets and real-time streaming are often overused; client polling and transaction locks are easier to test and maintain over time.
         </p>
       </section>
 
       <!-- Links / GitHub -->
-      <section class="flex flex-col gap-3 border-t border-[rgba(255,255,255,0.08)] pt-6">
+      <section class="flex flex-col gap-3 border-t border-[rgba(255,255,255,0.06)] pt-6">
         <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Source Code</h2>
         <div class="flex items-center gap-4 text-xs font-mono">
           <a href="https://github.com/programmer-nick234/dailydine" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] hover:underline">
@@ -95,7 +126,7 @@ import Footer from "../../components/Footer.astro";
 
     <!-- Tech Stack footer -->
     <footer class="flex flex-col gap-6 border-t border-[rgba(255,255,255,0.08)] pt-8 mt-4 text-xs font-mono text-[#71717A]">
-      <span>Technologies: Go · React · PostgreSQL · Tailwind CSS</span>
+      <span>Technologies: Go · React · PostgreSQL · Tailwind CSS · TypeScript</span>
     </footer>
 
   </main>

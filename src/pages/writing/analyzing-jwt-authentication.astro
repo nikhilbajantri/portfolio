@@ -1,0 +1,66 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navigation from "../../components/Navigation.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout title="Analyzing JWT Authentication Mechanisms">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Article Header -->
+    <header class="flex flex-col gap-4">
+      <div class="flex gap-2 text-xs text-[#71717A] font-mono">
+        <span>Cybersecurity</span>
+        <span>·</span>
+        <span>May 2026</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
+        Analyzing JWT Authentication Mechanisms
+      </h1>
+      <p class="text-sm text-[#A1A1AA] italic">
+        "Understand signature verifications and cookie storage scopes."
+      </p>
+    </header>
+
+    <!-- Article Content -->
+    <div class="flex flex-col gap-8 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
+      <p>
+        JSON Web Tokens (JWT) are commonly used for stateless authorization.
+        However, they are frequently implemented with critical security vulnerabilities.
+        For example, storing tokens in browser local storage exposes them to Cross-Site Scripting (XSS) attacks.
+      </p>
+      
+      <p>
+        To mitigate this risk, tokens should be stored in HTTP-only, secure cookies with the SameSite flag enabled.
+        This design prevents client-side scripts from reading the authorization data.
+        Additionally, the API backend must enforce signature validation checks and reject tokens with the 'none' algorithm.
+      </p>
+
+      <p>
+        Stateless authentication is a convenient pattern, but correctness requires rigorous protocol alignment.
+        We must always verify signature scopes and isolate token access parameters.
+      </p>
+    </div>
+
+    <!-- Article Footer -->
+    <footer class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.06)] pt-12 mt-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm">
+        <div class="flex flex-col gap-3">
+          <h4 class="text-xs text-[#71717A] uppercase tracking-wider font-medium font-mono font-semibold">Further Reading</h4>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a href="/writing/my-cybersecurity-roadmap" class="text-[#2563EB] hover:underline">
+                My Cybersecurity Roadmap
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <Footer />
+</Layout>

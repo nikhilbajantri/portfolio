@@ -1,0 +1,66 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navigation from "../../components/Navigation.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout title="Learning Linux From Scratch">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Article Header -->
+    <header class="flex flex-col gap-4">
+      <div class="flex gap-2 text-xs text-[#71717A] font-mono">
+        <span>Field Notes</span>
+        <span>·</span>
+        <span>May 2026</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
+        Learning Linux From Scratch
+      </h1>
+      <p class="text-sm text-[#A1A1AA] italic">
+        "Master the command line before automating systems operations."
+      </p>
+    </header>
+
+    <!-- Article Content -->
+    <div class="flex flex-col gap-8 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
+      <p>
+        Linux system administration is a cornerstone of backend development and security audits.
+        I began learning Linux by forcing myself to operate purely inside CLI terminals.
+        Removing visual GUI environments forces you to understand the underlying file structures and permissions models.
+      </p>
+      
+      <p>
+        My early logs document process coordination tools (`systemd`, `cron`, `htop`) and user permissions boundaries.
+        Understanding how process threads execute, read system inputs, and manage resource limits is essential.
+        I also spent time configuring local system firewalls to audit ports and monitor active sockets.
+      </p>
+
+      <p>
+        The CLI terminal is not a retro interface. It is a precise environment for systems coordination.
+        Writing down bash logs and system monitoring routines helps consolidate these foundational skills.
+      </p>
+    </div>
+
+    <!-- Article Footer -->
+    <footer class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.06)] pt-12 mt-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm">
+        <div class="flex flex-col gap-3">
+          <h4 class="text-xs text-[#71717A] uppercase tracking-wider font-medium font-mono font-semibold">Related Logs</h4>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a href="/writing/linux-network-security" class="text-[#2563EB] hover:underline">
+                Linux Network Security and Port Monitoring Logs
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <Footer />
+</Layout>

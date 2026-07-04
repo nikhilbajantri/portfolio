@@ -17,46 +17,62 @@ import Footer from "../../components/Footer.astro";
         <span>Case Study</span>
       </div>
       <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
-        HisabProx
+        HisabProx: Building a Local-First Invoice Compiler
       </h1>
       <p class="text-sm text-[#A1A1AA] italic">
-        "Build things that still make sense a decade later."
+        A case study on browser-only persistence, local PDF compilation, and data privacy principles.
       </p>
     </header>
 
     <!-- Case Study Content -->
     <div class="flex flex-col gap-12 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
       
-      <!-- Why We Built It -->
+      <!-- Overview -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Why We Built HisabProx</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Overview</h2>
         <p>
-          Freelancers frequently need to compile professional invoices for clients.
-          Many existing billing services require cloud subscription accounts and collect client data.
-          I built HisabProx to offer developers a private, local-first invoice editor.
-          The goal was to keep invoice generation distraction-free and completely private.
+          HisabProx is an invoice compiler utility built for independent developers and freelancers.
+          Rather than relying on central cloud hosting accounts that store business billing information,
+          HisabProx operates entirely within the browser sandboxed environment.
+          This study covers the local-first principles, state structure, and PDF compilation mechanisms.
         </p>
       </section>
 
-      <!-- The Biggest Mistake -->
+      <!-- Problem -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">The Biggest Mistake</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Problem</h2>
         <p>
-          I originally integrated a remote backup sync utility.
-          This required setting up database credentials and user accounts.
-          It added maintenance complexity to what should have been a simple client utility.
-          I removed the remote sync to ensure client data never leaves the browser environment.
+          Modern invoice editors are almost universally subscription-based SaaS tools.
+          They require user accounts, collect detailed financial transactional histories of clients, and require active internet connections.
+          For freelancers who value client confidentiality and data ownership,
+          cloud-based invoicing exposes sensitive operations to third-party data breaches.
         </p>
       </section>
 
-      <!-- The Architecture -->
+      <!-- Approach -->
       <section class="flex flex-col gap-3">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">The Architecture</h2>
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Approach</h2>
         <p>
-          HisabProx is a static React application built with TypeScript and Tailwind CSS.
-          It uses the browser local storage API to retain client and invoice datasets.
-          PDF compilation is handled directly on the client side using PDFKit.
-          The entire application operates offline without backend servers.
+          I wanted to create an editor that could run offline indefinitely, require zero user setup, and collect zero tracking data.
+          The user interface had to be responsive, distraction-free, and focus on fast data entry.
+          The central constraint was that all information must reside in the user's browser, preventing external leaks.
+        </p>
+      </section>
+
+      <!-- Architecture -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Architecture</h2>
+        <p>
+          HisabProx is built as a single-page React application written in TypeScript.
+          For styling, it uses Tailwind CSS to structure clean, high-contrast layouts.
+          Client-side persistence is handled by the browser local storage API,
+          retaining invoice entries, client metadata profiles, and configuration settings locally.
+        </p>
+        <p>
+          To generate professional PDF documents without using a backend server,
+          the application compiles invoice layout structures directly in the browser thread using PDFKit.
+          This client-side PDF compiler outputs raw binary buffers that the browser downloads directly,
+          ensuring billing documents are generated securely.
         </p>
       </section>
 
@@ -64,10 +80,26 @@ import Footer from "../../components/Footer.astro";
       <section class="flex flex-col gap-3">
         <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Trade-offs</h2>
         <p>
-          I traded automated multi-device syncing for zero server maintenance costs and total privacy.
-          Users must manually export JSON backups to move records across devices.
-          This design decision ensures complete data security for client invoices.
-          The application requires no external database infrastructure to operate.
+          Building a browser-only tool prevents automatic multi-device synchronization.
+          If a user switches laptops, their invoice history is not immediately available.
+          To address this limitation without compromising privacy,
+          I designed a backup system that lets users manually export and import encrypted JSON snapshots of their settings.
+        </p>
+        <p>
+          Additionally, local storage is subject to browser-clearing events.
+          We prioritized absolute client privacy and zero server maintenance overhead
+          at the expense of managed server-side backups.
+        </p>
+      </section>
+
+      <!-- What Failed (The Biggest Mistake) -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">What Failed</h2>
+        <p>
+          I initially built a database synchronization service using a third-party cloud connector.
+          This required managing user authentication states, securing remote endpoints, and paying database hosting bills.
+          It conflicted with the core design goal of data privacy and added unnecessary operational complexity.
+          I chose to delete the sync backend entirely to return the tool to a true, offline-only utility.
         </p>
       </section>
 
@@ -75,14 +107,14 @@ import Footer from "../../components/Footer.astro";
       <section class="flex flex-col gap-3">
         <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Lessons</h2>
         <p>
-          The most secure and cost-effective system is the one that avoids storing data on a remote server.
-          Client-side capabilities are often underutilized in modern web development.
-          Local-first architectures are ideal for utility tools.
+          Modern client browsers are fully capable of processing layouts, compiling binaries, and retaining state.
+          Avoiding servers not only guarantees data security but also eliminates hosting bills and service maintenance.
+          Local-first architectures are incredibly durable and remain functional as long as the browser exists.
         </p>
       </section>
 
       <!-- Links / GitHub -->
-      <section class="flex flex-col gap-3 border-t border-[rgba(255,255,255,0.08)] pt-6">
+      <section class="flex flex-col gap-3 border-t border-[rgba(255,255,255,0.06)] pt-6">
         <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Source Code</h2>
         <div class="flex items-center gap-4 text-xs font-mono">
           <a href="https://github.com/programmer-nick234/hisabprox" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] hover:underline">
@@ -95,7 +127,7 @@ import Footer from "../../components/Footer.astro";
 
     <!-- Tech Stack footer -->
     <footer class="flex flex-col gap-6 border-t border-[rgba(255,255,255,0.08)] pt-8 mt-4 text-xs font-mono text-[#71717A]">
-      <span>Technologies: TypeScript · React · Local Storage · PDFKit</span>
+      <span>Technologies: TypeScript · React · Local Storage · PDFKit · Tailwind CSS</span>
     </footer>
 
   </main>
