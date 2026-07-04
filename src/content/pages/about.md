@@ -4,7 +4,7 @@ title: About
 description: A record of motives, operating workflows, and learning logs that
   guide my growth as an engineer.
 ---
-## Software?
+## why Software?
 
 I started programming because I wanted to understand how computers actually work. The ability to instruct silicon to coordinate data remains deeply fascinating to me. I believe that software engineering is a craft requiring patience, humility, and continuous study.
 
