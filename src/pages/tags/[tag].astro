@@ -1,0 +1,81 @@
+---
+import CollectionLayout from "../../layouts/CollectionLayout.astro";
+import { getArticles, getProjects, getNotes } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  const projects = await getProjects();
+  const notes = await getNotes();
+
+  const allTags = new Set<string>();
+  articles.forEach(a => a.data.tags?.forEach(t => allTags.add(t.toLowerCase())));
+  projects.forEach(p => p.data.tags?.forEach(t => allTags.add(t.toLowerCase())));
+  notes.forEach(n => n.data.tags?.forEach(t => allTags.add(t.toLowerCase())));
+
+  return Array.from(allTags).map(tag => ({
+    params: { tag },
+    props: { tag }
+  }));
+}
+
+const { tag } = Astro.props;
+
+const articles = (await getArticles()).filter(a => a.data.tags?.map(t => t.toLowerCase()).includes(tag));
+const projects = (await getProjects()).filter(p => p.data.tags?.map(t => t.toLowerCase()).includes(tag));
+const notes = (await getNotes()).filter(n => n.data.tags?.map(t => t.toLowerCase()).includes(tag));
+---
+
+<CollectionLayout title={`Tag: #${tag}`}>
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <header class="flex flex-col gap-2">
+      <span class="text-xs font-mono text-[#71717A] uppercase tracking-wider">Taxonomy</span>
+      <h1 class="text-4xl font-display font-medium text-[#FAFAFA] tracking-tight">#{tag}</h1>
+    </header>
+
+    <div class="flex flex-col gap-8">
+      {projects.length > 0 && (
+        <section class="flex flex-col gap-4">
+          <h3 class="text-xs font-mono text-[#71717A] uppercase tracking-wider border-b border-white/10 pb-1.5 font-semibold">Projects</h3>
+          <div class="flex flex-col gap-3">
+            {projects.map(p => (
+              <a href={p.data.caseStudy || `/work/${p.slug}`} class="group flex flex-col gap-0.5">
+                <span class="text-sm font-medium text-white group-hover:text-[#2563EB] transition-colors">{p.data.title}</span>
+                <span class="text-xs text-[#71717A] font-mono">{p.data.role} • {p.data.year}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {articles.length > 0 && (
+        <section class="flex flex-col gap-4">
+          <h3 class="text-xs font-mono text-[#71717A] uppercase tracking-wider border-b border-white/10 pb-1.5 font-semibold">Articles</h3>
+          <div class="flex flex-col gap-3">
+            {articles.map(a => (
+              <a href={`/writing/${a.slug}`} class="group flex flex-col gap-0.5">
+                <span class="text-sm font-medium text-white group-hover:text-[#2563EB] transition-colors">{a.data.title}</span>
+                <span class="text-xs text-[#71717A] font-mono">{a.data.category} • {a.data.published.toLocaleDateString()}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {notes.length > 0 && (
+        <section class="flex flex-col gap-4">
+          <h3 class="text-xs font-mono text-[#71717A] uppercase tracking-wider border-b border-white/10 pb-1.5 font-semibold">Notes</h3>
+          <div class="flex flex-col gap-3">
+            {notes.map(n => (
+              <a href={`/notes/${n.slug}`} class="group flex flex-col gap-0.5">
+                <span class="text-sm font-medium text-white group-hover:text-[#2563EB] transition-colors">{n.data.title}</span>
+                <span class="text-xs text-[#71717A] font-mono">{n.data.topic} • {n.data.date.toLocaleDateString()}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+
+  </main>
+</CollectionLayout>

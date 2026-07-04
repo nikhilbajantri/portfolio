@@ -1,70 +1,15 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Navigation from "../components/Navigation.astro";
-import Footer from "../components/Footer.astro";
+import { getPageBySlug } from "../lib/content";
+import { render } from "astro:content";
+import PageLayout from "../layouts/PageLayout.astro";
 
-const principles = [
-  {
-    title: "Prefer Understanding",
-    tagline: "I would rather understand one protocol deeply than memorize ten frameworks.",
-    description: "Frameworks cycle rapidly, but core systems mechanics endure. By focusing study on RFC specifications, networking layers, and memory constraints, you build technical fundamentals that never expire."
-  },
-  {
-    title: "Prefer Small Systems",
-    tagline: "Simple systems are easier to secure, maintain, and explain.",
-    description: "Every library or dependency added represents a potential security exposure and runtime failure point. Minimizing surface area ensures code is readable, predictable, and simple to audit."
-  },
-  {
-    title: "Prefer Writing",
-    tagline: "Writing exposes weak thinking.",
-    description: "In private drafts, it is easy to assume you understand a design. Forcing yourself to explain an architecture, constraint, or failure in writing exposes gaps in comprehension and sharpens logic."
-  },
-  {
-    title: "Prefer Questions",
-    tagline: "Questions survive longer than answers.",
-    description: "Technology stacks change, but the core problems of distributed consensus, memory safety, and thread coordination persist. Curating active questions directs focus more effectively than cataloging static knowledge."
-  },
-  {
-    title: "Prefer Long Games",
-    tagline: "Compounding beats intensity.",
-    description: "Rushing builds leads to technical compromise. Consistent study, clean incremental changes, and long-term codebase maintenance yield compounding quality. Longevity is the ultimate verification."
-  }
-];
+const page = await getPageBySlug("principles");
+if (!page) {
+  return Astro.redirect("/404");
+}
+const { Content } = await render(page);
 ---
 
-<Layout title="Principles">
-  <Navigation />
-
-  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
-    
-    <!-- Header -->
-    <header class="flex flex-col gap-6">
-      <h1 class="text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
-        Principles
-      </h1>
-      <p class="text-lg text-[#A1A1AA] leading-relaxed">
-        The technical and intellectual rules I return to whenever I face architectural complexity or trade-off decisions.
-      </p>
-    </header>
-
-    <!-- Principles list -->
-    <div class="flex flex-col gap-12">
-      {principles.map((p) => (
-        <section class="flex flex-col gap-3">
-          <h2 class="text-xl font-display font-medium text-[#FAFAFA] tracking-tight">
-            {p.title}
-          </h2>
-          <p class="text-xs text-[#71717A] font-mono italic">
-            "{p.tagline}"
-          </p>
-          <p class="text-sm text-[#A1A1AA] leading-relaxed mt-1">
-            {p.description}
-          </p>
-        </section>
-      ))}
-    </div>
-
-  </main>
-
-  <Footer />
-</Layout>
+<PageLayout frontmatter={page.data}>
+  <Content />
+</PageLayout>

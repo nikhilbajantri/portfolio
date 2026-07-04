@@ -5,5 +5,8 @@ import tailwind from '@astrojs/tailwind';
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind()],
-  output: 'static'
+  output: 'static',
+  redirects: {
+    '/admin': '/admin/index.html'
+  }
 });

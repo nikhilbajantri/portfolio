@@ -2,116 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
+import { getArticles } from "../lib/content";
 
-const articles = [
-  {
-    title: "Why I Started Writing",
-    type: "Essays",
-    date: "July 2026",
-    description: "An inquiry into how writing helps clarify software architecture and structures memory.",
-    slug: "/writing/why-i-started-writing"
-  },
-  {
-    title: "Why I Built This Website",
-    type: "Essays",
-    date: "July 2026",
-    description: "A defense of personal websites, local-first styling, and building digital publications that last.",
-    slug: "/writing/why-i-built-this-website"
-  },
-  {
-    title: "Why Small Systems Win",
-    type: "Essays",
-    date: "July 2026",
-    description: "An essay on the architectural benefits of minimalist systems boundaries and self-contained environments.",
-    slug: "/writing/why-small-systems-win"
-  },
-  {
-    title: "The Kind of Engineer I Want to Become",
-    type: "Essays",
-    date: "June 2026",
-    description: "Reflections on craftsman philosophy, engineering humility, and long-term design patterns.",
-    slug: "/writing/the-kind-of-engineer-i-want-to-become"
-  },
-  {
-    title: "From Curiosity to Code: My Journey Into the World of Computers",
-    type: "Essays",
-    date: "August 2025",
-    description: "A narrative on the spark of curiosity in computer systems, starting from childhood computer luxury.",
-    slug: "/writing/from-curiosity-to-code"
-  },
-  {
-    title: "Why I Write in Public",
-    type: "Essays",
-    date: "May 2025",
-    description: "How shipping drafts in public forces technical accuracy and builds compounding communication loops.",
-    slug: "/writing/why-i-write-in-public"
-  },
-  {
-    title: "Lessons From Building DailyDine",
-    type: "Engineering",
-    date: "July 2026",
-    description: "Key architectural takeaways, transaction locking details, and scaling limitations discovered during implementation.",
-    slug: "/writing/lessons-from-building-dailydine"
-  },
-  {
-    title: "Designing the DailyDine Scheduling Queue",
-    type: "Engineering",
-    date: "July 2026",
-    description: "Building transactional concurrency queues to coordinate table inventory under peak loads.",
-    slug: "/work/dailydine"
-  },
-  {
-    title: "Understanding Local-first Utility Tools",
-    type: "Engineering",
-    date: "June 2026",
-    description: "How client-side invoice utilities ensure user data privacy and eliminate operating overhead.",
-    slug: "/work/hisabprox"
-  },
-  {
-    title: "My Cybersecurity Roadmap",
-    type: "Cybersecurity",
-    date: "June 2026",
-    description: "A self-study curriculum covering networking layers, memory exploitation, and defense mechanisms.",
-    slug: "/writing/my-cybersecurity-roadmap"
-  },
-  {
-    title: "Analyzing JWT Authentication Mechanisms",
-    type: "Cybersecurity",
-    date: "May 2026",
-    description: "Investigating token signature validations, cross-site leaks, and secure cookie storage layouts.",
-    slug: "/writing/analyzing-jwt-authentication"
-  },
-  {
-    title: "Learning Linux From Scratch",
-    type: "Field Notes",
-    date: "May 2026",
-    description: "System administration basics, process coordination commands, and kernel monitoring tools.",
-    slug: "/writing/learning-linux-from-scratch"
-  },
-  {
-    title: "Linux Network Security and Port Monitoring Logs",
-    type: "Field Notes",
-    date: "April 2026",
-    description: "Short notes on iptables configurations, socket audits, and local buffer monitoring commands.",
-    slug: "/writing/linux-network-security"
-  },
-  {
-    title: "Deep Work Notes",
-    type: "Book Notes",
-    date: "July 2026",
-    description: "Synthesized takeaways on attention scheduling, distraction blocks, and high-intensity production.",
-    slug: "/reading"
-  },
-  {
-    title: "Engineering Journal: July 2026",
-    type: "Journals",
-    date: "July 2026",
-    description: "Monthly summary of built projects, technical lessons, book logs, system failures, and next milestones.",
-    slug: "/writing/engineering-journal-july-2026"
-  }
-];
-
-const categories = ["Essays", "Engineering", "Cybersecurity", "Journals", "Book Notes", "Field Notes"];
+const articles = await getArticles();
 ---
 
 <Layout title="Writing">
@@ -125,37 +18,30 @@ const categories = ["Essays", "Engineering", "Cybersecurity", "Journals", "Book 
         Writing
       </h1>
       <p class="text-lg text-[#A1A1AA] leading-relaxed">
-        Writing is how I organize my thinking. Most articles begin as questions. Some become essays. Others become engineering docs or field notes. All of them are records of progress.
+        Deep dives, essays, and notes on software engineering, distributed systems, networking, and security.
       </p>
     </header>
 
-    <!-- Categories List -->
-    <div class="flex flex-col gap-16">
-      {categories.map((category) => {
-        const catArticles = articles.filter(a => a.type === category);
-        return catArticles.length > 0 && (
-          <section class="flex flex-col gap-6">
-            <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
-              {category}
+    <!-- Articles List -->
+    <div class="flex flex-col gap-12">
+      {articles.map((post) => (
+        <article class="flex flex-col gap-2 max-w-[680px]">
+          <div class="flex justify-between items-baseline gap-4">
+            <h2 class="text-lg font-medium text-[#FAFAFA]">
+              <a href={`/writing/${post.slug}`} class="hover:text-[#2563EB] transition-colors duration-180">
+                {post.data.title}
+              </a>
             </h2>
-            <div class="flex flex-col gap-6">
-              {catArticles.map(post => (
-                <a href={post.slug} class="group flex flex-col gap-2">
-                  <div class="flex justify-between items-baseline gap-4">
-                    <h3 class="text-lg font-medium text-[#FAFAFA] group-hover:text-[#2563EB] transition-colors duration-180">
-                      {post.title}
-                    </h3>
-                    <span class="text-xs text-[#71717A] font-mono whitespace-nowrap">{post.date}</span>
-                  </div>
-                  <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[68ch]">
-                    {post.description}
-                  </p>
-                </a>
-              ))}
-            </div>
-          </section>
-        );
-      })}
+            <span class="text-xs text-[#71717A] font-mono whitespace-nowrap">
+              {new Date(post.data.published).toLocaleDateString("en-US", { year: "numeric", month: "short" })}
+            </span>
+          </div>
+          <span class="text-xs text-[#71717A] font-mono uppercase tracking-wider">{post.data.category}</span>
+          <p class="text-sm text-[#A1A1AA] leading-relaxed mt-1">
+            {post.data.description}
+          </p>
+        </article>
+      ))}
     </div>
 
   </main>

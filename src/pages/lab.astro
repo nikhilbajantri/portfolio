@@ -2,19 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
+import { getLabs } from "../lib/content";
 
-const activeExperiments = [
-  {
-    title: "JWT Visualizer",
-    description: "An interactive color-coded explanation of JSON Web Token internals, signatures, and client verification mechanisms.",
-    url: "/lab/jwt-visualizer"
-  },
-  {
-    title: "TCP Handshake Explorer",
-    description: "A step-by-step interactive terminal simulator demonstrating SYN, SYN-ACK, ACK, and connection state transitions.",
-    url: "/lab/tcp-handshake"
-  }
-];
+const labs = await getLabs();
 
 const plannedExperiments = [
   "PostgreSQL MVCC Timeline",
@@ -49,28 +39,25 @@ const plannedExperiments = [
         Active Experiments
       </h2>
       <div class="flex flex-col gap-8">
-        {activeExperiments.map((exp) => (
+        {labs.map((exp) => (
           <div class="flex flex-col gap-2">
             <h3 class="text-base font-medium">
-              <a href={exp.url} class="text-white hover:text-[#2563EB] transition-colors">{exp.title}</a>
+              <a href={`/lab/${exp.slug}`} class="text-white hover:text-[#2563EB] transition-colors">{exp.data.title}</a>
             </h3>
-            <p class="text-sm text-[#A1A1AA] leading-relaxed">{exp.description}</p>
+            <p class="text-sm text-[#A1A1AA] leading-relaxed">{exp.data.description || exp.body}</p>
           </div>
         ))}
       </div>
     </section>
 
     <!-- Planned Experiments -->
-    <section class="flex flex-col gap-6">
+    <section class="flex flex-col gap-4">
       <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider font-mono border-b border-[rgba(255,255,255,0.06)] pb-2">
-        Coming Next
+        Planned Experiments
       </h2>
-      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono text-[#A1A1AA] list-none pl-0">
-        {plannedExperiments.map((p) => (
-          <li class="flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#27272A]"></span>
-            {p}
-          </li>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-xs font-mono text-[#71717A]">
+        {plannedExperiments.map((exp) => (
+          <li>□ {exp}</li>
         ))}
       </ul>
     </section>

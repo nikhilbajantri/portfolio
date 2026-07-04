@@ -1,0 +1,23 @@
+---
+---
+<div class="fixed top-0 left-0 w-full h-[3px] bg-white/5 z-50 not-prose">
+  <div 
+    id="reading-progress-bar" 
+    class="h-full bg-[#2563EB] w-0 transition-all duration-75 origin-left"
+    style="will-change: width;"
+  ></div>
+</div>
+
+<script>
+  // Dynamic client-side scroll progress bar
+  const progress = document.getElementById("reading-progress-bar");
+  
+  if (progress && window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+    window.addEventListener("scroll", () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      if (total <= 0) return;
+      const ratio = (window.scrollY / total) * 100;
+      progress.style.width = `${ratio}%`;
+    });
+  }
+</script>

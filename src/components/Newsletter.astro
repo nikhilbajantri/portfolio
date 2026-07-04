@@ -1,0 +1,27 @@
+---
+---
+<section class="w-full p-8 bg-[#111113] border border-[rgba(255,255,255,0.08)] rounded-[16px] flex flex-col gap-6 not-prose my-12">
+  <div class="flex flex-col gap-2">
+    <h3 class="text-lg font-medium text-[#FAFAFA] font-display">Subscribe to the Newsletter</h3>
+    <p class="text-sm text-[#A1A1AA] leading-relaxed">
+      Get systems engineering case studies, cybersecurity roadmap updates, and book summaries delivered directly to your inbox. No spam.
+    </p>
+  </div>
+  
+  <form action="https://buttondown.email/api/emails/embed-subscribe/nikhilbajantri" method="post" target="popupwindow" class="flex flex-col sm:flex-row gap-3">
+    <input 
+      type="email" 
+      name="email" 
+      placeholder="email@example.com" 
+      required
+      class="flex-1 px-4 py-2.5 bg-[#09090B] border border-[#27272A] rounded-xl text-sm text-white focus:outline-none focus:border-[#2563EB] placeholder-[#71717A] transition-colors"
+    />
+    <input type="hidden" value="1" name="embed"/>
+    <button 
+      type="submit"
+      class="px-5 py-2.5 bg-[#2563EB] hover:bg-[#1d4ed8] text-white text-sm font-medium rounded-xl transition-colors font-sans"
+    >
+      Subscribe
+    </button>
+  </form>
+</section>

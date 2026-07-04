@@ -1,0 +1,86 @@
+---
+import { site } from "../../data/site";
+import type { SeoSchemaType } from "../../types/Seo";
+
+interface Props {
+  schemas: SeoSchemaType[];
+  title: string;
+  description: string;
+  canonical: string;
+  published?: string;
+  updated?: string;
+  image?: string;
+}
+
+const { schemas, title, description, canonical, published, updated, image } = Astro.props;
+
+// Build JSON-LD structured objects array
+const ldData = schemas.map((type) => {
+  switch (type) {
+    case "WebSite":
+      return {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": site.name,
+        "url": site.url,
+        "description": site.description
+      };
+    case "Person":
+      return {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": site.name,
+        "url": site.url,
+        "sameAs": [site.github, site.linkedin, site.twitter]
+      };
+    case "Article":
+    case "BlogPosting":
+      return {
+        "@context": "https://schema.org",
+        "@type": type,
+        "headline": title,
+        "description": description,
+        "image": image || "/profile-image.jpg",
+        "datePublished": published,
+        "dateModified": updated || published,
+        "author": {
+          "@type": "Person",
+          "name": site.author,
+          "url": site.url
+        }
+      };
+    case "BreadcrumbList":
+      const segments = canonical.replace(site.url, "").split("/").filter(Boolean);
+      const items = [
+        { name: "Home", item: site.url },
+        ...segments.map((segment, index) => {
+          const url = site.url + "/" + segments.slice(0, index + 1).join("/");
+          const name = segment.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+          return { name, item: url };
+        })
+      ];
+      return {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": items.map((item, idx) => ({
+          "@type": "ListItem",
+          "position": idx + 1,
+          "name": item.name,
+          "item": item.item
+        }))
+      };
+    default:
+      return {
+        "@context": "https://schema.org",
+        "@type": type,
+        "name": title,
+        "description": description,
+        "url": canonical
+      };
+  }
+});
+---
+
+{ldData.map((data) => (
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(data)} />
+))}

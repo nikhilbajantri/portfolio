@@ -1,0 +1,59 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+import { getReleases } from "../lib/content";
+
+const releases = await getReleases();
+---
+
+<Layout title="Releases & Changelog">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Header -->
+    <header class="flex flex-col gap-4">
+      <h1 class="text-4xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
+        Releases & Changelog
+      </h1>
+      <p class="text-base text-[#A1A1AA] leading-relaxed">
+        Tracking the engineering evolution and updates of nikhilbajantri.dev.
+      </p>
+    </header>
+
+    <!-- Releases list -->
+    <div class="flex flex-col gap-16">
+      {releases.map((release) => (
+        <section class="flex flex-col gap-4 border-l-2 border-white/5 pl-6 relative">
+          <div class="absolute w-3 h-3 bg-[#2563EB] rounded-full -left-[7px] top-1.5 border-4 border-[#09090B]"></div>
+          <div class="flex justify-between items-baseline gap-4">
+            <h2 class="text-2xl font-display font-medium text-[#FAFAFA] tracking-tight">
+              <a href={`/releases/${release.slug}`} class="hover:text-[#2563EB] transition-colors">
+                {release.data.version}: {release.data.title}
+              </a>
+            </h2>
+            <span class="text-xs text-[#71717A] font-mono whitespace-nowrap">
+              {new Date(release.data.date).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+            </span>
+          </div>
+          <p class="text-sm text-[#A1A1AA] leading-relaxed">
+            {release.data.description}
+          </p>
+          
+          {release.data.highlights.length > 0 && (
+            <div class="mt-2 flex flex-col gap-1">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-[#71717A] font-semibold">Highlights</span>
+              <ul class="list-disc pl-4 text-xs text-[#A1A1AA] flex flex-col gap-1">
+                {release.data.highlights.map(h => <li>{h}</li>)}
+              </ul>
+            </div>
+          )}
+        </section>
+      ))}
+    </div>
+
+  </main>
+
+  <Footer />
+</Layout>

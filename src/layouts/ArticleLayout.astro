@@ -1,0 +1,108 @@
+---
+import CollectionLayout from "./CollectionLayout.astro";
+
+export interface Props {
+  frontmatter: {
+    title: string;
+    description: string;
+    published: Date;
+    category: string;
+    tags: string[];
+    toc?: boolean;
+    readingTime?: number;
+    related?: string[];
+  };
+}
+
+const { frontmatter } = Astro.props;
+
+const dateFormatted = new Date(frontmatter.published).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric"
+});
+---
+
+<CollectionLayout title={frontmatter.title} description={frontmatter.description}>
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans relative">
+    
+    <!-- Article Header -->
+    <header class="flex flex-col gap-4">
+      <div class="flex gap-2 text-xs text-[#71717A] font-mono">
+        <span>{frontmatter.category}</span>
+        <span>·</span>
+        <span>{dateFormatted}</span>
+        {frontmatter.readingTime && (
+          <>
+            <span>·</span>
+            <span>{frontmatter.readingTime} min read</span>
+          </>
+        )}
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
+        {frontmatter.title}
+      </h1>
+      <p class="text-base text-[#A1A1AA] leading-relaxed">
+        {frontmatter.description}
+      </p>
+    </header>
+
+    <!-- TOC if configured -->
+    {frontmatter.toc && (
+      <nav class="hidden lg:block lg:absolute lg:top-36 lg:-right-80 lg:w-64 font-mono text-xs text-[#71717A] flex flex-col gap-3">
+        <h3 class="font-semibold uppercase tracking-wider text-white">On this page</h3>
+        <div id="toc-container" class="flex flex-col gap-2 border-l border-[rgba(255,255,255,0.06)] pl-3">
+          <!-- Populated dynamically by client script -->
+        </div>
+      </nav>
+    )}
+
+    <!-- Content slot -->
+    <article class="prose prose-invert max-w-none text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal flex flex-col gap-6">
+      <slot />
+    </article>
+
+    <!-- Comments (Giscus) -->
+    <div class="border-t border-[rgba(255,255,255,0.06)] pt-12 mt-8">
+      <h3 class="text-lg font-medium text-white mb-6 font-display">Discussion</h3>
+      <script is:inline src="https://giscus.app/client.js"
+              data-repo="nikhilbajantri/portfolio"
+              data-repo-id="R_kgDOL82fBA"
+              data-category="Announcements"
+              data-category-id="DIC_kwDOL82fBM4CdM-3"
+              data-mapping="pathname"
+              data-strict="0"
+              data-reactions-enabled="1"
+              data-emit-metadata="0"
+              data-input-position="top"
+              data-theme="dark"
+              data-lang="en"
+              crossorigin="anonymous"
+              async>
+      </script>
+    </div>
+
+  </main>
+</CollectionLayout>
+
+<script is:inline>
+  // Simple automatic TOC extractor script
+  document.addEventListener('DOMContentLoaded', () => {
+    const headings = Array.from(document.querySelectorAll('article h2, article h3'));
+    const container = document.getElementById('toc-container');
+    if (!container || headings.length === 0) return;
+
+    headings.forEach((heading, idx) => {
+      const id = heading.id || `heading-${idx}`;
+      heading.id = id;
+      
+      const link = document.createElement('a');
+      link.href = `#${id}`;
+      link.className = `hover:text-[#FAFAFA] transition-colors leading-normal ${
+        heading.tagName === 'H3' ? 'pl-3 text-[11px]' : 'text-xs'
+      }`;
+      link.textContent = heading.textContent;
+      container.appendChild(link);
+    });
+  });
+</script>

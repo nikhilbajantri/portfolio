@@ -1,73 +1,15 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Navigation from "../components/Navigation.astro";
-import Footer from "../components/Footer.astro";
+import { getPageBySlug } from "../lib/content";
+import { render } from "astro:content";
+import PageLayout from "../layouts/PageLayout.astro";
+
+const page = await getPageBySlug("now");
+if (!page) {
+  return Astro.redirect("/404");
+}
+const { Content } = await render(page);
 ---
 
-<Layout title="Now">
-  <Navigation />
-
-  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 flex flex-col gap-10 font-sans">
-    
-    <!-- Header -->
-    <header class="flex flex-col gap-4">
-      <h1 class="text-4xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
-        Now
-      </h1>
-      <p class="text-xs font-mono text-[#71717A]">
-        Last updated: July 2026
-      </p>
-    </header>
-
-    <!-- Heartbeat List -->
-    <div class="flex flex-col gap-8 text-[#FAFAFA]">
-      
-      <!-- Building -->
-      <section class="flex flex-col gap-2">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-mono font-semibold">Building</h2>
-        <ul class="list-disc pl-5 text-sm text-[#A1A1AA] flex flex-col gap-1">
-          <li>DailyDine reservation engine</li>
-          <li>XELIQ MVP</li>
-        </ul>
-      </section>
-
-      <!-- Learning -->
-      <section class="flex flex-col gap-2">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-mono font-semibold">Learning</h2>
-        <ul class="list-disc pl-5 text-sm text-[#A1A1AA] flex flex-col gap-1">
-          <li>Linux networking</li>
-          <li>Binary exploitation</li>
-          <li>Go internals</li>
-        </ul>
-      </section>
-
-      <!-- Reading -->
-      <section class="flex flex-col gap-2">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-mono font-semibold">Reading</h2>
-        <ul class="list-disc pl-5 text-sm text-[#A1A1AA] flex flex-col gap-1">
-          <li>Designing Data-Intensive Applications</li>
-        </ul>
-      </section>
-
-      <!-- Writing -->
-      <section class="flex flex-col gap-2">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-mono font-semibold">Writing</h2>
-        <ul class="list-disc pl-5 text-sm text-[#A1A1AA] flex flex-col gap-1">
-          <li>PostgreSQL MVCC notes</li>
-        </ul>
-      </section>
-
-      <!-- Thinking About -->
-      <section class="flex flex-col gap-2">
-        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-mono font-semibold">Thinking About</h2>
-        <ul class="list-disc pl-5 text-sm text-[#A1A1AA] flex flex-col gap-1">
-          <li>How AI should change developer workflows</li>
-        </ul>
-      </section>
-
-    </div>
-
-  </main>
-
-  <Footer />
-</Layout>
+<PageLayout frontmatter={page.data}>
+  <Content />
+</PageLayout>

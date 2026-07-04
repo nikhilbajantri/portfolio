@@ -97,5 +97,12 @@ export const commands: CommandItem[] = [
     url: "mailto:nikhilbajantri2604@gmail.com",
     description: "Send Nikhil an email message",
     category: "command"
+  },
+  {
+    id: "cmd-releases",
+    title: "Open Releases",
+    url: "/releases",
+    description: "Open the system updates and engineering changelog index",
+    category: "command"
   }
 ];

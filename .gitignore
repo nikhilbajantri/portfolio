@@ -109,3 +109,8 @@ auth.json
 # Local development files
 .local
 local/
+
+# Dynamic reports and generated outputs
+reports/
+public/generated/
+public/feeds/

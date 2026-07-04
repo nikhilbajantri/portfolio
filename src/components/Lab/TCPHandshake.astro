@@ -1,0 +1,201 @@
+---
+---
+<!-- Interactive Demo -->
+<section class="flex flex-col gap-4 border border-[rgba(255,255,255,0.06)] p-6 rounded-xl bg-[#111113] not-prose my-8">
+  <h2 class="text-xs text-white uppercase tracking-wider font-semibold font-mono">Interactive Demo</h2>
+  
+  <!-- Simulator Window -->
+  <div class="flex flex-col gap-4">
+    
+    <!-- Packet Visualization Graph -->
+    <div class="bg-[#18181B] border border-[#27272A] rounded-lg p-4 font-mono text-xs flex flex-col gap-4">
+      
+      <div class="flex justify-between font-sans font-medium text-white px-2">
+        <span>Client (192.168.1.5)</span>
+        <span>Server (203.0.113.8)</span>
+      </div>
+
+      <!-- Flow Visual -->
+      <div id="flow-visual" class="h-28 flex flex-col justify-center items-center border-y border-[rgba(255,255,255,0.04)] py-4 relative">
+        <div id="packet-arrow" class="w-full text-center text-[#2563EB] font-bold text-xs transition-all duration-300">
+          [ Waiting for Handshake ]
+        </div>
+        <div id="packet-details" class="text-[10px] text-[#71717A] mt-2 font-mono">
+          Click Step Handshake to initiate SYN
+        </div>
+      </div>
+
+      <!-- State Readout -->
+      <div class="grid grid-cols-2 gap-4 text-[11px] text-[#A1A1AA]">
+        <div>Client Socket: <span id="client-state" class="text-red-400 font-mono">CLOSED</span></div>
+        <div>Server Socket: <span id="server-state" class="text-red-400 font-mono">LISTEN</span></div>
+      </div>
+
+    </div>
+
+    <!-- Console log output -->
+    <div class="flex flex-col gap-1.5">
+      <span class="text-xs font-mono text-[#71717A]">Terminal Output Log</span>
+      <pre id="terminal-log" class="bg-[#18181B] border border-[#27272A] p-3 rounded-lg text-xs font-mono text-green-400 h-28 overflow-y-auto leading-relaxed">
+[System] Socket listener running on port 80...
+[System] Click 'Step Handshake' to begin.
+      </pre>
+    </div>
+
+    <!-- Controls -->
+    <div class="flex gap-4 justify-between">
+      <button id="reset-btn" class="px-3 py-1.5 bg-[#27272A] text-white rounded text-xs hover:bg-[#3f3f46] font-mono transition-colors">Reset</button>
+      <button id="step-btn" class="px-4 py-1.5 bg-[#2563EB] text-white rounded text-xs hover:bg-[#1d4ed8] font-mono transition-colors">Step Handshake →</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- TCP Handshake JS -->
+<script is:inline>
+  (function() {
+    const stepBtn = document.getElementById('step-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const clientState = document.getElementById('client-state');
+    const serverState = document.getElementById('server-state');
+    const packetArrow = document.getElementById('packet-arrow');
+    const packetDetails = document.getElementById('packet-details');
+    const terminalLog = document.getElementById('terminal-log');
+
+    if (!stepBtn) return;
+
+    let currentStep = 0;
+    const clientSeq = 1000;
+    const serverSeq = 5000;
+
+    const steps = [
+      {
+        action: "Client sends SYN",
+        arrow: "Client ── SYN (Seq=1000) ──> Server",
+        details: "Initiates session. SYN flag set. Client proposes Seq=1000.",
+        cState: "SYN_SENT",
+        sState: "LISTEN",
+        log: ">>> [Client] Sending TCP SYN segment: Seq=1000, ACK=0, Flags=[SYN]"
+      },
+      {
+        action: "Server replies SYN-ACK",
+        arrow: "Client <── SYN-ACK (Seq=5000, Ack=1001) ── Server",
+        details: "Server acknowledges Client Seq+1. Server proposes Seq=5000.",
+        cState: "SYN_SENT",
+        sState: "SYN_RECEIVED",
+        log: "<<< [Server] Received SYN. Replying SYN-ACK segment: Seq=5000, ACK=1001, Flags=[SYN, ACK]"
+      },
+      {
+        action: "Client sends ACK",
+        arrow: "Client ── ACK (Seq=1001, Ack=5001) ──> Server",
+        details: "Handshake complete. Client acknowledges Server Seq+1.",
+        cState: "ESTABLISHED",
+        sState: "ESTABLISHED",
+        log: ">>> [Client] Received SYN-ACK. Replying ACK segment: Seq=1001, ACK=5001, Flags=[ACK]\n[System] TCP Connection established successfully."
+      },
+      {
+        action: "Data Transfer",
+        arrow: "Client ── PSH-ACK (Seq=1001, Len=150) ──> Server",
+        details: "Transmitting HTTP Request payload (150 bytes).",
+        cState: "ESTABLISHED",
+        sState: "ESTABLISHED",
+        log: ">>> [Client] Sending Data: Seq=1001, ACK=5001, Len=150, Flags=[PSH, ACK]\n<<< [Server] Replying ACK: Seq=5001, ACK=1151, Flags=[ACK]"
+      },
+      {
+        action: "Client starts FIN",
+        arrow: "Client ── FIN-ACK (Seq=1151) ──> Server",
+        details: "Initiates socket termination sequence.",
+        cState: "FIN_WAIT_1",
+        sState: "ESTABLISHED",
+        log: ">>> [Client] Initiating connection close: Sending FIN-ACK: Seq=1151, ACK=5001, Flags=[FIN, ACK]"
+      },
+      {
+        action: "Server acknowledges FIN",
+        arrow: "Client <── ACK (Seq=5001, Ack=1152) ── Server",
+        details: "Server acknowledges Client FIN. Server closes application read path.",
+        cState: "FIN_WAIT_2",
+        sState: "CLOSE_WAIT",
+        log: "<<< [Server] Received FIN. Sending ACK: Seq=5001, ACK=1152, Flags=[ACK]"
+      },
+      {
+        action: "Server sends FIN",
+        arrow: "Client <── FIN-ACK (Seq=5001) ── Server",
+        details: "Server closes application write path.",
+        cState: "TIME_WAIT",
+        sState: "LAST_ACK",
+        log: "<<< [Server] Sending final FIN segment: Seq=5001, ACK=1152, Flags=[FIN, ACK]"
+      },
+      {
+        action: "Client sends final ACK",
+        arrow: "Client ── ACK (Seq=1152, Ack=5002) ──> Server",
+        details: "Client enters TIME_WAIT buffer for 2MSL (usually 2-4 minutes).",
+        cState: "TIME_WAIT",
+        sState: "CLOSED",
+        log: ">>> [Client] Replying final ACK segment: Seq=1152, ACK=5002, Flags=[ACK]\n<<< [Server] Received final ACK. Socket closed."
+      },
+      {
+        action: "Socket Closed",
+        arrow: "[ Socket Closed ]",
+        details: "TIME_WAIT expires. Port released to system.",
+        cState: "CLOSED",
+        sState: "CLOSED",
+        log: "[System] Client TIME_WAIT expired. Socket port released back to OS kernel."
+      }
+    ];
+
+    function updateSim() {
+      if (currentStep < steps.length) {
+        const step = steps[currentStep];
+        packetArrow.textContent = step.arrow;
+        packetDetails.textContent = step.details;
+        clientState.textContent = step.cState;
+        serverState.textContent = step.sState;
+        
+        if (step.cState === "ESTABLISHED") {
+          clientState.className = "text-green-400 font-mono";
+        } else if (step.cState === "CLOSED") {
+          clientState.className = "text-red-400 font-mono";
+        } else {
+          clientState.className = "text-yellow-400 font-mono";
+        }
+
+        if (step.sState === "ESTABLISHED") {
+          serverState.className = "text-green-400 font-mono";
+        } else if (step.sState === "CLOSED" || step.sState === "LISTEN") {
+          serverState.className = "text-red-400 font-mono";
+        } else {
+          serverState.className = "text-yellow-400 font-mono";
+        }
+
+        terminalLog.innerHTML += `\n${step.log}`;
+        terminalLog.scrollTop = terminalLog.scrollHeight;
+        
+        currentStep++;
+        if (currentStep === steps.length) {
+          stepBtn.textContent = "Done";
+          stepBtn.disabled = true;
+          stepBtn.className = "px-4 py-1.5 bg-[#27272A] text-[#71717A] rounded text-xs font-mono cursor-not-allowed";
+        } else {
+          stepBtn.textContent = `Step ${currentStep + 1} →`;
+        }
+      }
+    }
+
+    function resetSim() {
+      currentStep = 0;
+      packetArrow.textContent = "[ Ready ]";
+      packetDetails.textContent = "Click Step Handshake to start";
+      clientState.textContent = "CLOSED";
+      clientState.className = "text-red-400 font-mono";
+      serverState.textContent = "LISTEN";
+      serverState.className = "text-red-400 font-mono";
+      terminalLog.textContent = "[System] Socket listener running on port 80...\n[System] Click 'Step Handshake' to begin.";
+      stepBtn.textContent = "Step Handshake →";
+      stepBtn.disabled = false;
+      stepBtn.className = "px-4 py-1.5 bg-[#2563EB] text-white rounded text-xs hover:bg-[#1d4ed8] font-mono transition-colors";
+    }
+
+    stepBtn.addEventListener('click', updateSim);
+    resetBtn.addEventListener('click', resetSim);
+  })();
+</script>

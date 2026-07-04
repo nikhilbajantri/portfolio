@@ -1,0 +1,68 @@
+---
+import CollectionLayout from "./CollectionLayout.astro";
+
+export interface Props {
+  frontmatter: {
+    title: string;
+    status: string;
+    difficulty: string;
+    interactive: boolean;
+    tags: string[];
+    source?: string;
+    demo?: string;
+  };
+}
+
+const { frontmatter } = Astro.props;
+---
+
+<CollectionLayout title={frontmatter.title}>
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Lab Header -->
+    <header class="flex flex-col gap-4">
+      <div class="flex items-center gap-2 text-xs font-mono text-[#71717A]">
+        <span class="px-2 py-0.5 rounded bg-white/5 border border-white/10 uppercase tracking-wider text-white">
+          ● {frontmatter.status}
+        </span>
+        <span>·</span>
+        <span>{frontmatter.difficulty}</span>
+        {frontmatter.interactive && (
+          <>
+            <span>·</span>
+            <span class="text-[#2563EB]">● Interactive Demo Available</span>
+          </>
+        )}
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
+        {frontmatter.title}
+      </h1>
+    </header>
+
+    <!-- Lab Content Slot -->
+    <article class="prose prose-invert max-w-none text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal flex flex-col gap-6">
+      <slot />
+    </article>
+
+    <!-- Comments (Giscus) -->
+    <div class="border-t border-[rgba(255,255,255,0.06)] pt-12 mt-8">
+      <h3 class="text-lg font-medium text-white mb-6 font-display">Discussion</h3>
+      <script is:inline src="https://giscus.app/client.js"
+              data-repo="nikhilbajantri/portfolio"
+              data-repo-id="R_kgDOL82fBA"
+              data-category="Announcements"
+              data-category-id="DIC_kwDOL82fBM4CdM-3"
+              data-mapping="pathname"
+              data-strict="0"
+              data-reactions-enabled="1"
+              data-emit-metadata="0"
+              data-input-position="top"
+              data-theme="dark"
+              data-lang="en"
+              crossorigin="anonymous"
+              async>
+      </script>
+    </div>
+
+  </main>
+</CollectionLayout>

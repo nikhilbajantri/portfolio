@@ -1,0 +1,24 @@
+---
+interface Props {
+  href?: string;
+  class?: string;
+  active?: boolean;
+}
+
+const { href, class: className = "", active = false } = Astro.props;
+
+const baseStyles = "px-2.5 py-1 text-xs font-mono rounded transition-colors select-none w-fit cursor-pointer flex items-center gap-1.5 border";
+const stateStyles = active
+  ? "bg-[#18181B] border-[#71717A] text-white"
+  : "bg-[#18181B]/50 border-white/5 text-[#A1A1AA] hover:text-white hover:border-[#71717A]";
+---
+
+{href ? (
+  <a href={href} class={`${baseStyles} ${stateStyles} ${className}`}>
+    <slot />
+  </a>
+) : (
+  <span class={`${baseStyles} ${stateStyles} ${className}`}>
+    <slot />
+  </span>
+)}

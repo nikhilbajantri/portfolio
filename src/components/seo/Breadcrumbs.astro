@@ -1,0 +1,33 @@
+---
+import { site } from "../../data/site";
+
+const { pathname } = Astro.url;
+const segments = pathname.split("/").filter(Boolean);
+
+const breadcrumbs = [
+  { label: "Home", url: "/" },
+  ...segments.map((segment, index) => {
+    const url = "/" + segments.slice(0, index + 1).join("/");
+    const label = segment
+      .replace(/-/g, " ")
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+    return { label, url };
+  })
+];
+---
+
+<nav aria-label="Breadcrumb" class="text-xs text-[#71717A] font-mono flex items-center gap-2 select-none not-prose my-4">
+  {breadcrumbs.map((crumb, index) => {
+    const isLast = index === breadcrumbs.length - 1;
+    return (
+      <>
+        {index > 0 && <span class="text-[#27272A]">&rarr;</span>}
+        {isLast ? (
+          <span class="text-white font-medium" aria-current="page">{crumb.label}</span>
+        ) : (
+          <a href={crumb.url} class="hover:text-white transition-colors">{crumb.label}</a>
+        )}
+      </>
+    );
+  })}
+</nav>

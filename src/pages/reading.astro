@@ -2,35 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
+import { getBooks } from "../lib/content";
 
-const books = [
-  {
-    title: "Designing Data-Intensive Applications",
-    author: "Martin Kleppmann",
-    progress: "18% Complete · Active Study",
-    whyRead: "I wanted to understand the structural trade-offs of distributed datastores, partition mechanisms, and replication protocols beyond standard client wrappers.",
-    ideas: [
-      "Reliability is not a hardware guarantee. It is maintained through deliberate storage engine write logs and transaction control boundaries.",
-      "Partitioning is necessary for scaling writes, but introduces distributed transaction coordination overhead.",
-      "A database's internal read/write layout (LSM-trees vs. B-trees) dictates its performance under random update traffic."
-    ],
-    quote: "Applications will inevitably change, and new requirements will emerge. The challenge is to make the system flexible enough to adapt.",
-    recommend: "Engineers designing backend microservices, real-time analytics brokers, or database caching layouts."
-  },
-  {
-    title: "The Pragmatic Programmer",
-    author: "Andrew Hunt & David Thomas",
-    progress: "Completed · June 2026",
-    whyRead: "To audit my development workflow habits, establish better code organization paradigms, and study structural decoupling strategies.",
-    ideas: [
-      "Care about your craft. Do not write code that you do not fully understand or cannot easily defend.",
-      "Orthogonality reduces system risks. decoulpled components are easier to test, modify, and replace without collateral damage.",
-      "Avoid programming by coincidence. Rely on predictable behaviors and clear contracts rather than library assumptions."
-    ],
-    quote: "Don't program by coincidence. Rely on facts, not assumptions.",
-    recommend: "Developers wanting to build robust engineering routines, command-line proficiencies, and decoupled systems."
-  }
-];
+const books = await getBooks();
 
 const recommendations = {
   books: [
@@ -45,13 +19,6 @@ const recommendations = {
   tools: [
     { title: "Git", desc: "Decentralized version control" },
     { title: "Cursor / Neovim", desc: "Text editing environments" }
-  ],
-  podcasts: [
-    { title: "Lex Fridman Podcast", host: "Lex Fridman" }
-  ],
-  people: [
-    { name: "Derek Sivers", url: "https://sivers.org/" },
-    { name: "Paul Graham", url: "https://paulgraham.com/" }
   ]
 };
 ---
@@ -59,109 +26,66 @@ const recommendations = {
 <Layout title="Reading">
   <Navigation />
 
-  <main id="main-content" class="flex-1 max-w-[960px] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-16 font-sans">
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-16 font-sans">
     
     <!-- Header -->
-    <header class="flex flex-col gap-6 max-w-[68ch]">
-      <h1 class="text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
+    <header class="flex flex-col gap-4">
+      <h1 class="text-4xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
         Reading
       </h1>
-      <p class="text-lg text-[#A1A1AA] leading-relaxed">
-        Books shape my engineering decisions and technical philosophy.
-        This is a record of ideas, notes, and recommendations that have stayed with me.
+      <p class="text-base text-[#A1A1AA] leading-relaxed">
+        Logs, annotations, and key takeaways from books I study to understand systems and software design.
       </p>
     </header>
 
-    <!-- Currently Reading & Detailed Logs -->
-    <section class="flex flex-col gap-16">
+    <!-- Books list -->
+    <div class="flex flex-col gap-12 border-b border-[rgba(255,255,255,0.06)] pb-12">
       {books.map((book) => (
-        <article class="flex flex-col gap-8 border-b border-[rgba(255,255,255,0.06)] pb-16 last:border-0 last:pb-0">
-          
-          <div class="flex flex-col gap-1.5">
-            <div class="flex justify-between items-start gap-4">
-              <h2 class="text-2xl font-display font-medium text-[#FAFAFA] tracking-tight">{book.title}</h2>
-              <span class="text-xs px-2.5 py-0.5 bg-[#2563EB]/10 text-[#2563EB] rounded-[999px] font-mono whitespace-nowrap">{book.progress}</span>
-            </div>
-            <p class="text-xs text-[#71717A] font-mono">by {book.author}</p>
+        <section class="flex flex-col gap-4 border border-[rgba(255,255,255,0.06)] p-6 bg-[#111113]/50 rounded-xl">
+          <div class="flex justify-between items-baseline gap-2">
+            <h2 class="text-lg font-medium text-[#FAFAFA]">
+              <a href={`/books/${book.slug}`} class="hover:underline">{book.data.title}</a>
+            </h2>
+            <span class="text-xs text-[#71717A] font-mono">{book.data.status}</span>
           </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-[#A1A1AA] leading-relaxed">
-            
-            <div class="flex flex-col gap-3">
-              <span class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider">Why I Read It</span>
-              <p>{book.whyRead}</p>
-            </div>
-
-            <div class="flex flex-col gap-3">
-              <span class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider">Who Should Read It</span>
-              <p>{book.recommend}</p>
-            </div>
-
-            <div class="flex flex-col gap-3 md:col-span-2">
-              <span class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider">Three Ideas</span>
-              <ul class="flex flex-col gap-2 list-disc pl-4 text-sm text-[#A1A1AA]">
-                {book.ideas.map((idea) => (
+          <span class="text-xs text-[#A1A1AA] font-mono">by {book.data.author} · {book.data.category}</span>
+          {book.data.favoriteQuote && (
+            <p class="text-xs text-[#71717A] italic">"{book.data.favoriteQuote}"</p>
+          )}
+          {book.data.ideas && book.data.ideas.length > 0 && (
+            <div class="mt-2 flex flex-col gap-2">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-[#71717A] font-semibold">Key Ideas</span>
+              <ul class="list-disc pl-4 text-xs text-[#A1A1AA] flex flex-col gap-1">
+                {book.data.ideas.map(idea => (
                   <li>{idea}</li>
                 ))}
               </ul>
             </div>
-
-            <div class="flex flex-col gap-3 md:col-span-2 border-l-2 border-[#2563EB] pl-6 py-1 italic text-xs text-[#71717A]">
-              <span class="text-[9px] uppercase tracking-wider font-mono not-italic block mb-1">Favorite Quote</span>
-              "{book.quote}"
-            </div>
-
-          </div>
-
-        </article>
+          )}
+        </section>
       ))}
-    </section>
+    </div>
 
-    <!-- Recommendations Directory (Worth Your Time) -->
-    <section class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.08)] pt-12">
-      <h2 class="text-2xl font-display font-medium text-[#FAFAFA] tracking-tight">Worth Your Time</h2>
-      
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        
-        <!-- Books -->
-        <div class="flex flex-col gap-3">
-          <h3 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider">Books</h3>
-          <ul class="flex flex-col gap-2 text-sm text-[#A1A1AA]">
-            {recommendations.books.map((b) => (
-              <li>
-                <span class="text-[#FAFAFA] font-medium">{b.title}</span>
-                <span class="text-[#71717A] text-xs block">by {b.author}</span>
-              </li>
+    <!-- Recommendations Grid -->
+    <section class="flex flex-col gap-6">
+      <h2 class="text-xs font-mono text-[#71717A] uppercase tracking-wider font-semibold">Curated References</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+        <div>
+          <span class="block text-xs font-mono text-white mb-2 uppercase tracking-wide">Books</span>
+          <ul class="flex flex-col gap-1 text-[#A1A1AA]">
+            {recommendations.books.map(b => (
+              <li>{b.title} <span class="text-[#71717A] text-xs">by {b.author}</span></li>
             ))}
           </ul>
         </div>
-
-        <!-- Articles -->
-        <div class="flex flex-col gap-3">
-          <h3 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider">Articles</h3>
-          <ul class="flex flex-col gap-2 text-sm text-[#A1A1AA]">
-            {recommendations.articles.map((art) => (
-              <li>
-                <span class="text-[#FAFAFA] font-medium">{art.title}</span>
-                <span class="text-[#71717A] text-xs block">by {art.author}</span>
-              </li>
+        <div>
+          <span class="block text-xs font-mono text-white mb-2 uppercase tracking-wide">Articles</span>
+          <ul class="flex flex-col gap-1 text-[#A1A1AA]">
+            {recommendations.articles.map(a => (
+              <li>{a.title} <span class="text-[#71717A] text-xs">by {a.author}</span></li>
             ))}
           </ul>
         </div>
-
-        <!-- Tools -->
-        <div class="flex flex-col gap-3">
-          <h3 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider">Tools</h3>
-          <ul class="flex flex-col gap-2 text-sm text-[#A1A1AA]">
-            {recommendations.tools.map((tool) => (
-              <li>
-                <span class="text-[#FAFAFA] font-medium">{tool.title}</span>
-                <span class="text-[#71717A] text-xs block">{tool.desc}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
       </div>
     </section>
 

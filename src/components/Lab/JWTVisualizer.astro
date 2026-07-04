@@ -1,0 +1,101 @@
+---
+---
+<!-- Interactive Demo -->
+<section class="flex flex-col gap-4 border border-[rgba(255,255,255,0.06)] p-6 rounded-xl bg-[#111113] not-prose my-8">
+  <h2 class="text-xs text-white uppercase tracking-wider font-semibold font-mono">Interactive Demo</h2>
+  
+  <!-- Input JWT Token -->
+  <div class="flex flex-col gap-2">
+    <label class="text-xs font-mono text-[#71717A]">Encoded JWT Token</label>
+    <textarea id="jwt-input" class="w-full h-24 bg-[#18181B] border border-[#27272A] rounded-lg p-3 text-xs font-mono text-[#FAFAFA] focus:outline-none focus:border-[#2563EB]" spellcheck="false">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik5pa2hpbCIsImFkbWluIjp0cnVlLCJleHAiOjE4OTM0NTYAwMH0.c2lnbmF0dXJlX2hlcmVfdGVzdGluZ192YWxpZGF0aW9uX29ubHk</textarea>
+  </div>
+
+  <!-- Colored Breakdown Display -->
+  <div class="flex flex-col gap-2">
+    <span class="text-xs font-mono text-[#71717A]">Token Breakdown</span>
+    <div class="bg-[#18181B] border border-[#27272A] p-3 rounded-lg text-xs font-mono break-all leading-relaxed">
+      <span id="colored-header" class="text-red-400">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</span>.<span id="colored-payload" class="text-blue-400">eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik5pa2hpbCIsImFkbWluIjp0cnVlLCJleHAiOjE4OTM0NTYAwMH0</span>.<span id="colored-sig" class="text-green-400">c2lnbmF0dXJlX2hlcmVfdGVzdGluZ192YWxpZGF0aW9uX29ubHk</span>
+    </div>
+  </div>
+
+  <!-- Decoded Output Areas -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+    <!-- Decoded Header -->
+    <div class="flex flex-col gap-1">
+      <span class="text-xs font-mono text-[#71717A]">Decoded Header (Red)</span>
+      <pre id="decoded-header" class="bg-[#18181B] border border-[#27272A] p-3 rounded-lg text-xs font-mono text-red-300 h-28 overflow-y-auto"></pre>
+    </div>
+    <!-- Decoded Payload -->
+    <div class="flex flex-col gap-1">
+      <span class="text-xs font-mono text-[#71717A]">Decoded Payload (Blue)</span>
+      <pre id="decoded-payload" class="bg-[#18181B] border border-[#27272A] p-3 rounded-lg text-xs font-mono text-blue-300 h-28 overflow-y-auto"></pre>
+    </div>
+  </div>
+</section>
+
+<!-- JWT Decoder JS -->
+<script is:inline>
+  (function() {
+    const jwtInput = document.getElementById('jwt-input');
+    const coloredHeader = document.getElementById('colored-header');
+    const coloredPayload = document.getElementById('colored-payload');
+    const coloredSig = document.getElementById('colored-sig');
+    const decodedHeader = document.getElementById('decoded-header');
+    const decodedPayload = document.getElementById('decoded-payload');
+
+    if (!jwtInput) return;
+
+    function base64UrlDecode(str) {
+      try {
+        let base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+        while (base64.length % 4) {
+          base64 += '=';
+        }
+        return atob(base64);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function decodeToken() {
+      const parts = jwtInput.value.trim().split('.');
+      if (parts.length === 3) {
+        coloredHeader.textContent = parts[0];
+        coloredPayload.textContent = parts[1];
+        coloredSig.textContent = parts[2];
+
+        const headerDecoded = base64UrlDecode(parts[0]);
+        const payloadDecoded = base64UrlDecode(parts[1]);
+
+        if (headerDecoded) {
+          try {
+            decodedHeader.textContent = JSON.stringify(JSON.parse(headerDecoded), null, 2);
+          } catch (e) {
+            decodedHeader.textContent = headerDecoded;
+          }
+        } else {
+          decodedHeader.textContent = "Error decoding header.";
+        }
+
+        if (payloadDecoded) {
+          try {
+            decodedPayload.textContent = JSON.stringify(JSON.parse(payloadDecoded), null, 2);
+          } catch (e) {
+            decodedPayload.textContent = payloadDecoded;
+          }
+        } else {
+          decodedPayload.textContent = "Error decoding payload.";
+        }
+      } else {
+        coloredHeader.textContent = "Invalid";
+        coloredPayload.textContent = "Token";
+        coloredSig.textContent = "Format";
+        decodedHeader.textContent = "Please input a token with 3 sections separated by dots.";
+        decodedPayload.textContent = "Please input a token with 3 sections separated by dots.";
+      }
+    }
+
+    jwtInput.addEventListener('input', decodeToken);
+    decodeToken();
+  })();
+</script>

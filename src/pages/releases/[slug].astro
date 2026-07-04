@@ -1,0 +1,90 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Navigation from "../../components/Navigation.astro";
+import Footer from "../../components/Footer.astro";
+
+export async function getStaticPaths() {
+  const releases = await getCollection("releases");
+  return releases.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Layout title={`${entry.data.version} - Changelog`}>
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-8 font-sans">
+    
+    <header class="flex flex-col gap-3">
+      <a href="/releases" class="text-xs text-[#71717A] hover:text-white transition-colors font-mono">&larr; Back to Changelog</a>
+      <h1 class="text-4xl font-display font-medium text-white tracking-tight mt-4">
+        {entry.data.version}: {entry.data.title}
+      </h1>
+      <div class="text-xs font-mono text-[#71717A]">
+        Released on {new Date(entry.data.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+      </div>
+    </header>
+
+    <article class="prose prose-invert max-w-none text-[#A1A1AA] leading-relaxed text-sm flex flex-col gap-6">
+      <p class="text-base text-white">{entry.data.description}</p>
+      
+      {entry.data.breakingChanges.length > 0 && (
+        <div class="p-4 bg-red-950/20 border border-red-900/30 rounded-lg flex flex-col gap-2">
+          <span class="text-xs font-mono uppercase tracking-wider text-red-400 font-semibold">⚠️ Breaking Changes</span>
+          <ul class="list-disc pl-4 text-xs text-red-300 flex flex-col gap-1">
+            {entry.data.breakingChanges.map(c => <li>{c}</li>)}
+          </ul>
+        </div>
+      )}
+
+      {entry.data.added.length > 0 && (
+        <div class="flex flex-col gap-2">
+          <span class="text-xs font-mono uppercase tracking-wider text-green-400 font-semibold">🚀 Added</span>
+          <ul class="list-disc pl-4 text-xs flex flex-col gap-1">
+            {entry.data.added.map(item => <li>{item}</li>)}
+          </ul>
+        </div>
+      )}
+
+      {entry.data.improved.length > 0 && (
+        <div class="flex flex-col gap-2">
+          <span class="text-xs font-mono uppercase tracking-wider text-blue-400 font-semibold">✨ Improved</span>
+          <ul class="list-disc pl-4 text-xs flex flex-col gap-1">
+            {entry.data.improved.map(item => <li>{item}</li>)}
+          </ul>
+        </div>
+      )}
+
+      {entry.data.fixed.length > 0 && (
+        <div class="flex flex-col gap-2">
+          <span class="text-xs font-mono uppercase tracking-wider text-yellow-400 font-semibold">🔧 Fixed</span>
+          <ul class="list-disc pl-4 text-xs flex flex-col gap-1">
+            {entry.data.fixed.map(item => <li>{item}</li>)}
+          </ul>
+        </div>
+      )}
+
+      {entry.data.removed.length > 0 && (
+        <div class="flex flex-col gap-2">
+          <span class="text-xs font-mono uppercase tracking-wider text-zinc-400 font-semibold">🗑️ Removed</span>
+          <ul class="list-disc pl-4 text-xs flex flex-col gap-1">
+            {entry.data.removed.map(item => <li>{item}</li>)}
+          </ul>
+        </div>
+      )}
+
+      <div class="mt-8 pt-8 border-t border-white/5">
+        <Content />
+      </div>
+    </article>
+
+  </main>
+
+  <Footer />
+</Layout>

@@ -1,0 +1,64 @@
+---
+import CollectionLayout from "../../layouts/CollectionLayout.astro";
+import { getArticles, getProjects } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  const projects = await getProjects();
+
+  const years = new Set<number>();
+  articles.forEach(a => years.add(a.data.published.getFullYear()));
+  projects.forEach(p => years.add(p.data.year));
+
+  return Array.from(years).map(year => ({
+    params: { year: year.toString() },
+    props: { year }
+  }));
+}
+
+const { year } = Astro.props;
+
+const articles = (await getArticles()).filter(a => a.data.published.getFullYear() === year);
+const projects = (await getProjects()).filter(p => p.data.year === year);
+---
+
+<CollectionLayout title={`Archive: ${year}`}>
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <header class="flex flex-col gap-2">
+      <span class="text-xs font-mono text-[#71717A] uppercase tracking-wider">Annual Archive</span>
+      <h1 class="text-4xl font-display font-medium text-[#FAFAFA] tracking-tight">{year}</h1>
+    </header>
+
+    <div class="flex flex-col gap-8">
+      {projects.length > 0 && (
+        <section class="flex flex-col gap-4">
+          <h3 class="text-xs font-mono text-[#71717A] uppercase tracking-wider border-b border-white/10 pb-1.5 font-semibold">Projects Built</h3>
+          <div class="flex flex-col gap-3">
+            {projects.map(p => (
+              <a href={p.data.caseStudy || `/work/${p.slug}`} class="group flex flex-col gap-0.5">
+                <span class="text-sm font-medium text-white group-hover:text-[#2563EB] transition-colors">{p.data.title}</span>
+                <span class="text-xs text-[#71717A] font-mono">{p.data.role}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {articles.length > 0 && (
+        <section class="flex flex-col gap-4">
+          <h3 class="text-xs font-mono text-[#71717A] uppercase tracking-wider border-b border-white/10 pb-1.5 font-semibold">Articles Published</h3>
+          <div class="flex flex-col gap-3">
+            {articles.map(a => (
+              <a href={`/writing/${a.slug}`} class="group flex flex-col gap-0.5">
+                <span class="text-sm font-medium text-white group-hover:text-[#2563EB] transition-colors">{a.data.title}</span>
+                <span class="text-xs text-[#71717A] font-mono">{a.data.category} • {a.data.published.toLocaleDateString()}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+
+  </main>
+</CollectionLayout>

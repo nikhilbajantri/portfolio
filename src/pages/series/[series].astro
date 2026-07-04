@@ -1,0 +1,46 @@
+---
+import CollectionLayout from "../../layouts/CollectionLayout.astro";
+import { getArticles } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  const series = new Set(
+    articles
+      .map(a => a.data.series)
+      .filter((s): s is string => !!s)
+      .map(s => s.toLowerCase())
+  );
+  return Array.from(series).map(s => ({
+    params: { series: s },
+    props: { seriesName: s }
+  }));
+}
+
+const { seriesName } = Astro.props;
+const articles = (await getArticles())
+  .filter(a => a.data.series?.toLowerCase() === seriesName)
+  .sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0));
+---
+
+<CollectionLayout title={`Series: ${seriesName.toUpperCase()}`}>
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <header class="flex flex-col gap-2">
+      <span class="text-xs font-mono text-[#71717A] uppercase tracking-wider">Series Archive</span>
+      <h1 class="text-4xl font-display font-medium text-[#FAFAFA] tracking-tight capitalize">{seriesName}</h1>
+    </header>
+
+    <div class="flex flex-col gap-6">
+      {articles.map((a, idx) => (
+        <a href={`/writing/${a.slug}`} class="group flex flex-col gap-1 border-b border-[rgba(255,255,255,0.04)] pb-4">
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] font-mono text-[#2563EB] bg-[#2563EB]/10 border border-[#2563EB]/20 px-1.5 py-0.5 rounded">Part {a.data.seriesOrder ?? (idx + 1)}</span>
+            <span class="text-sm font-medium text-white group-hover:text-[#2563EB] transition-colors">{a.data.title}</span>
+          </div>
+          <span class="text-xs text-[#A1A1AA] line-clamp-1 leading-normal ml-0">{a.data.description}</span>
+        </a>
+      ))}
+    </div>
+
+  </main>
+</CollectionLayout>

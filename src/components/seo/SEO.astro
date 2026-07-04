@@ -1,0 +1,46 @@
+---
+import { resolveSeoConfig } from "../../lib/seo/SeoResolver";
+import MetaTags from "./MetaTags.astro";
+import Canonical from "./Canonical.astro";
+import OpenGraph from "./OpenGraph.astro";
+import TwitterCard from "./TwitterCard.astro";
+import JsonLd from "./JsonLd.astro";
+import type { SeoConfig } from "../../types/Seo";
+
+interface Props extends Partial<SeoConfig> {}
+
+const resolved = resolveSeoConfig(Astro.props);
+---
+
+<MetaTags 
+  title={resolved.title} 
+  description={resolved.description} 
+  keywords={resolved.keywords} 
+  author={resolved.author} 
+/>
+
+<Canonical url={resolved.canonical!} />
+
+<OpenGraph 
+  title={resolved.title} 
+  description={resolved.description} 
+  image={resolved.image!} 
+  url={resolved.canonical!} 
+  type={resolved.type!} 
+/>
+
+<TwitterCard 
+  title={resolved.title} 
+  description={resolved.description} 
+  image={resolved.image!} 
+/>
+
+<JsonLd 
+  schemas={resolved.schemas!} 
+  title={resolved.title} 
+  description={resolved.description} 
+  canonical={resolved.canonical!} 
+  published={resolved.published} 
+  updated={resolved.updated} 
+  image={resolved.image} 
+/>

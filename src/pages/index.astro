@@ -1,202 +1,160 @@
 ---
+import { getEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
+import Newsletter from "../components/Newsletter.astro";
+import { getHomepage } from "../lib/content";
 
-// Highlighted Case Studies
-const highlightedWork = [
-  {
-    title: "DailyDine",
-    subtitle: "Dining coordination platform · 2026",
-    overview: "A restaurant operations platform built to reduce uncertainty around reservations, ordering, and table management.",
-    tech: ["Go", "React", "PostgreSQL", "Tailwind CSS"],
-    slug: "/work/dailydine"
-  },
-  {
-    title: "XELIQ",
-    subtitle: "Creator-first travel platform · 2026",
-    overview: "A travel platform built to rethink how creators plan, document, and share travel, utilizing offline sync protocols.",
-    tech: ["Swift", "Node.js", "SQLite", "MongoDB"],
-    slug: "/work/xeliq"
-  },
-  {
-    title: "CodeBud",
-    subtitle: "Developer authentication platform · 2025",
-    overview: "A learning platform built to provide secure authentication and role-based access for developers via Keycloak.",
-    tech: ["TypeScript", "Next.js", "Keycloak", "Docker"],
-    slug: "/work/codebud"
-  },
-  {
-    title: "Great British Doner",
-    subtitle: "Headless restaurant platform · 2025",
-    overview: "A headless restaurant website built to improve content workflows, SEO, and performance via Sanity CMS.",
-    tech: ["Next.js", "Sanity CMS", "Vercel", "Tailwind CSS"],
-    slug: "/work/great-british-doner"
-  }
+const homeData = await getHomepage();
+const { hero, focus, featuredProjects, latestArticles, latestNotes, latestJourney } = homeData;
+
+// Load homepage sections config
+const configEntry = await getEntry("homepage", "config");
+const widgets = configEntry?.data?.widgets || [
+  { id: "hero", enabled: true, priority: 1 },
+  { id: "focus", enabled: true, priority: 2 },
+  { id: "projects", enabled: true, priority: 3 },
+  { id: "writing", enabled: true, priority: 4 },
+  { id: "reading", enabled: true, priority: 5 },
+  { id: "newsletter", enabled: true, priority: 6 }
 ];
 
-// Latest Writing Highlights
-const latestWriting = [
-  {
-    title: "Why I Started Writing",
-    category: "Essay",
-    date: "July 2026",
-    description: "An inquiry into how writing helps clarify software architecture and structures memory.",
-    slug: "/writing/why-i-started-writing"
-  },
-  {
-    title: "The Kind of Engineer I Want to Become",
-    category: "Essay",
-    date: "June 2026",
-    description: "Reflections on craftsman philosophy, engineering humility, and long-term design patterns.",
-    slug: "/writing/the-kind-of-engineer-i-want-to-become"
-  }
-];
+const activeWidgets = widgets
+  .filter(w => w.enabled)
+  .sort((a, b) => a.priority - b.priority);
+
+// Format text metrics
+const heroTitle = hero?.data?.title || "Build. Learn. Write.";
+const heroDesc = hero?.data?.description || "I build software that reduces uncertainty, design predictable distributed architectures, and document my learning path in public.";
+const focusTitle = focus?.data?.title || "Current Focus";
+const focusDesc = focus?.data?.description || "Optimizing PostgreSQL transaction concurrency locks, auditing Linux socket parameters, and building reservation queue engines.";
 ---
+
 <Layout title="nikhilbajantri.dev">
   <Navigation />
 
-  <main id="main-content" class="flex-1 max-w-[960px] mx-auto px-6 pt-4 pb-16 sm:pt-6 sm:pb-24 flex flex-col gap-32 font-sans">
+  <main id="main-content" class="flex-1 max-w-[960px] mx-auto px-6 pt-4 pb-16 sm:pt-6 sm:pb-24 flex flex-col gap-24 font-sans">
     
-    <!-- 1. Hero Section -->
-    <section id="hero" class="flex flex-col pt-0 pb-12 sm:pb-16">
-      <span class="text-xs font-mono text-[#71717A] uppercase tracking-widest mb-6">Nikhil Bajantri</span>
-      <h1 class="text-5xl sm:text-7xl lg:text-[102px] font-display font-medium text-[#FAFAFA] tracking-tight leading-none mb-12">
-        Build. Learn. Write.
-      </h1>
-      <p class="text-lg sm:text-xl lg:text-[20px] text-[#A1A1AA] leading-[1.7] max-w-[680px] mb-8">
-        Technology changes quickly. Good ideas don't. This is where I explore software engineering, cybersecurity, and the lessons learned through building.
-      </p>
-      <blockquote class="border-l border-[#2563EB] pl-8 py-1 text-sm sm:text-base text-[#71717A] leading-[1.7] max-w-[680px] italic mb-12">
-        I don't write because I know. I write because it helps me understand. This website isn't a record of expertise. It's a record of progress.
-      </blockquote>
-      <div class="text-xs sm:text-sm text-[#71717A] leading-relaxed max-w-[680px] mb-8">
-        You'll find engineering notes, book reviews, project breakdowns, and lessons learned along the way. Right now I'm building DailyDine and studying cybersecurity, one rabbit hole at a time.
-      </div>
-      <div>
-        <a href="/writing" class="text-xs text-[#2563EB] hover:underline font-mono">
-          Read the latest article →
-        </a>
-      </div>
-    </section>
+    {activeWidgets.map((widget) => {
+      switch (widget.id) {
+        case "hero":
+          return (
+            <section id="hero" class="flex flex-col pt-0 pb-4">
+              <span class="text-xs font-mono text-[#71717A] uppercase tracking-widest mb-6">Nikhil Bajantri</span>
+              <h1 class="text-5xl sm:text-7xl lg:text-[96px] font-display font-medium text-[#FAFAFA] tracking-tight leading-none mb-10">
+                {heroTitle}
+              </h1>
+              <p class="text-lg text-[#A1A1AA] leading-relaxed max-w-[680px] mb-8">
+                {heroDesc}
+              </p>
+              <div>
+                <a href="/writing" class="text-xs text-[#2563EB] hover:underline font-mono">
+                  Read the latest article &rarr;
+                </a>
+              </div>
+            </section>
+          );
 
-    <!-- 2. Now (Current Focus) Section -->
-    <section id="now" class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.06)] pt-16">
-      <div class="flex justify-between items-baseline">
-        <h2 class="text-2xl font-display font-medium text-[#FAFAFA] tracking-tight">Now</h2>
-        <a href="/now" class="text-xs text-[#2563EB] hover:underline font-medium">Browse details →</a>
-      </div>
+        case "focus":
+          return (
+            <section id="now" class="flex flex-col gap-6 border-t border-[rgba(255,255,255,0.06)] pt-12">
+              <div class="flex justify-between items-baseline">
+                <h2 class="text-2xl font-display font-medium text-[#FAFAFA] tracking-tight">{focusTitle}</h2>
+                <a href="/now" class="text-xs text-[#2563EB] hover:underline font-medium">Browse details &rarr;</a>
+              </div>
+              <div class="p-6 bg-[#111113] border border-[rgba(255,255,255,0.08)] rounded-[16px] flex flex-col gap-2">
+                <span class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Active Work</span>
+                <p class="text-sm text-[#A1A1AA] leading-relaxed">
+                  {focusDesc}
+                </p>
+              </div>
+            </section>
+          );
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
-        <!-- Building Card -->
-        <div class="p-6 bg-[#111113] border border-[rgba(255,255,255,0.08)] rounded-[16px] flex flex-col gap-2">
-          <span class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Building</span>
-          <h3 class="text-sm font-medium text-[#FAFAFA]">DailyDine</h3>
-          <p class="text-xs text-[#A1A1AA] leading-relaxed">
-            A restaurant platform exploring better dining experiences through thoughtful software.
-          </p>
-        </div>
+        case "projects":
+          return (
+            <section id="work" class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.08)] pt-12">
+              <div class="flex justify-between items-baseline">
+                <h2 class="text-2xl font-display font-medium text-[#FAFAFA] tracking-tight">Selected Work</h2>
+                <a href="/work" class="text-xs text-[#2563EB] hover:underline font-mono">View All Projects &rarr;</a>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {featuredProjects.slice(0, widget.limit || 4).map((project) => (
+                  <article class="p-6 bg-[#111113] border border-[rgba(255,255,255,0.08)] rounded-[16px] flex flex-col gap-3">
+                    <div class="flex justify-between items-baseline">
+                      <h3 class="text-base font-medium text-[#FAFAFA]">
+                        <a href={project.data.caseStudy || `/work/${project.slug}`} class="hover:text-[#2563EB] transition-colors">
+                          {project.data.title}
+                        </a>
+                      </h3>
+                      <span class="text-xs text-[#71717A] font-mono">{project.data.year}</span>
+                    </div>
+                    <p class="text-xs text-[#A1A1AA] leading-relaxed line-clamp-2">
+                      {project.data.description}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          );
 
-        <!-- Learning Card -->
-        <div class="p-6 bg-[#111113] border border-[rgba(255,255,255,0.08)] rounded-[16px] flex flex-col gap-2">
-          <span class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Learning</span>
-          <h3 class="text-sm font-medium text-[#FAFAFA]">Cybersecurity & Systems</h3>
-          <p class="text-xs text-[#A1A1AA] leading-relaxed">
-            Studying distributed systems architecture, compiled languages, and Linux network security patterns.
-          </p>
-        </div>
+        case "writing":
+          return (
+            <section id="writing" class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.08)] pt-12">
+              <div class="flex justify-between items-baseline">
+                <h2 class="text-2xl font-display font-medium text-[#FAFAFA] tracking-tight">Writing</h2>
+                <a href="/writing" class="text-xs text-[#2563EB] hover:underline font-medium">Browse articles &rarr;</a>
+              </div>
+              <div class="flex flex-col gap-6">
+                {latestArticles.slice(0, widget.limit || 3).map((post) => (
+                  <a href={`/writing/${post.slug}`} class="group p-5 bg-[#111113] border border-[rgba(255,255,255,0.08)] rounded-[16px] flex flex-col gap-2 hover:border-[#2563EB]/40 transition-colors">
+                    <div class="flex justify-between items-baseline gap-2">
+                      <h3 class="text-base font-medium text-[#FAFAFA] group-hover:text-[#2563EB] transition-colors">
+                        {post.data.title}
+                      </h3>
+                      <span class="text-xs text-[#71717A] font-mono">
+                        {new Date(post.data.published).toLocaleDateString("en-US", { year: "numeric", month: "short" })}
+                      </span>
+                    </div>
+                    <p class="text-xs text-[#A1A1AA] leading-relaxed line-clamp-2">
+                      {post.data.description}
+                    </p>
+                  </a>
+                ))}
+              </div>
+            </section>
+          );
 
-        <!-- Reading Card -->
-        <div class="p-6 bg-[#111113] border border-[rgba(255,255,255,0.08)] rounded-[16px] flex flex-col gap-2">
-          <span class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Reading</span>
-          <h3 class="text-sm font-medium text-[#FAFAFA]">The Pragmatic Programmer</h3>
-          <p class="text-xs text-[#A1A1AA] leading-relaxed">
-            42% complete · Started 3 days ago.
-          </p>
-          <div class="mt-2 border-t border-[rgba(255,255,255,0.04)] pt-2 flex flex-col gap-1">
-            <span class="text-[#71717A] block font-mono text-[9px] uppercase tracking-wider">One idea that stood out</span>
-            <span class="text-[#FAFAFA] italic text-xs">"Care about your craft."</span>
-          </div>
-        </div>
+        case "reading":
+          return (
+            <section id="reading" class="flex flex-col gap-6 border-t border-[rgba(255,255,255,0.08)] pt-12">
+              <div class="flex justify-between items-baseline">
+                <h2 class="text-2xl font-display font-medium text-[#FAFAFA] tracking-tight">Latest Notes</h2>
+                <a href="/notes" class="text-xs text-[#2563EB] hover:underline font-medium">View all notes &rarr;</a>
+              </div>
+              <div class="flex flex-col gap-4">
+                {latestNotes.slice(0, widget.limit || 3).map(note => (
+                  <a href={`/notes/${note.slug}`} class="flex justify-between items-baseline border-b border-white/5 pb-2 hover:text-[#2563EB] transition-colors">
+                    <span class="text-sm font-medium text-[#FAFAFA]">{note.data.title}</span>
+                    <span class="text-xs text-[#71717A] font-mono">{note.data.topic}</span>
+                  </a>
+                ))}
+              </div>
+            </section>
+          );
 
-        <!-- Writing Card -->
-        <div class="p-6 bg-[#111113] border border-[rgba(255,255,255,0.08)] rounded-[16px] flex flex-col gap-2">
-          <span class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Writing</span>
-          <h3 class="text-sm font-medium text-[#FAFAFA]">Systems Notebook</h3>
-          <p class="text-xs text-[#A1A1AA] leading-relaxed">
-            Drafting notes on JWT Authentication mechanisms, Linux administration, and personal engineering logs.
-          </p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 3. Selected Work (Selected Case Studies) -->
-    <section id="work" class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.08)] pt-12">
-      <div class="flex justify-between items-baseline">
-        <h2 class="text-2xl font-display font-medium text-[#FAFAFA] tracking-tight">Selected Work</h2>
-        <a href="/work" class="text-xs text-[#2563EB] hover:underline font-mono">View All Projects →</a>
-      </div>
-
-      <div class="flex flex-col gap-10">
-        {highlightedWork.map((project) => (
-          <article class="flex flex-col gap-2">
-            <div class="flex justify-between items-baseline">
-              <h3 class="text-lg font-medium text-[#FAFAFA]">
-                <a href={project.slug} class="hover:text-[#2563EB] transition-colors">{project.title}</a>
-              </h3>
-              <span class="text-xs text-[#71717A] font-mono">{project.subtitle}</span>
+        case "newsletter":
+          return (
+            <div class="border-t border-[rgba(255,255,255,0.08)] pt-8">
+              <Newsletter />
             </div>
-            <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[680px]">
-              {project.overview}
-            </p>
-            <div class="text-[11px] font-mono text-[#71717A] mt-1">
-              Stack: {project.tech.join(" · ")}
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
+          );
 
-    <!-- 4. Latest Writing Section -->
-    <section id="writing" class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.08)] pt-12">
-      <div class="flex justify-between items-baseline">
-        <h2 class="text-2xl font-display font-medium text-[#FAFAFA] tracking-tight">Writing</h2>
-        <a href="/writing" class="text-xs text-[#2563EB] hover:underline font-medium">Browse articles →</a>
-      </div>
-
-      <div class="flex flex-col gap-6">
-        {latestWriting.map((post) => (
-          <a href={post.slug} class="group p-5 bg-[#111113] border border-[rgba(255,255,255,0.08)] rounded-[16px] flex flex-col gap-2 hover:border-[#2563EB]/40 transition-colors duration-180">
-            <div class="flex justify-between items-baseline gap-2">
-              <h3 class="text-base font-medium text-[#FAFAFA] group-hover:text-[#2563EB] transition-colors duration-180">
-                {post.title}
-              </h3>
-              <span class="text-xs text-[#71717A] font-mono whitespace-nowrap">{post.date}</span>
-            </div>
-            <p class="text-sm text-[#A1A1AA] leading-relaxed line-clamp-2">
-              {post.description}
-            </p>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <!-- 5. About (Brief Philosophy Summary) -->
-    <section id="about" class="flex flex-col gap-6 border-t border-[rgba(255,255,255,0.08)] pt-12">
-      <h2 class="text-2xl font-display font-medium text-[#FAFAFA] tracking-tight">About</h2>
-      
-      <p class="text-sm sm:text-base text-[#A1A1AA] leading-relaxed max-w-[72ch]">
-        I build software to solve real problems and write to make sense of what I learn. I believe engineering is a craft that requires patience, humility, and continuous learning. My focus is on studying computer systems, security, and building tools that make tomorrow's work easier than today's.
-      </p>
-
-      <div>
-        <a href="/about" class="text-sm text-[#2563EB] hover:underline font-medium">
-          Read More →
-        </a>
-      </div>
-    </section>
+        default:
+          return null;
+      }
+    })}
 
   </main>
 

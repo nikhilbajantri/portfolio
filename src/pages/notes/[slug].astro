@@ -1,0 +1,30 @@
+---
+import { getNotes } from "../../lib/content";
+import { render } from "astro:content";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+
+export async function getStaticPaths() {
+  const notes = await getNotes();
+  return notes.map(note => ({
+    params: { slug: note.slug || note.id },
+    props: { note }
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+
+// Map note schema properties to ArticleLayout frontmatter shape
+const frontmatter = {
+  title: note.data.title,
+  description: note.data.summary || "",
+  published: note.data.date,
+  category: "Note",
+  tags: note.data.tags,
+  toc: false
+};
+---
+
+<ArticleLayout frontmatter={frontmatter}>
+  <Content />
+</ArticleLayout>

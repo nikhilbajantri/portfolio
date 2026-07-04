@@ -1,0 +1,15 @@
+---
+interface Props {
+  class?: string;
+  hoverable?: boolean;
+}
+
+const { class: className = "", hoverable = true } = Astro.props;
+
+const baseStyles = "p-6 bg-[#111113]/50 border border-[rgba(255,255,255,0.06)] rounded-xl flex flex-col gap-3 transition-colors";
+const hoverStyles = hoverable ? "hover:border-[#2563EB]/30" : "";
+---
+
+<div class={`${baseStyles} ${hoverStyles} ${className}`}>
+  <slot />
+</div>

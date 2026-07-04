@@ -85,7 +85,7 @@ import SearchFooter from "./SearchFooter.astro";
 <!-- ESM Search Scripts -->
 <script>
   import { fetchSearchIndex } from "../../lib/search/search-index";
-  import { performSearchPipeline } from "../../lib/search/search-engine";
+  import { performSearchPipeline } from "../../lib/search";
   import { getRecentSearches, saveSearchHistory } from "../../lib/search/search-history";
 
   let searchIndex = [];
@@ -239,6 +239,22 @@ import SearchFooter from "./SearchFooter.astro";
 
     const output = performSearchPipeline(searchIndex, query, activeFilter, window.location.pathname);
     
+    // Debounced Google Analytics tracking
+    if ((window as any).analyticsTimer) clearTimeout((window as any).analyticsTimer);
+    (window as any).analyticsTimer = setTimeout(() => {
+      if ((window as any).gtag) {
+        (window as any).gtag('event', 'search', {
+          search_term: query,
+          results_count: output.totalResults
+        });
+        if (output.totalResults === 0) {
+          (window as any).gtag('event', 'search_no_results', {
+            search_term: query
+          });
+        }
+      }
+    }, 800);
+
     // Announcement for accessibility screen readers
     announcer.textContent = `${output.totalResults} results found.`;
 
@@ -246,6 +262,19 @@ import SearchFooter from "./SearchFooter.astro";
       searchResults.classList.add('hidden');
       searchMetaBar.classList.add('hidden');
       searchNothingMatched.classList.remove('hidden');
+      
+      const dymContainer = document.getElementById('search-did-you-mean');
+      const dymBtn = document.getElementById('did-you-mean-btn');
+      if (output.didYouMean && dymContainer && dymBtn) {
+        dymContainer.classList.remove('hidden');
+        dymBtn.textContent = output.didYouMean;
+        dymBtn.onclick = () => {
+          searchInput.value = output.didYouMean!;
+          renderSearch(output.didYouMean!);
+        };
+      } else if (dymContainer) {
+        dymContainer.classList.add('hidden');
+      }
       return;
     }
 

@@ -1,0 +1,67 @@
+---
+import CollectionLayout from "./CollectionLayout.astro";
+
+export interface Props {
+  frontmatter: {
+    title: string;
+    category: string;
+    why: string;
+    bestFor: string;
+    difficulty: string;
+    estimatedTime?: string;
+    status: string;
+    prerequisites?: string[];
+    relatedTopics?: string[];
+  };
+}
+
+const { frontmatter } = Astro.props;
+---
+
+<CollectionLayout title={frontmatter.title} description={frontmatter.why}>
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Knowledge Header -->
+    <header class="flex flex-col gap-4">
+      <div class="flex items-center gap-2 text-xs font-mono text-[#71717A]">
+        <span>{frontmatter.category}</span>
+        <span>·</span>
+        <span>{frontmatter.difficulty}</span>
+        <span>·</span>
+        <span>Status: {frontmatter.status}</span>
+        {frontmatter.estimatedTime && (
+          <>
+            <span>·</span>
+            <span>{frontmatter.estimatedTime} read</span>
+          </>
+        )}
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
+        {frontmatter.title}
+      </h1>
+    </header>
+
+    <div class="flex flex-col gap-4 border border-[rgba(255,255,255,0.06)] p-6 bg-[#111113]/50 rounded-lg text-sm leading-relaxed">
+      <div>
+        <span class="block text-xs font-mono uppercase tracking-wider text-[#71717A] mb-1 font-semibold">Why it matters</span>
+        <span class="text-[#FAFAFA]">{frontmatter.why}</span>
+      </div>
+      <div>
+        <span class="block text-xs font-mono uppercase tracking-wider text-[#71717A] mb-1 font-semibold">Best For</span>
+        <span class="text-[#A1A1AA]">{frontmatter.bestFor}</span>
+      </div>
+      {frontmatter.prerequisites && frontmatter.prerequisites.length > 0 && (
+        <div>
+          <span class="block text-xs font-mono uppercase tracking-wider text-[#71717A] mb-1 font-semibold">Prerequisites</span>
+          <span class="text-[#71717A] font-mono text-xs">{frontmatter.prerequisites.join(", ")}</span>
+        </div>
+      )}
+    </div>
+
+    <!-- Knowledge Content -->
+    <article class="prose prose-invert max-w-none text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal flex flex-col gap-6">
+      <slot />
+    </article>
+
+  </main>
+</CollectionLayout>

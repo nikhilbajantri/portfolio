@@ -1,0 +1,53 @@
+---
+import CollectionLayout from "./CollectionLayout.astro";
+
+export interface Props {
+  frontmatter: {
+    title: string;
+    author: string;
+    recommended: boolean;
+    finished?: Date;
+    status: string;
+    category: string;
+    favoriteQuote?: string;
+  };
+}
+
+const { frontmatter } = Astro.props;
+---
+
+<CollectionLayout title={frontmatter.title} description={`Notes and highlights from ${frontmatter.title} by ${frontmatter.author}`}>
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Book Header -->
+    <header class="flex flex-col gap-4">
+      <div class="flex items-center gap-2 text-xs font-mono text-[#71717A]">
+        <span>{frontmatter.category}</span>
+        <span>·</span>
+        <span>Status: {frontmatter.status}</span>
+        {frontmatter.recommended && (
+          <>
+            <span>·</span>
+            <span class="text-yellow-400">★ Highly Recommended</span>
+          </>
+        )}
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
+        {frontmatter.title}
+      </h1>
+      <span class="text-lg text-[#A1A1AA]">by {frontmatter.author}</span>
+    </header>
+
+    {frontmatter.favoriteQuote && (
+      <blockquote class="border-l-2 border-[#2563EB] pl-4 italic text-sm text-[#A1A1AA] py-1 bg-white/5 pr-4 rounded-r-md">
+        "{frontmatter.favoriteQuote}"
+      </blockquote>
+    )}
+
+    <!-- Notes Body -->
+    <article class="prose prose-invert max-w-none text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal flex flex-col gap-6">
+      <slot />
+    </article>
+
+  </main>
+</CollectionLayout>

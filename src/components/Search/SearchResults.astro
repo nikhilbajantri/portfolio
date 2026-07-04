@@ -21,6 +21,9 @@
 <!-- Empty Results State -->
 <div id="search-nothing-matched" class="p-8 text-center flex flex-col gap-3 justify-center items-center hidden shrink-0">
   <span class="text-sm font-medium text-[#FAFAFA]">Nothing matched.</span>
+  <div id="search-did-you-mean" class="text-xs text-[#A1A1AA] font-mono hidden mt-1">
+    Did you mean: <button id="did-you-mean-btn" class="text-[#2563EB] hover:underline font-medium font-sans"></button>?
+  </div>
   <div class="flex flex-wrap justify-center gap-2 mt-1">
     <span class="text-xs text-[#71717A] font-mono">Try searching:</span>
     <button data-search-retry="dailydine" class="text-xs font-mono text-[#2563EB] hover:underline">DailyDine</button>

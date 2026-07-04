@@ -2,89 +2,47 @@
 import Layout from "../layouts/Layout.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
+import { getNotes } from "../lib/content";
 
-const notes = [
-  {
-    topic: "Linux",
-    title: "Understanding Socket File Descriptors",
-    date: "July 2026",
-    content: "In Linux, everything is modeled as a file. When a process opens a network socket, the kernel allocates a file descriptor (an integer referencing an entry in the process descriptor table). This table points to a system-wide file object, which handles the network device drivers. Auditing descriptors via `/proc/<pid>/fd/` lets you track resource leaks and unclosed network sockets."
-  },
-  {
-    topic: "Git",
-    title: "The Directed Acyclic Graph (DAG) Model",
-    date: "June 2026",
-    content: "Git does not store diffs. It stores complete snapshots of file states inside a Directed Acyclic Graph. Files are stored as content-addressed blobs, directories as tree objects referencing blobs or other trees, and commits as metadata points linking to a root tree and parent commits. Understanding this graph architecture makes complex merge conflicts and rebase operations completely predictable."
-  },
-  {
-    topic: "Docker",
-    title: "Namespaces and Control Groups (cgroups)",
-    date: "May 2026",
-    content: "Containers are not virtual machines; they are standard Linux processes running inside isolated kernel environments. Isolation is achieved using Namespaces (which partition resources like network interfaces, process IDs, and mount points) and Control Groups (which enforce hardware resource limits like memory blocks and CPU shares). A container is simply a process restricted by these boundaries."
-  },
-  {
-    topic: "Rust",
-    title: "Ownership and Memory Borrowing Rules",
-    date: "April 2026",
-    content: "Rust guarantees memory safety without a garbage collector by enforcing ownership rules at compile time. Every resource has exactly one owner at any time. When the owner scope ends, the resource is automatically dropped. References let you borrow data: you can have either one mutable reference or any number of immutable references, preventing data races at compilation."
-  },
-  {
-    topic: "Networking",
-    title: "The TCP Sliding Window Protocol",
-    date: "March 2026",
-    content: "TCP ensures reliable data transfer over unreliable networks using sliding windows. The receiver advertises a window size reflecting its active buffer space. The sender is restricted to sending only that volume of data before receiving an acknowledgment. If buffers fill up, the window size drops to zero, pausing transmission and preventing packets from being dropped due to overflow."
-  },
-  {
-    topic: "Postgres",
-    title: "Multi-Version Concurrency Control (MVCC)",
-    date: "February 2026",
-    content: "Postgres isolates concurrent transactions using Multi-Version Concurrency Control. Instead of locking rows for reading, Postgres retains multiple versions of rows using transaction IDs. Reads never block writes, and writes never block reads. Active transactions only see row versions committed before their start, guaranteeing consistent states without locking read datasets."
-  },
-  {
-    topic: "AI",
-    title: "Weights Transformations and Attention Maps",
-    date: "January 2026",
-    content: "Large language models operate by transforming numerical vectors through layers of weights. The core mechanism is Self-Attention, which calculates correlation scores between input tokens to construct an attention map. This map determines which tokens influence the next token selection, converting linguistic structure into matrix multiplication operations."
-  },
-  {
-    topic: "Security",
-    title: "Stack Frames and Buffer Overflows",
-    date: "December 2025",
-    content: "When a C binary calls a function, the compiler allocates a stack frame containing local variables, parameters, and the return address. A buffer overflow occurs when data written to a local buffer exceeds its boundary, writing over adjacent memory. Attackers overwrite the return address to point to malicious code, hijacking process instruction loops."
-  }
-];
+const notes = await getNotes();
 ---
 
 <Layout title="Notes">
   <Navigation />
 
-  <main id="main-content" class="flex-1 max-w-[960px] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-16 font-sans">
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
     
     <!-- Header -->
-    <header class="flex flex-col gap-6 max-w-[68ch]">
-      <h1 class="text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
+    <header class="flex flex-col gap-4">
+      <h1 class="text-4xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
         Notes
       </h1>
-      <p class="text-lg text-[#A1A1AA] leading-relaxed">
-        My second brain: a collection of single-idea system logs, technical notes, and cheat sheets compiled during study and implementation.
+      <p class="text-base text-[#A1A1AA] leading-relaxed">
+        Single-topic engineering logs, command logs, and systems observations.
       </p>
     </header>
 
-    <!-- Notes Directory -->
+    <!-- Notes list -->
     <div class="flex flex-col gap-12">
       {notes.map((note) => (
-        <article class="flex flex-col gap-3 border-b border-[rgba(255,255,255,0.06)] pb-10 last:border-0 last:pb-0">
-          <div class="flex items-baseline justify-between gap-4">
-            <div class="flex items-center gap-3">
-              <span class="text-xs px-2 py-0.5 bg-[#2563EB]/10 text-[#2563EB] rounded-[999px] font-mono">{note.topic}</span>
-              <h2 class="text-lg font-medium text-[#FAFAFA] tracking-tight">{note.title}</h2>
-            </div>
-            <span class="text-xs text-[#71717A] font-mono">{note.date}</span>
+        <section class="flex flex-col gap-3">
+          <div class="flex justify-between items-baseline gap-4">
+            <h2 class="text-xl font-display font-medium text-[#FAFAFA] tracking-tight">
+              <a href={`/notes/${note.slug}`} class="hover:text-[#2563EB] transition-colors">
+                {note.data.title}
+              </a>
+            </h2>
+            <span class="text-xs text-[#71717A] font-mono whitespace-nowrap">
+              {new Date(note.data.date).toLocaleDateString("en-US", { year: "numeric", month: "short" })}
+            </span>
           </div>
-          <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[68ch] mt-2">
-            {note.content}
+          <p class="text-xs text-[#71717A] font-mono uppercase tracking-wider">
+            Topic: {note.data.topic} · {note.data.difficulty}
           </p>
-        </article>
+          <p class="text-sm text-[#A1A1AA] leading-relaxed mt-1">
+            {note.data.summary}
+          </p>
+        </section>
       ))}
     </div>
 

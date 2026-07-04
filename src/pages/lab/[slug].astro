@@ -1,0 +1,24 @@
+---
+import { getLabs } from "../../lib/content";
+import { render } from "astro:content";
+import LabLayout from "../../layouts/LabLayout.astro";
+import JWTVisualizer from "../../components/Lab/JWTVisualizer.astro";
+import TCPHandshake from "../../components/Lab/TCPHandshake.astro";
+
+export async function getStaticPaths() {
+  const labs = await getLabs();
+  return labs.map(labItem => ({
+    params: { slug: labItem.slug || labItem.id },
+    props: { labItem }
+  }));
+}
+
+const { labItem } = Astro.props;
+const { Content } = await render(labItem);
+---
+
+<LabLayout frontmatter={labItem.data}>
+  <Content />
+  {labItem.slug === "jwt-visualizer" && <JWTVisualizer />}
+  {labItem.slug === "tcp-handshake" && <TCPHandshake />}
+</LabLayout>

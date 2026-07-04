@@ -1,0 +1,32 @@
+import { z } from "astro:content";
+
+export const projectSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  status: z.enum(["Planning", "In Development", "Production", "Maintenance", "Archived"]),
+  visibility: z.enum(["public", "private", "nda", "archived"]).default("public"),
+  featured: z.boolean().default(false),
+  featuredOrder: z.number().optional(),
+  year: z.number(),
+  started: z.coerce.date().optional(),
+  completed: z.coerce.date().optional(),
+  team: z.array(z.string()).default([]),
+  role: z.string(),
+  repository: z.string().url().optional(),
+  demo: z.string().url().optional(),
+  caseStudy: z.string().optional(),
+  languages: z.array(z.string()).default([]),
+  frameworks: z.array(z.string()).default([]),
+  database: z.array(z.string()).default([]),
+  infrastructure: z.array(z.string()).default([]),
+  services: z.array(z.string()).default([]),
+  architecture: z.array(z.string()).default([]),
+  category: z.string(),
+  thumbnail: z.string().optional(),
+  gallery: z.array(z.string()).default([]),
+  order: z.number().default(0),
+  version: z.number().default(1),
+  revision: z.number().default(1),
+  statusLabel: z.enum(["Draft", "Review", "Scheduled", "Published", "Archived", "Deprecated"]).default("Published"),
+  priority: z.number().default(50)
+});

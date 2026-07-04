@@ -1,0 +1,19 @@
+:root {
+  /* Core Brand & Semantic Colors */
+  --bg: #09090B;
+  --surface: #111113;
+  --surface-border: rgba(255, 255, 255, 0.08);
+  --text: #FAFAFA;
+  --muted: #A1A1AA;
+  --accent: #2563EB;
+  --accent-hover: #1d4ed8;
+  
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+
+  /* Typography Scales */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Geist Mono', monospace;
+  --font-display: 'Geist Sans', 'Inter', system-ui, sans-serif;
+}
