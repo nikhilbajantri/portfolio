@@ -104,6 +104,203 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
 
     <slot />
 
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- COMMAND MENU (⌘K SEARCH)                               -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div
+      id="search-modal"
+      class="fixed inset-0 z-50 bg-[#09090B]/80 backdrop-blur-sm flex items-start justify-center pt-[15vh] px-4 opacity-0 pointer-events-none transition-all duration-180"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div class="bg-[#111113] border border-[rgba(255,255,255,0.08)] w-full max-w-xl rounded-xl shadow-2xl overflow-hidden flex flex-col">
+        <!-- Search Input -->
+        <div class="flex items-center px-4 py-3 border-b border-[rgba(255,255,255,0.08)]">
+          <svg class="w-5 h-5 text-[#71717A] mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input
+            id="search-input"
+            type="text"
+            placeholder="Search articles, case studies, library..."
+            class="bg-transparent text-sm text-[#FAFAFA] placeholder-[#71717A] w-full outline-none"
+            autocomplete="off"
+          />
+          <button id="close-search-button" class="text-xs text-[#71717A] hover:text-[#FAFAFA] transition-colors font-mono">
+            ESC
+          </button>
+        </div>
+
+        <!-- Search Results List -->
+        <div id="search-results" class="max-h-[350px] overflow-y-auto p-2 flex flex-col gap-1">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Footer Help -->
+        <div class="px-4 py-2 border-t border-[rgba(255,255,255,0.04)] bg-[#09090B] flex items-center justify-between text-[11px] text-[#71717A]">
+          <div>
+            <span>↑↓ to navigate</span>
+            <span class="mx-1.5">·</span>
+            <span>Enter to select</span>
+          </div>
+          <div>
+            <span>⌘K to close</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Client-side Search Logic -->
+    <script is:inline>
+      const searchModal = document.getElementById('search-modal');
+      const searchInput = document.getElementById('search-input');
+      const searchResults = document.getElementById('search-results');
+      const closeSearchButton = document.getElementById('close-search-button');
+
+      let isOpen = false;
+      let activeIndex = -1;
+      let filteredItems = [];
+
+      // Search Database
+      const searchData = [
+        { title: "Home", category: "Page", url: "/", desc: "Homepage of nikhilbajantri.dev." },
+        { title: "Writing", category: "Page", url: "/writing", desc: "Technical articles, deep dives, and long-form essays." },
+        { title: "Work", category: "Page", url: "/work", desc: "Detailed software engineering case studies." },
+        { title: "Reading", category: "Page", url: "/reading", desc: "Nikhil's bookshelf, re-reading lists, and ideas." },
+        { title: "About", category: "Page", url: "/about", desc: "Operating manual, chronological timeline, and philosophy." },
+        { title: "Now", category: "Page", url: "/now", desc: "Current focus, priorities, and status updates." },
+        { title: "Uses", category: "Page", url: "/uses", desc: "Physical setup, developer workflow, and security tools." },
+        { title: "Principles", category: "Page", url: "/principles", desc: "Core philosophies that guide decision making." },
+        { title: "Résumé", category: "Page", url: "/about/resume", desc: "Skimmable resume and professional summary." },
+        { title: "Why I Started Writing", category: "Essay", url: "/writing/why-i-started-writing", desc: "How writing compounds software understanding." },
+        { title: "The Kind of Engineer I Want to Become", category: "Essay", url: "/writing/the-kind-of-engineer-i-want-to-become", desc: "Reflections on craftsman philosophy." },
+        { title: "From Curiosity to Code", category: "Essay", url: "/writing/from-curiosity-to-code", desc: "My journey into the world of computers." },
+        { title: "DailyDine Reservation Queue", category: "Work", url: "/work/dailydine", desc: "Concurrency coordination platform case study." },
+        { title: "HisabProx Client Invoice Utility", category: "Work", url: "/work/hisabprox", desc: "Local-first static invoice builder case study." }
+      ];
+
+      function toggleSearch(forceState) {
+        isOpen = forceState !== undefined ? forceState : !isOpen;
+        if (isOpen) {
+          searchModal.classList.remove('opacity-0', 'pointer-events-none');
+          searchInput.focus();
+          document.body.style.overflow = 'hidden';
+          renderResults("");
+        } else {
+          searchModal.classList.add('opacity-0', 'pointer-events-none');
+          searchInput.value = "";
+          document.body.style.overflow = '';
+        }
+      }
+
+      function renderResults(query) {
+        searchResults.innerHTML = "";
+        activeIndex = -1;
+        
+        if (!query) {
+          filteredItems = searchData.slice(0, 6); // Show top pages by default
+        } else {
+          const lowerQuery = query.toLowerCase();
+          filteredItems = searchData.filter(item => 
+            item.title.toLowerCase().includes(lowerQuery) || 
+            item.desc.toLowerCase().includes(lowerQuery) ||
+            item.category.toLowerCase().includes(lowerQuery)
+          );
+        }
+
+        if (filteredItems.length === 0) {
+          searchResults.innerHTML = `<div class="text-xs text-[#71717A] p-4 text-center">No results found for "${query}"</div>`;
+          return;
+        }
+
+        filteredItems.forEach((item, index) => {
+          const itemEl = document.createElement('a');
+          itemEl.href = item.url;
+          itemEl.className = "flex flex-col gap-0.5 p-3 rounded-lg hover:bg-white/5 transition-colors duration-100 group/item";
+          itemEl.setAttribute('data-index', index);
+          itemEl.innerHTML = `
+            <div class="flex items-baseline justify-between">
+              <span class="text-sm font-medium text-[#FAFAFA] group-hover/item:text-[#2563EB] transition-colors">${item.title}</span>
+              <span class="text-[10px] font-mono uppercase tracking-wider text-[#71717A]">${item.category}</span>
+            </div>
+            <span class="text-xs text-[#A1A1AA] line-clamp-1">${item.desc}</span>
+          `;
+          searchResults.appendChild(itemEl);
+        });
+      }
+
+      function updateActiveItem(direction) {
+        const items = searchResults.querySelectorAll('a');
+        if (items.length === 0) return;
+
+        if (activeIndex >= 0) {
+          items[activeIndex].classList.remove('bg-white/5');
+        }
+
+        if (direction === 'down') {
+          activeIndex = (activeIndex + 1) % items.length;
+        } else if (direction === 'up') {
+          activeIndex = activeIndex <= 0 ? items.length - 1 : activeIndex - 1;
+        }
+
+        const activeEl = items[activeIndex];
+        activeEl.classList.add('bg-white/5');
+        activeEl.scrollIntoView({ block: 'nearest' });
+      }
+
+      // Hotkey listeners
+      window.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          toggleSearch();
+        }
+        if (e.key === '/') {
+          if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+            toggleSearch(true);
+          }
+        }
+        if (isOpen) {
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            toggleSearch(false);
+          }
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            updateActiveItem('down');
+          }
+          if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            updateActiveItem('up');
+          }
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            if (activeIndex >= 0 && filteredItems[activeIndex]) {
+              window.location.href = filteredItems[activeIndex].url;
+            }
+          }
+        }
+      });
+
+      searchInput.addEventListener('input', (e) => {
+        renderResults(e.target.value);
+      });
+
+      // Mouse close
+      searchModal.addEventListener('click', (e) => {
+        if (e.target === searchModal) {
+          toggleSearch(false);
+        }
+      });
+
+      closeSearchButton.addEventListener('click', () => {
+        toggleSearch(false);
+      });
+
+      // Expose globally
+      window.toggleSearchModal = toggleSearch;
+    </script>
+
     <!-- Global Styles & Custom Reset -->
     <style is:global>
       /* Base Resets */

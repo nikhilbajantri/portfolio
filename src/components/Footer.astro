@@ -1,87 +1,60 @@
 ---
-const currentYear = new Date().getFullYear();
-
-const footerLinks = [
-  { name: 'Now', href: '/now' },
-  { name: 'Uses', href: '/uses' },
-  { name: 'Resume', href: '/about/resume' },
-  { name: 'RSS', href: '/rss.xml' },
-];
-
-const socialLinks = [
+const links = [
   { name: 'GitHub', href: 'https://github.com/programmer-nick234/' },
   { name: 'LinkedIn', href: 'https://www.linkedin.com/in/nikhil-bajantri-dev' },
+  { name: 'RSS', href: '/rss.xml' },
+  { name: 'Resume', href: '/about/resume' },
   { name: 'Email', href: 'mailto:nikhilbajantri2604@gmail.com' },
 ];
 ---
 
 <footer class="w-full border-t border-[rgba(255,255,255,0.08)] bg-[#09090B] mt-auto">
-  <div class="max-w-[1200px] mx-auto px-6 py-12 flex flex-col md:flex-row md:items-start justify-between gap-8">
+  <div class="max-w-[1200px] mx-auto px-6 py-12 flex flex-col gap-12 font-sans">
     
-    <!-- Left: Colophon and Copyright -->
-    <div class="flex flex-col gap-4 max-w-sm">
-      <div class="text-sm text-[#A1A1AA] leading-relaxed">
-        This website was designed and built by me. Built with Astro, Tailwind CSS, TypeScript, and deployed on Vercel. Typography uses Geist, Inter, and JetBrains Mono. The source code is available on GitHub.
+    <!-- Top: Currently Status Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div>
+        <span class="text-[#71717A] block text-xs font-mono uppercase tracking-wider mb-1">Building</span>
+        <span class="text-sm text-[#A1A1AA]">DailyDine</span>
       </div>
-      <div class="text-xs text-[#71717A] tracking-tight">
-        Built carefully. Updated continuously. Last updated: July 2026.
+      <div>
+        <span class="text-[#71717A] block text-xs font-mono uppercase tracking-wider mb-1">Reading</span>
+        <span class="text-sm text-[#A1A1AA]">The Pragmatic Programmer</span>
+      </div>
+      <div>
+        <span class="text-[#71717A] block text-xs font-mono uppercase tracking-wider mb-1">Writing</span>
+        <span class="text-sm text-[#A1A1AA]">Linux Notes</span>
+      </div>
+      <div>
+        <span class="text-[#71717A] block text-xs font-mono uppercase tracking-wider mb-1">Updated</span>
+        <span class="text-sm text-[#A1A1AA]">July 2026</span>
       </div>
     </div>
 
-    <!-- Right: Navigation, Socials and Live Metadata -->
-    <div class="flex flex-col sm:flex-row gap-12 sm:gap-16">
-      
+    <!-- Divider -->
+    <div class="h-[1px] bg-[rgba(255,255,255,0.08)] w-full"></div>
+
+    <!-- Bottom: Links and Colophon -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
       <!-- Links -->
-      <div class="flex flex-col gap-3">
-        <h3 class="text-xs text-[#FAFAFA] font-medium tracking-wider uppercase">Menu</h3>
-        <nav class="flex flex-col gap-2">
-          {footerLinks.map((link) => (
-            <a
-              href={link.href}
-              class="text-sm text-[#A1A1AA] hover:text-[#2563EB] transition-colors duration-180"
-            >
-              {link.name}
-            </a>
-          ))}
-        </nav>
+      <div class="flex flex-wrap gap-x-8 gap-y-2">
+        {links.map((link) => (
+          <a
+            href={link.href}
+            target={link.href.startsWith('http') || link.href.startsWith('mailto') ? "_blank" : undefined}
+            rel={link.href.startsWith('http') || link.href.startsWith('mailto') ? "noopener noreferrer" : undefined}
+            class="text-sm text-[#71717A] hover:text-[#2563EB] transition-colors duration-180 font-medium"
+          >
+            {link.name}
+          </a>
+        ))}
       </div>
-
-      <!-- Socials -->
-      <div class="flex flex-col gap-3">
-        <h3 class="text-xs text-[#FAFAFA] font-medium tracking-wider uppercase">Connect</h3>
-        <div class="flex flex-col gap-2">
-          {socialLinks.map((link) => (
-            <a
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-sm text-[#A1A1AA] hover:text-[#2563EB] transition-colors duration-180"
-            >
-              {link.name}
-            </a>
-          ))}
-        </div>
+      
+      <!-- Colophon / Copyright -->
+      <div class="text-xs text-[#71717A]">
+        Built carefully · Updated continuously
       </div>
-
-      <!-- Live Metadata -->
-      <div class="flex flex-col gap-3">
-        <h3 class="text-xs text-[#FAFAFA] font-medium tracking-wider uppercase">Status</h3>
-        <div class="flex flex-col gap-2 text-sm text-[#A1A1AA]">
-          <div>
-            <span class="text-[#71717A] block text-xs">Updated</span>
-            July 2026
-          </div>
-          <div>
-            <span class="text-[#71717A] block text-xs">Reading</span>
-            "The Pragmatic Programmer"
-          </div>
-          <div>
-            <span class="text-[#71717A] block text-xs">Building</span>
-            DailyDine
-          </div>
-        </div>
-      </div>
-
     </div>
+
   </div>
 </footer>

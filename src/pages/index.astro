@@ -58,64 +58,66 @@ const latestWriting = [
   <main id="main-content" class="flex-1 max-w-[960px] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-24 font-sans">
     
     <!-- 1. Hero Section -->
-    <section id="hero" class="flex flex-col gap-6">
+    <section id="hero" class="flex flex-col gap-6 pt-16 pb-20 sm:pt-24 sm:pb-28">
+      <span class="text-xs font-mono text-[#71717A] uppercase tracking-widest">Nikhil Bajantri</span>
       <h1 class="text-5xl sm:text-7xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
         Build. Learn. Write.
       </h1>
-      <p class="text-lg sm:text-xl text-[#A1A1AA] leading-relaxed max-w-[72ch]">
-        Nikhil Bajantri is a software engineer documenting systems engineering, security, and books.
+      <p class="text-lg sm:text-xl text-[#A1A1AA] leading-relaxed max-w-[65ch]">
+        I build software, study systems, and write about the ideas that shape how I think. This website is my notebook, workshop, and library in one place.
+      </p>
+      <p class="text-sm sm:text-base text-[#71717A] leading-relaxed max-w-[65ch] mt-4 border-l border-[rgba(255,255,255,0.08)] pl-4">
+        I believe the best way to learn is to build, write, and revisit ideas over time. This website is where I collect that work, not as a record of expertise, but as a record of progress.
       </p>
     </section>
 
     <!-- 2. Now (Current Focus) Section -->
-    <section id="now" class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.08)] pt-12">
+    <section id="now" class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.08)] pt-16">
       <div class="flex justify-between items-baseline">
         <h2 class="text-2xl font-display font-medium text-[#FAFAFA] tracking-tight">Now</h2>
-        <a href="/now" class="text-xs text-[#2563EB] hover:underline font-medium">Continue Reading</a>
+        <a href="/now" class="text-xs text-[#2563EB] hover:underline font-medium">Browse details →</a>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         
-        <!-- Priorities -->
-        <div class="flex flex-col gap-4">
-          <h3 class="text-sm font-medium text-[#FAFAFA] uppercase tracking-wider">Current Priorities</h3>
-          <ul class="flex flex-col gap-2.5 text-sm text-[#A1A1AA]">
-            <li class="flex items-start gap-2">
-              <span class="text-[#2563EB] font-bold">•</span>
-              Building thoughtful software
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-[#2563EB] font-bold">•</span>
-              Developing stronger engineering fundamentals
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-[#2563EB] font-bold">•</span>
-              Learning cybersecurity
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-[#2563EB] font-bold">•</span>
-              Writing consistently
-            </li>
-          </ul>
+        <!-- Building Card -->
+        <div class="p-6 bg-[#111113] border border-[rgba(255,255,255,0.08)] rounded-[16px] flex flex-col gap-2">
+          <span class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Building</span>
+          <h3 class="text-sm font-medium text-[#FAFAFA]">DailyDine</h3>
+          <p class="text-xs text-[#A1A1AA] leading-relaxed">
+            A restaurant platform exploring better dining experiences through thoughtful software.
+          </p>
         </div>
 
-        <!-- Currently Exploring -->
-        <div class="flex flex-col gap-4">
-          <h3 class="text-sm font-medium text-[#FAFAFA] uppercase tracking-wider">Currently Exploring</h3>
-          <ul class="flex flex-col gap-2.5 text-sm text-[#A1A1AA]">
-            <li class="flex items-start gap-2">
-              <span class="text-[#2563EB] font-bold">•</span>
-              Cybersecurity and computer systems
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-[#2563EB] font-bold">•</span>
-              Distributed systems architecture
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-[#2563EB] font-bold">•</span>
-              Linux kernel networking and compilers
-            </li>
-          </ul>
+        <!-- Learning Card -->
+        <div class="p-6 bg-[#111113] border border-[rgba(255,255,255,0.08)] rounded-[16px] flex flex-col gap-2">
+          <span class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Learning</span>
+          <h3 class="text-sm font-medium text-[#FAFAFA]">Cybersecurity & Systems</h3>
+          <p class="text-xs text-[#A1A1AA] leading-relaxed">
+            Studying distributed systems architecture, compiled languages, and Linux network security patterns.
+          </p>
+        </div>
+
+        <!-- Reading Card -->
+        <div class="p-6 bg-[#111113] border border-[rgba(255,255,255,0.08)] rounded-[16px] flex flex-col gap-2">
+          <span class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Reading</span>
+          <h3 class="text-sm font-medium text-[#FAFAFA]">The Pragmatic Programmer</h3>
+          <p class="text-xs text-[#A1A1AA] leading-relaxed">
+            42% complete · Started 3 days ago.
+          </p>
+          <div class="mt-2 border-t border-[rgba(255,255,255,0.04)] pt-2 flex flex-col gap-1">
+            <span class="text-[#71717A] block font-mono text-[9px] uppercase tracking-wider">One idea that stood out</span>
+            <span class="text-[#FAFAFA] italic text-xs">"Care about your craft."</span>
+          </div>
+        </div>
+
+        <!-- Writing Card -->
+        <div class="p-6 bg-[#111113] border border-[rgba(255,255,255,0.08)] rounded-[16px] flex flex-col gap-2">
+          <span class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Writing</span>
+          <h3 class="text-sm font-medium text-[#FAFAFA]">Systems Notebook</h3>
+          <p class="text-xs text-[#A1A1AA] leading-relaxed">
+            Drafting notes on JWT Authentication mechanisms, Linux administration, and personal engineering logs.
+          </p>
         </div>
 
       </div>
@@ -170,7 +172,7 @@ const latestWriting = [
     <section id="writing" class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.08)] pt-12">
       <div class="flex justify-between items-baseline">
         <h2 class="text-2xl font-display font-medium text-[#FAFAFA] tracking-tight">Writing</h2>
-        <a href="/writing" class="text-xs text-[#2563EB] hover:underline font-medium">Continue Reading</a>
+        <a href="/writing" class="text-xs text-[#2563EB] hover:underline font-medium">Browse articles →</a>
       </div>
 
       <div class="flex flex-col gap-6">
