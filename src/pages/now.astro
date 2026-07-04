@@ -7,7 +7,7 @@ import Footer from "../components/Footer.astro";
 <Layout title="Now">
   <Navigation />
 
-  <main id="main-content" class="flex-1 max-w-[72ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-16 font-sans">
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
     
     <!-- Header -->
     <header class="flex flex-col gap-6">
@@ -15,118 +15,52 @@ import Footer from "../components/Footer.astro";
         Now
       </h1>
       <p class="text-lg text-[#A1A1AA] leading-relaxed">
-        What I'm doing today: a live update of active priorities, domains of study, and open questions.
+        This is a live page documenting my current priorities, active learning paths, and what I'm building right now. Inspired by Derek Sivers.
       </p>
     </header>
 
-    <!-- Priorities & Domain Exploration -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-12">
+    <!-- Now Categories -->
+    <div class="flex flex-col gap-8 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
       
-      <!-- Priorities -->
-      <section class="flex flex-col gap-4">
-        <h2 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
-          Priorities
-        </h2>
-        <ul class="flex flex-col gap-3 text-sm text-[#A1A1AA]">
-          <li class="flex items-start gap-2">
-            <span class="text-[#2563EB] font-bold">•</span>
-            Building thoughtful software
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="text-[#2563EB] font-bold">•</span>
-            Developing stronger engineering fundamentals
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="text-[#2563EB] font-bold">•</span>
-            Learning cybersecurity
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="text-[#2563EB] font-bold">•</span>
-            Writing consistently
-          </li>
-        </ul>
+      <!-- Building -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Building</h2>
+        <p class="text-[#A1A1AA] text-sm">
+          <strong class="text-[#FAFAFA] font-medium">DailyDine</strong> — An independent, local-first reservation platform for restaurants. Currently optimizing Postgres transaction locks to handle peak booking concurrency.
+        </p>
       </section>
 
-      <!-- Currently Exploring -->
-      <section class="flex flex-col gap-4">
-        <h2 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
-          Exploring
-        </h2>
-        <ul class="flex flex-col gap-3 text-sm text-[#A1A1AA]">
-          <li class="flex items-start gap-2">
-            <span class="text-[#2563EB] font-bold">•</span>
-            Cybersecurity and computer systems
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="text-[#2563EB] font-bold">•</span>
-            Distributed systems architecture
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="text-[#2563EB] font-bold">•</span>
-            Linux kernel networking and compilers
-          </li>
-        </ul>
+      <!-- Reading -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Reading</h2>
+        <p class="text-[#A1A1AA] text-sm">
+          <strong class="text-[#FAFAFA] font-medium">Designing Data-Intensive Applications</strong> by Martin Kleppmann. Focusing on database replication limits, storage engines, and consensus algorithms.
+        </p>
       </section>
+
+      <!-- Learning -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Learning</h2>
+        <p class="text-[#A1A1AA] text-sm">
+          <strong class="text-[#FAFAFA] font-medium">Linux Networking</strong>. Studying iptables configuration patterns, packet routing layers, and local socket descriptors.
+        </p>
+      </section>
+
+      <!-- Thinking About -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Thinking About</h2>
+        <p class="text-[#A1A1AA] text-sm">
+          <strong class="text-[#FAFAFA] font-medium">AI Developer Tools</strong>. How large language models can be combined with local sandboxed compilation to speed up manual refactoring loops safely.
+        </p>
+      </section>
+
+      <!-- Updated timestamp -->
+      <footer class="flex flex-col gap-1 border-t border-[rgba(255,255,255,0.06)] pt-6 mt-4 text-xs font-mono text-[#71717A]">
+        <span>Last Updated: July 2026</span>
+        <span>Location: Bengaluru, India</span>
+      </footer>
 
     </div>
-
-    <!-- Currently (Status Indicators) -->
-    <section class="flex flex-col gap-6 border-t border-[rgba(255,255,255,0.08)] pt-12">
-      <h2 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
-        Status
-      </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm text-[#A1A1AA]">
-        <div>
-          <span class="text-[#71717A] block text-xs">Listening To</span>
-          Ambient soundscapes
-        </div>
-        <div>
-          <span class="text-[#71717A] block text-xs">Reading</span>
-          "The Pragmatic Programmer"
-        </div>
-        <div>
-          <span class="text-[#71717A] block text-xs">Learning</span>
-          Linux kernel fundamentals
-        </div>
-        <div>
-          <span class="text-[#71717A] block text-xs">Building</span>
-          DailyDine core reservation engine
-        </div>
-        <div>
-          <span class="text-[#71717A] block text-xs">Thinking About</span>
-          Build systems that endure
-        </div>
-      </div>
-    </section>
-
-    <!-- Open Questions -->
-    <section class="flex flex-col gap-4 border-t border-[rgba(255,255,255,0.08)] pt-12">
-      <h2 class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider border-b border-[rgba(255,255,255,0.08)] pb-2">
-        Open Questions
-      </h2>
-      <ul class="flex flex-col gap-3 text-sm text-[#A1A1AA]">
-        <li class="flex items-start gap-2">
-          <span class="text-[#2563EB] font-bold">•</span>
-          How should AI change software engineering?
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-[#2563EB] font-bold">•</span>
-          What makes software feel trustworthy?
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-[#2563EB] font-bold">•</span>
-          Can security become invisible?
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-[#2563EB] font-bold">•</span>
-          How do great engineering cultures emerge?
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-[#2563EB] font-bold">•</span>
-          What makes products endure?
-        </li>
-      </ul>
-    </section>
 
   </main>
 

@@ -167,16 +167,36 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
         { title: "Writing", category: "Page", url: "/writing", desc: "Technical articles, deep dives, and long-form essays." },
         { title: "Work", category: "Page", url: "/work", desc: "Detailed software engineering case studies." },
         { title: "Reading", category: "Page", url: "/reading", desc: "Nikhil's bookshelf, re-reading lists, and ideas." },
-        { title: "About", category: "Page", url: "/about", desc: "Operating manual, chronological timeline, and philosophy." },
+        { title: "About", category: "Page", url: "/about", desc: "Operating manual, motives, and philosophies." },
         { title: "Now", category: "Page", url: "/now", desc: "Current focus, priorities, and status updates." },
         { title: "Uses", category: "Page", url: "/uses", desc: "Physical setup, developer workflow, and security tools." },
         { title: "Principles", category: "Page", url: "/principles", desc: "Core philosophies that guide decision making." },
+        { title: "Notes", category: "Page", url: "/notes", desc: "Second brain directory of single-idea logs." },
+        { title: "Colophon", category: "Page", url: "/colophon", desc: "Technical details, framework, and fonts." },
         { title: "Résumé", category: "Page", url: "/about/resume", desc: "Skimmable resume and professional summary." },
+        
         { title: "Why I Started Writing", category: "Essay", url: "/writing/why-i-started-writing", desc: "How writing compounds software understanding." },
+        { title: "Why I Built This Website", category: "Essay", url: "/writing/why-i-built-this-website", desc: "A defense of personal websites and local-first layouts." },
         { title: "The Kind of Engineer I Want to Become", category: "Essay", url: "/writing/the-kind-of-engineer-i-want-to-become", desc: "Reflections on craftsman philosophy." },
         { title: "From Curiosity to Code", category: "Essay", url: "/writing/from-curiosity-to-code", desc: "My journey into the world of computers." },
+        { title: "Why I Write in Public", category: "Essay", url: "/writing/why-i-write-in-public", desc: "Normalizing failure and building in the open." },
+        { title: "Lessons From Building DailyDine", category: "Engineering", url: "/writing/lessons-from-building-dailydine", desc: "Database isolation keys and concurrency logs." },
+        { title: "My Cybersecurity Roadmap", category: "Cybersecurity", url: "/writing/my-cybersecurity-roadmap", desc: "Networking layers and memory exploitation curriculum." },
+        { title: "Analyzing JWT Authentication Mechanisms", category: "Cybersecurity", url: "/writing/analyzing-jwt-authentication", desc: "XSS prevention and cookie storage scopes." },
+        { title: "Learning Linux From Scratch", category: "Field Notes", url: "/writing/learning-linux-from-scratch", desc: "CLI operations and permissions boundaries." },
+        { title: "Linux Network Security and Port Monitoring Logs", category: "Field Notes", url: "/writing/linux-network-security", desc: "Iptables configurations and socket audits." },
+        
         { title: "DailyDine Reservation Queue", category: "Work", url: "/work/dailydine", desc: "Concurrency coordination platform case study." },
-        { title: "HisabProx Client Invoice Utility", category: "Work", url: "/work/hisabprox", desc: "Local-first static invoice builder case study." }
+        { title: "HisabProx Client Invoice Utility", category: "Work", url: "/work/hisabprox", desc: "Local-first static invoice builder case study." },
+        
+        { title: "Linux: Understanding Socket File Descriptors", category: "Note", url: "/notes", desc: "File systems descriptor modeling." },
+        { title: "Git: The Directed Acyclic Graph (DAG) Model", category: "Note", url: "/notes", desc: "Git snapshots and object database graph." },
+        { title: "Docker: Namespaces and Control Groups (cgroups)", category: "Note", url: "/notes", desc: "Standard processes running in kernel namespaces." },
+        { title: "Rust: Ownership and Memory Borrowing Rules", category: "Note", url: "/notes", desc: "Ownership, borrow checkers, and compile-time guarantees." },
+        { title: "Networking: The TCP Sliding Window Protocol", category: "Note", url: "/notes", desc: "Congestion control buffers and sliding windows." },
+        { title: "Postgres: Multi-Version Concurrency Control (MVCC)", category: "Note", url: "/notes", desc: "Row transaction IDs and non-blocking reads." },
+        { title: "AI: Weights Transformations and Attention Maps", category: "Note", url: "/notes", desc: "Self-attention matrix math." },
+        { title: "Security: Stack Frames and Buffer Overflows", category: "Note", url: "/notes", desc: "Function return addresses and instruction injection." }
       ];
 
       function toggleSearch(forceState) {

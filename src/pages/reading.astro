@@ -7,20 +7,28 @@ const books = [
   {
     title: "Designing Data-Intensive Applications",
     author: "Martin Kleppmann",
-    progress: "18%",
-    started: "1 week ago",
-    idea: "Reliability under load requires deliberate architectural patterns rather than just scaling machines.",
-    notes: "Studying serialization protocols, storage engines, and log-structured merge trees.",
-    target: "Engineers building backend databases or high-throughput real-time APIs."
+    progress: "18% Complete · Active Study",
+    whyRead: "I wanted to understand the structural trade-offs of distributed datastores, partition mechanisms, and replication protocols beyond standard client wrappers.",
+    ideas: [
+      "Reliability is not a hardware guarantee. It is maintained through deliberate storage engine write logs and transaction control boundaries.",
+      "Partitioning is necessary for scaling writes, but introduces distributed transaction coordination overhead.",
+      "A database's internal read/write layout (LSM-trees vs. B-trees) dictates its performance under random update traffic."
+    ],
+    quote: "Applications will inevitably change, and new requirements will emerge. The challenge is to make the system flexible enough to adapt.",
+    recommend: "Engineers designing backend microservices, real-time analytics brokers, or database caching layouts."
   },
   {
     title: "The Pragmatic Programmer",
     author: "Andrew Hunt & David Thomas",
-    progress: "Completed",
-    started: "Finished June 2026",
-    idea: "Great software starts with personal habits. Care about your craft and always test assumptions.",
-    notes: "Learned the value of orthogonality, tracer bullets, and keeping configurations isolated.",
-    target: "Developers wanting to establish robust workflow systems and coding fundamentals."
+    progress: "Completed · June 2026",
+    whyRead: "To audit my development workflow habits, establish better code organization paradigms, and study structural decoupling strategies.",
+    ideas: [
+      "Care about your craft. Do not write code that you do not fully understand or cannot easily defend.",
+      "Orthogonality reduces system risks. decoulpled components are easier to test, modify, and replace without collateral damage.",
+      "Avoid programming by coincidence. Rely on predictable behaviors and clear contracts rather than library assumptions."
+    ],
+    quote: "Don't program by coincidence. Rely on facts, not assumptions.",
+    recommend: "Developers wanting to build robust engineering routines, command-line proficiencies, and decoupled systems."
   }
 ];
 
@@ -65,33 +73,42 @@ const recommendations = {
     </header>
 
     <!-- Currently Reading & Detailed Logs -->
-    <section class="flex flex-col gap-12">
+    <section class="flex flex-col gap-16">
       {books.map((book) => (
-        <article class="flex flex-col gap-6 border-b border-[rgba(255,255,255,0.06)] pb-12 last:border-0 last:pb-0">
+        <article class="flex flex-col gap-8 border-b border-[rgba(255,255,255,0.06)] pb-16 last:border-0 last:pb-0">
           
           <div class="flex flex-col gap-1.5">
             <div class="flex justify-between items-start gap-4">
               <h2 class="text-2xl font-display font-medium text-[#FAFAFA] tracking-tight">{book.title}</h2>
               <span class="text-xs px-2.5 py-0.5 bg-[#2563EB]/10 text-[#2563EB] rounded-[999px] font-mono whitespace-nowrap">{book.progress}</span>
             </div>
-            <p class="text-xs text-[#71717A] font-mono">by {book.author} · Started {book.started}</p>
+            <p class="text-xs text-[#71717A] font-mono">by {book.author}</p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm text-[#A1A1AA] leading-relaxed pt-2">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-[#A1A1AA] leading-relaxed">
             
-            <div class="flex flex-col gap-1.5">
-              <span class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider">Idea I Learned</span>
-              <p>{book.idea}</p>
+            <div class="flex flex-col gap-3">
+              <span class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider">Why I Read It</span>
+              <p>{book.whyRead}</p>
             </div>
 
-            <div class="flex flex-col gap-1.5">
-              <span class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider">My Notes</span>
-              <p>{book.notes}</p>
-            </div>
-
-            <div class="flex flex-col gap-1.5">
+            <div class="flex flex-col gap-3">
               <span class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider">Who Should Read It</span>
-              <p>{book.target}</p>
+              <p>{book.recommend}</p>
+            </div>
+
+            <div class="flex flex-col gap-3 md:col-span-2">
+              <span class="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider">Three Ideas</span>
+              <ul class="flex flex-col gap-2 list-disc pl-4 text-sm text-[#A1A1AA]">
+                {book.ideas.map((idea) => (
+                  <li>{idea}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="flex flex-col gap-3 md:col-span-2 border-l-2 border-[#2563EB] pl-6 py-1 italic text-xs text-[#71717A]">
+              <span class="text-[9px] uppercase tracking-wider font-mono not-italic block mb-1">Favorite Quote</span>
+              "{book.quote}"
             </div>
 
           </div>

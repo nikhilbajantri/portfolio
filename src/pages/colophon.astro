@@ -1,0 +1,70 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout title="Colophon">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Header -->
+    <header class="flex flex-col gap-6">
+      <h1 class="text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
+        Colophon
+      </h1>
+      <p class="text-lg text-[#A1A1AA] leading-relaxed">
+        Technical details and architectural inspiration behind the design of this website.
+      </p>
+    </header>
+
+    <!-- Details -->
+    <div class="flex flex-col gap-8 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
+      
+      <!-- Fonts -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Fonts</h2>
+        <p class="text-sm text-[#A1A1AA]">
+          This site uses the <strong class="text-[#FAFAFA] font-medium">Geist Sans</strong> typeface for headings and UI labels, <strong class="text-[#FAFAFA] font-medium">Inter</strong> for body content, and <strong class="text-[#FAFAFA] font-medium">Geist Mono</strong> for monospace details and logs. Both are designed by Vercel.
+        </p>
+      </section>
+
+      <!-- Hosting & Framework -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Framework & Hosting</h2>
+        <p class="text-sm text-[#A1A1AA]">
+          The site is generated statically using <strong class="text-[#FAFAFA] font-medium">Astro</strong> and styled with <strong class="text-[#FAFAFA] font-medium">Tailwind CSS</strong>. It is hosted on <strong class="text-[#FAFAFA] font-medium">Vercel</strong>, utilising their global content delivery network.
+        </p>
+      </section>
+
+      <!-- Deployment -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Deployment</h2>
+        <p class="text-sm text-[#A1A1AA]">
+          All source files are version-controlled with Git. Pushing to the <strong class="text-[#FAFAFA] font-medium">main</strong> branch triggers an automated build webhook that compiles static pages and deploys them instantly.
+        </p>
+      </section>
+
+      <!-- Analytics -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Analytics</h2>
+        <p class="text-sm text-[#A1A1AA]">
+          This site is tracker-free. I collect zero cookies, zero user metrics, and zero analytics data. I believe in absolute visitor privacy.
+        </p>
+      </section>
+
+      <!-- Inspiration -->
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xs text-[#71717A] uppercase tracking-wider font-semibold">Inspiration</h2>
+        <p class="text-sm text-[#A1A1AA]">
+          The layout is inspired by minimalist personal journals, editorial publications, and design teams like Stripe, Linear, and Vercel. I value empty space, typographic constraint, and calm interfaces.
+        </p>
+      </section>
+
+    </div>
+
+  </main>
+
+  <Footer />
+</Layout>

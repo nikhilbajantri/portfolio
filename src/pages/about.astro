@@ -33,68 +33,113 @@ const journeyItems = [
         About
       </h1>
       <p class="text-lg text-[#A1A1AA] leading-relaxed">
-        A publication of technical philosophies, learning workflows, and logs documenting the journey of becoming a better engineer.
+        A record of motives, operating workflows, and learning logs that guide my growth as an engineer.
       </p>
     </header>
 
-    <!-- 1. Why I Build -->
-    <section class="flex flex-col gap-4 max-w-[68ch]">
-      <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
-        Why I Build
-      </h2>
-      <div class="flex flex-col gap-6 text-sm text-[#A1A1AA] leading-[1.7]">
-        <p>
-          I started programming because I wanted to understand how computers actually operate.
+    <!-- Why I Build (Motives) -->
+    <section class="flex flex-col gap-10 max-w-[68ch]">
+      
+      <!-- Why Software -->
+      <div class="flex flex-col gap-3">
+        <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
+          Why Software?
+        </h2>
+        <p class="text-sm text-[#A1A1AA] leading-[1.7]">
+          I started programming because I wanted to understand how computers actually work.
           The ability to instruct silicon to coordinate data remains deeply fascinating to me.
           I believe that software engineering is a craft requiring patience, humility, and continuous study.
         </p>
-        <p>
-          I aim to design software that is quiet, reliable, and built to survive.
-          I prefer to reduce systems to their absolute essentials to ensure they are easy to debug.
-          Writing down my errors and lessons in public helps clarify my understanding of systems.
+      </div>
+
+      <!-- Why Cybersecurity -->
+      <div class="flex flex-col gap-3">
+        <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
+          Why Cybersecurity?
+        </h2>
+        <p class="text-sm text-[#A1A1AA] leading-[1.7]">
+          Building software requires understanding boundaries.
+          Studying security forces you to inspect how protocols behave under invalid configurations or malicious loads.
+          By studying cybersecurity, I learn to design code that is secure by default and resilient against failures.
         </p>
       </div>
+
+      <!-- Why Writing? -->
+      <div class="flex flex-col gap-3">
+        <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
+          Why Writing?
+        </h2>
+        <p class="text-sm text-[#A1A1AA] leading-[1.7]">
+          I do not write because I have mastered systems.
+          I write because it is the process through which I analyze and understand them.
+          If I cannot write a simple explanation of an architecture, I do not understand the system.
+        </p>
+      </div>
+
+      <!-- Why Build in Public? -->
+      <div class="flex flex-col gap-3">
+        <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
+          Why Build in Public?
+        </h2>
+        <p class="text-sm text-[#A1A1AA] leading-[1.7]">
+          Knowing that other engineers might read your notes forces absolute precision.
+          Documenting mistakes, architecture choices, and lessons openly creates a feedback loop
+          that refines my development habits.
+        </p>
+      </div>
+
+      <!-- What Kind of Engineer? -->
+      <div class="flex flex-col gap-3">
+        <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
+          The Kind of Engineer I Want to Become
+        </h2>
+        <p class="text-sm text-[#A1A1AA] leading-[1.7]">
+          I aim to become a craftsman-style systems engineer.
+          I value boring, reliable, and clean software architectures that still make sense ten years later.
+          I prefer to reduce systems to their absolute essentials to ensure they are easy to maintain and scale.
+        </p>
+      </div>
+
     </section>
 
-    <!-- 2. How I Learn -->
-    <section class="flex flex-col gap-4 max-w-[68ch]">
+    <!-- How I Learn -->
+    <section class="flex flex-col gap-6">
       <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
         How I Learn
       </h2>
-      <div class="flex flex-col gap-6 text-sm text-[#A1A1AA] leading-[1.7]">
-        <p>
-          I learn by reading raw documentation and specification sheets rather than relying on high-level tutorials.
-          Going directly to the source material yields complete, unbiased technical clarity.
-        </p>
-        <p>
-          I write tiny, isolated scripts to verify how network sockets, databases, or memory buffers behave.
-          Verification in isolated sandbox labs prevents assumptions about library behavior.
-        </p>
-      </div>
-    </section>
-
-    <!-- 3. Principles -->
-    <section class="flex flex-col gap-4 max-w-[68ch]">
-      <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
-        Principles
-      </h2>
-      <div class="flex flex-col gap-4 text-sm text-[#A1A1AA] leading-[1.7]">
-        <p>
-          I return to core principles whenever I face architectural complexity.
-          These guide my trade-off decisions and keep code maintainable.
-        </p>
-        <ul class="flex flex-col gap-2 list-disc pl-4 text-xs text-[#71717A]">
-          <li>Build Slowly: Take time to understand foundational systems.</li>
-          <li>Learn Publicly: Document mistakes and build in the open.</li>
-          <li>Prefer Clarity: Simple, clear code is easier to maintain than clever tricks.</li>
-        </ul>
-        <div class="pt-2">
-          <a href="/principles" class="text-xs text-[#2563EB] hover:underline font-medium">Read all principles →</a>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        <div class="flex flex-col gap-2">
+          <h3 class="text-sm font-medium text-[#FAFAFA]">Read Manuals First</h3>
+          <p class="text-sm text-[#A1A1AA] leading-relaxed">
+            I study domains by reading raw documentation and specification sheets.
+            Going directly to the source material yields complete, unbiased technical clarity.
+          </p>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-sm font-medium text-[#FAFAFA]">Verify in Labs</h3>
+          <p class="text-sm text-[#A1A1AA] leading-relaxed">
+            I write tiny, isolated scripts to verify how network sockets, databases, or memory buffers behave.
+            Verification prevents assumptions about library behavior.
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- 4. Operating Manual -->
+    <!-- Principles link -->
+    <section class="flex flex-col gap-4 max-w-[68ch]">
+      <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
+        Principles
+      </h2>
+      <p class="text-sm text-[#A1A1AA] leading-relaxed">
+        I return to core principles whenever I face architectural complexity.
+        These guide my trade-off decisions and keep code maintainable.
+      </p>
+      <div>
+        <a href="/principles" class="text-xs text-[#2563EB] hover:underline font-medium">Read all principles →</a>
+      </div>
+    </section>
+
+    <!-- Operating Manual -->
     <section class="flex flex-col gap-6">
       <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
         Operating Manual
@@ -117,7 +162,7 @@ const journeyItems = [
       </div>
     </section>
 
-    <!-- 5. Journey -->
+    <!-- Journey -->
     <section class="flex flex-col gap-6">
       <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
         Journey
@@ -135,7 +180,7 @@ const journeyItems = [
       </div>
     </section>
 
-    <!-- 6. Résumé -->
+    <!-- Résumé -->
     <section class="flex flex-col gap-4 max-w-[68ch]">
       <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-2">
         Résumé
