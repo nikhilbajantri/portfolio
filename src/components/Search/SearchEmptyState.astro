@@ -1,0 +1,60 @@
+---
+// Statically defined pinned items as default fallback before fetch index runs
+const defaultPinned = [
+  { title: "DailyDine Reservation Queue", desc: "A restaurant operations platform built to reduce uncertainty around reservations.", url: "/work/dailydine" },
+  { title: "CodeBud Security Architecture", desc: "A learning platform built to provide secure authentication and role-based access for developers.", url: "/work/codebud" },
+  { title: "Why Small Systems Win", desc: "A defense of personal websites and local-first layouts.", url: "/writing/why-small-systems-win" },
+  { title: "Knowledge Base", desc: "Permanent knowledge base of books, papers, and references.", url: "/knowledge" }
+];
+
+const popularTopics = ["PostgreSQL", "Networking", "Docker", "Keycloak", "Astro"];
+---
+
+<div id="search-empty-state" class="p-6 flex flex-col gap-8 overflow-y-auto max-h-[380px]">
+  
+  <!-- Pinned Section -->
+  <div class="flex flex-col gap-2.5">
+    <h3 class="text-[10px] font-mono uppercase tracking-wider text-[#71717A] border-b border-[rgba(255,255,255,0.04)] pb-1.5 font-semibold">
+      Pinned
+    </h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      {defaultPinned.map((p) => (
+        <a 
+          href={p.url} 
+          class="p-3 rounded-lg border border-[rgba(255,255,255,0.04)] bg-[#18181B]/30 hover:bg-white/5 hover:border-[rgba(255,255,255,0.08)] transition-all duration-150 group flex flex-col gap-1 select-none"
+        >
+          <span class="text-xs font-medium text-white group-hover:text-[#2563EB] transition-colors">{p.title}</span>
+          <span class="text-[11px] text-[#71717A] line-clamp-1 leading-normal">{p.desc}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- Popular Topics -->
+  <div class="flex flex-col gap-2.5">
+    <h3 class="text-[10px] font-mono uppercase tracking-wider text-[#71717A] border-b border-[rgba(255,255,255,0.04)] pb-1.5 font-semibold">
+      Popular Topics
+    </h3>
+    <div class="flex flex-wrap gap-2">
+      {popularTopics.map((topic) => (
+        <button 
+          data-topic={topic.toLowerCase()} 
+          class="px-2.5 py-1 text-xs font-mono rounded bg-[#18181B] border border-[#27272A] text-[#A1A1AA] hover:text-white hover:border-[#71717A] transition-all duration-150 select-none"
+        >
+          {topic}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- Recent Searches (Populated dynamically) -->
+  <div id="recent-searches-container" class="flex flex-col gap-2.5 hidden">
+    <h3 class="text-[10px] font-mono uppercase tracking-wider text-[#71717A] border-b border-[rgba(255,255,255,0.04)] pb-1.5 font-semibold">
+      Recent
+    </h3>
+    <div id="recent-searches-list" class="flex flex-wrap gap-2">
+      <!-- Injected by client script -->
+    </div>
+  </div>
+
+</div>

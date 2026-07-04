@@ -1,0 +1,34 @@
+---
+---
+<!-- Results count metadata line -->
+<div 
+  id="search-meta-bar" 
+  class="px-6 py-2 bg-[#0C0C0E]/40 border-b border-[rgba(255,255,255,0.04)] text-[10px] font-mono text-[#71717A] flex justify-between items-center shrink-0 hidden"
+>
+  <span id="results-count-text">0 results</span>
+</div>
+
+<!-- Search Results List Container -->
+<div 
+  id="search-results" 
+  class="max-h-[380px] overflow-y-auto p-4 flex flex-col gap-6 scroll-smooth hidden"
+  role="listbox"
+  aria-label="Search results"
+>
+  <!-- Grouped categories will be dynamically rendered here by the search engine client script -->
+</div>
+
+<!-- Empty Results State -->
+<div id="search-nothing-matched" class="p-8 text-center flex flex-col gap-3 justify-center items-center hidden shrink-0">
+  <span class="text-sm font-medium text-[#FAFAFA]">Nothing matched.</span>
+  <div class="flex flex-wrap justify-center gap-2 mt-1">
+    <span class="text-xs text-[#71717A] font-mono">Try searching:</span>
+    <button data-search-retry="dailydine" class="text-xs font-mono text-[#2563EB] hover:underline">DailyDine</button>
+    <span class="text-[#27272A] text-xs font-mono">•</span>
+    <button data-search-retry="jwt" class="text-xs font-mono text-[#2563EB] hover:underline">JWT</button>
+    <span class="text-[#27272A] text-xs font-mono">•</span>
+    <button data-search-retry="linux" class="text-xs font-mono text-[#2563EB] hover:underline">Linux</button>
+    <span class="text-[#27272A] text-xs font-mono">•</span>
+    <button data-search-retry="postgresql" class="text-xs font-mono text-[#2563EB] hover:underline">PostgreSQL</button>
+  </div>
+</div>

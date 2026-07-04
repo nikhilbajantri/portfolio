@@ -1,0 +1,47 @@
+---
+const filters = [
+  { label: "All", id: "all", key: "1" },
+  { label: "Articles", id: "writing", key: "2" },
+  { label: "Projects", id: "work", key: "3" },
+  { label: "Notes", id: "notes", key: "4" },
+  { label: "Lab", id: "lab", key: "5" },
+  { label: "Knowledge", id: "knowledge", key: "6" }
+];
+---
+
+<div 
+  id="search-filters" 
+  class="flex gap-2 px-6 py-2.5 border-b border-[rgba(255,255,255,0.06)] bg-[#0C0C0E]/50 overflow-x-auto text-[10px] font-mono text-[#71717A] shrink-0 scrollbar-none"
+  role="tablist"
+  aria-label="Filter search categories"
+>
+  {filters.map((f) => (
+    <button
+      role="tab"
+      id={`tab-${f.id}`}
+      aria-selected={f.id === "all" ? "true" : "false"}
+      aria-controls="search-results"
+      data-filter={f.id}
+      class={`px-2.5 py-0.5 rounded border transition-all duration-150 select-none flex items-center gap-1.5 shrink-0 ${
+        f.id === "all" 
+          ? "border-[#27272A] bg-[#18181B] text-white" 
+          : "border-transparent text-[#71717A] hover:text-[#FAFAFA]"
+      }`}
+    >
+      <span>{f.label}</span>
+      <span class="opacity-50 text-[9px]">⌥{f.key}</span>
+    </button>
+  ))}
+</div>
+
+<style>
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .scrollbar-none {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+</style>
