@@ -5,28 +5,29 @@ import Footer from "../components/Footer.astro";
 
 const principles = [
   {
-    title: "Build Slowly",
-    description: "Take time to study the systems you use. Rushing to ship adds hidden technical debt. Understanding core mechanics compounds, while APIs expire."
+    title: "Prefer Understanding",
+    tagline: "I would rather understand one protocol deeply than memorize ten frameworks.",
+    description: "Frameworks cycle rapidly, but core systems mechanics endure. By focusing study on RFC specifications, networking layers, and memory constraints, you build technical fundamentals that never expire."
   },
   {
-    title: "Learn Publicly",
-    description: "Document lessons and correct mistakes in the open. Sharing the progress of understanding builds trust. Intellectual honesty is a permanent asset."
+    title: "Prefer Small Systems",
+    tagline: "Simple systems are easier to secure, maintain, and explain.",
+    description: "Every library or dependency added represents a potential security exposure and runtime failure point. Minimizing surface area ensures code is readable, predictable, and simple to audit."
   },
   {
-    title: "Prefer Clarity",
-    description: "Write simple, readable code that is easy to maintain. Clever tricks introduce points of failure. Choose straightforward designs that survive deletion tests."
+    title: "Prefer Writing",
+    tagline: "Writing exposes weak thinking.",
+    description: "In private drafts, it is easy to assume you understand a design. Forcing yourself to explain an architecture, constraint, or failure in writing exposes gaps in comprehension and sharpens logic."
   },
   {
-    title: "Stay Curious",
-    description: "Explore domains out of interest rather than utility. Read specifications, manuals, and RFC sheets. Great engineering requires builders' humility and focus."
+    title: "Prefer Questions",
+    tagline: "Questions survive longer than answers.",
+    description: "Technology stacks change, but the core problems of distributed consensus, memory safety, and thread coordination persist. Curating active questions directs focus more effectively than cataloging static knowledge."
   },
   {
-    title: "Think Long-Term",
-    description: "Prioritize reliability over hype. Choose boring, stable technologies that scale predictably. Build tools that still make sense ten years from now."
-  },
-  {
-    title: "Leave Things Better",
-    description: "Improve code blocks and documentation whenever you edit them. Small optimizations compound. Leave every system slightly clearer than you found it."
+    title: "Prefer Long Games",
+    tagline: "Compounding beats intensity.",
+    description: "Rushing builds leads to technical compromise. Consistent study, clean incremental changes, and long-term codebase maintenance yield compounding quality. Longevity is the ultimate verification."
   }
 ];
 ---
@@ -34,26 +35,29 @@ const principles = [
 <Layout title="Principles">
   <Navigation />
 
-  <main id="main-content" class="flex-1 max-w-[72ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-16 font-sans">
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
     
     <!-- Header -->
     <header class="flex flex-col gap-6">
       <h1 class="text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-none">
         Principles
       </h1>
-      <p class="text-lg text-[#A1A1AA] leading-relaxed max-w-[65ch]">
-        The core philosophies that guide my technical decisions, learning habits, and long-term work.
+      <p class="text-lg text-[#A1A1AA] leading-relaxed">
+        The technical and intellectual rules I return to whenever I face architectural complexity or trade-off decisions.
       </p>
     </header>
 
     <!-- Principles list -->
-    <div class="flex flex-col gap-10">
+    <div class="flex flex-col gap-12">
       {principles.map((p) => (
         <section class="flex flex-col gap-3">
-          <h2 class="text-xs font-semibold text-[#71717A] uppercase tracking-wider border-b border-[rgba(255,255,255,0.06)] pb-1.5">
+          <h2 class="text-xl font-display font-medium text-[#FAFAFA] tracking-tight">
             {p.title}
           </h2>
-          <p class="text-sm text-[#A1A1AA] leading-relaxed max-w-[65ch]">
+          <p class="text-xs text-[#71717A] font-mono italic">
+            "{p.tagline}"
+          </p>
+          <p class="text-sm text-[#A1A1AA] leading-relaxed mt-1">
             {p.description}
           </p>
         </section>

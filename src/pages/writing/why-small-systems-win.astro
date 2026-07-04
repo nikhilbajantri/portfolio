@@ -1,0 +1,77 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navigation from "../../components/Navigation.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout title="Why Small Systems Win">
+  <Navigation />
+
+  <main id="main-content" class="flex-1 max-w-[68ch] mx-auto px-6 py-16 sm:py-24 flex flex-col gap-12 font-sans">
+    
+    <!-- Article Header -->
+    <header class="flex flex-col gap-4">
+      <div class="flex gap-2 text-xs text-[#71717A] font-mono">
+        <span>Essay</span>
+        <span>·</span>
+        <span>July 2026</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-display font-medium text-[#FAFAFA] tracking-tight leading-tight">
+        Why Small Systems Win
+      </h1>
+      <p class="text-sm text-[#A1A1AA] italic">
+        "Simple systems are easier to secure, maintain, and explain."
+      </p>
+    </header>
+
+    <!-- Article Content -->
+    <div class="flex flex-col gap-8 text-[#FAFAFA] text-base leading-[1.7] tracking-tight font-normal">
+      <p>
+        In modern software engineering, the default reaction to scale is to introduce more components.
+        We add cache directories, microservice routing maps, message brokers, and complex orchestrators.
+        We pull in thousands of third-party package dependencies without auditing their contents.
+        This practice represents a hidden tax on systems development.
+      </p>
+      
+      <p>
+        Complexity degrades codebases by distributing state.
+        When state is spread across multiple microservices and caches, auditing correctness becomes mathematically difficult.
+        Every remote endpoint, network hop, and dependency added introduces potential fail points and security holes.
+        If a system breaks, engineers spend hours diagnosing where the failure originated.
+      </p>
+
+      <p>
+        Small systems win because they constrain complexity.
+        A self-contained system running inside a single container or single database transaction behaves predictably.
+        It has fewer states, is straightforward to audit, and requires minimal execution resources.
+        When a system is simple enough for a single developer to hold in their memory, debugging becomes fast.
+      </p>
+
+      <p>
+        To build durable tools, we must resist the pressure to adopt trendy architectures early.
+        We should favor relational database transaction constraints over distributed state machines.
+        We must prioritize raw understanding of standard library capabilities before importing wrappers.
+        Simplicity is a deliberate engineering constraint that compounds value over time.
+      </p>
+    </div>
+
+    <!-- Article Footer -->
+    <footer class="flex flex-col gap-8 border-t border-[rgba(255,255,255,0.06)] pt-12 mt-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm">
+        <div class="flex flex-col gap-3">
+          <h4 class="text-xs text-[#71717A] uppercase tracking-wider font-medium font-mono font-semibold">Related Principles</h4>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a href="/principles" class="text-[#2563EB] hover:underline">
+                Read My Principles
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <Footer />
+</Layout>
